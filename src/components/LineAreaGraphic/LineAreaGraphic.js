@@ -10,6 +10,12 @@ import axiosInstance from '../../middleware/api'
 
 
 const LineAreaGraphic = () => (
+  // TODO grafico principal. 
+  //   - verificar si se puede hacer responsive
+  //   - agregar gestion de estados
+  //   - agregar propiedades a este componente
+  //   - cuando este componente recive propiedades debe poder renderizar el
+  //     grafico modificado.
   <div className={styles.LineAreaGraphic} data-testid="LineAreaGraphic">
     <Get url="seird" instance={axiosInstance}>
       {(error, response, isLoading, makeRequest, axios) => {
@@ -42,6 +48,7 @@ const LineAreaGraphic = () => (
           ]
           return (
             <Box style={{ width: '80%', margin: 'auto', marginTop: '1em'}} >
+              
               <Chart width={1000} height={500} series={series} minY={0}>
                 <Layer width='80%' height='90%' position='top center'>
                   <Ticks

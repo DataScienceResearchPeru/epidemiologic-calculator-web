@@ -21,6 +21,10 @@ const hederclasses = makeStyles((theme) => ({
 }))
 
 const Header = () => {
+  // TODO funciones de la cabecera
+  // - cuando se hace click en login debe desplegar un pop up
+  //   que permita hacer login.
+  // - analizar si existira algun menu o navbar para agregarlo
   const classes = hederclasses()
   return (
     <Box className={classes.header} data-testid="Header" display="block">
