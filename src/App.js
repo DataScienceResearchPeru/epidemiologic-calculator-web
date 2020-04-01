@@ -1,13 +1,13 @@
 import React from 'react'
 import './App.css'
-import { Button } from '@material-ui/core'
+import Header from './components/Header/Header'
+import LineAreaGraphic from './components/LineAreaGraphic/LineAreaGraphic'
 
 function App () {
   return (
     <div className="App">
-      <header className="App-header">
- 
-      </header>
+      <Header></Header>
+      <LineAreaGraphic></LineAreaGraphic>
     </div>
   )
 }
