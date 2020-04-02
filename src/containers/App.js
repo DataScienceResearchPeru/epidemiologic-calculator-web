@@ -18,7 +18,7 @@ function App () {
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Router routes={routes}>
+      <Router routes={routes} context={{user}}>
           <View />
       </Router>
     </StateContext.Provider>

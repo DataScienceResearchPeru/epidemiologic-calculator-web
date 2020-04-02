@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useResource } from 'react-request-hook';
+import { useNavigation } from 'react-navi';
 import styles from './Login.module.css';
 import { StateContext } from '../../contexts';
 
@@ -16,14 +17,13 @@ const Login = () => {
     data: { username, password }
   }));
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     if (user && user.data) {
-      if ( user.data.length > 0) {
         setLoginFailed(false)
-        dispatch({ type: 'LOGIN', name: user.data.name })
-      } else {
-        setLoginFailed(true)
-      }
+        dispatch({ type: 'LOGIN', name: user.data.full_name })
+        navigation.navigate('/dashboard') 
     }
     if (user && user.error) {
       console.log(user.error.data.message);
