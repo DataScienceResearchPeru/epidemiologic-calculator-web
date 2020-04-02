@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useResource } from 'react-request-hook';
-import { useNavigation } from 'react-navi';
+import { useNavigation, Link } from 'react-navi';
 import styles from './Login.module.css';
 import { StateContext } from '../../contexts';
 
@@ -43,12 +43,15 @@ const Login = () => {
     <div className={styles.Login} data-testid="Login">
     <form onSubmit={e => { e.preventDefault(); login(username, password) }}>
       <label htmlFor="username">Username:</label>
-      <input type="text" value={username} onChange={handleUsername} name="username" id="username" />
+      <input type="email" value={username} onChange={handleUsername} name="username" id="username" />
       <label htmlFor="password">Password:</label>
       <input type="password" value={password} onChange={handlePassword} name="password" id="password" />
       <button type="submit" disabled={username.length === 0 || password.length === 0}>Login</button>
       {loginFailed && <span style={{ color: 'red' }}>Invalid username or password</span>}
     </form>
+    <a href="#">Olvido su contraseña?</a>
+    <br />
+    <Link href={'/register'}>Registrarse</Link>
   </div>
   )
 }
