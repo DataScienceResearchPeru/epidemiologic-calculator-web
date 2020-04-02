@@ -2,7 +2,7 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import styles from './AppIcon.module.css'
 import { SvgIcon } from '@material-ui/core'
-import { ReactComponent as Logo } from './EK-logo.svg'
+import { ReactComponent as Logo } from '../../images/EK-logo.svg'
 
 
 const AppIcon = (props) => (

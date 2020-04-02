@@ -1,12 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import * as serviceWorker from './serviceWorker'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './containers/App';
+import { RequestProvider } from 'react-request-hook';
+import * as serviceWorker from './serviceWorker';
+import axiosInstance from './middleware/api';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RequestProvider value={axiosInstance}>
+      <App />
+    </RequestProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
