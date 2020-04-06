@@ -22,9 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-<<<<<<< HEAD
 #miselanium
 .vscode
-=======
-.vscode
->>>>>>> a6f9848025ef7f921730364aa40ae8b150de9e67

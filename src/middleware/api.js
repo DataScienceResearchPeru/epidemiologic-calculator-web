@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { request } from 'react-request-hook';
 
 export default axios.create({
   baseURL: 'http://localhost:8080/api/',
@@ -6,3 +7,34 @@ export default axios.create({
     'Content-Type': 'application/json'
   }
 });
+
+export const api = {
+  getDepartments: () => {
+    return request({
+      method: 'GET',
+      url: 'departments',
+    });
+  },
+
+  getProvinces: (id) => {
+    return request({
+      method: 'GET',
+      url: `${id}/provinces`,
+    });
+  },
+
+  getDistricts: (id) => {
+    return request({
+      method: 'GET',
+      url: `${id}/districts`,
+    });
+  },
+
+  registerUser: (firstName, lastName, institution, email, password, departmentId, provinceId, districtId) => {
+    return request({
+      method: 'POST',
+      url: 'users',
+      data: { firstName, lastName, institution, email, password, departmentId, provinceId, districtId }
+    });
+  }
+}
