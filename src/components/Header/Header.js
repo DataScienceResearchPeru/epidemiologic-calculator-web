@@ -23,17 +23,42 @@ const hederclasses = makeStyles((theme) => ({
     fontSize: 170,
     marginLeft: 130,
   },
-  iconBox: {
+  logo: {
     flexGrow: 1,
-    textAlign: 'initial'
+    '& img': {
+      maxWidth: 210,
+    }
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    marginRight: theme.spacing(4),
+    maxWidth: 245,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchInput: {
+    '& .MuiInputBase-input': {
+      padding: '8px 14px'
+    },
+    '& .MuiOutlinedInput-root': {
+      borderRadius: 12
+    },
+    '& .MuiOutlinedInput-adornedEnd': {
+      paddingRight: 0
+    }
+  },
+  button: {
+    borderRadius: 16,
+    fontSize: 10,
+    padding: '8px 30px',
+    minWidth: 150,
+  }
 }))
 
 const Header = () => {
-  // TODO funciones de la cabecera
-  // - cuando se hace click en login debe desplegar un pop up
-  //   que permita hacer login.
-  // - analizar si existira algun menu o navbar para agregarlo
   const classes = hederclasses()
   return (
     <Box className={classes.header} data-testid="Header" display="block">
@@ -46,6 +71,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
     </Box>
+
   )
 }
 
