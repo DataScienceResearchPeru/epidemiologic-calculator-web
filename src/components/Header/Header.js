@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    marginRight: theme.spacing(5),
-    maxWidth: 253,
+    marginRight: theme.spacing(4),
+    maxWidth: 245,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchInput: {
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 0)
+      padding: '8px 14px'
     },
     '& .MuiOutlinedInput-root': {
       borderRadius: 12
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: 16,
     fontSize: 10,
-    padding: '6px 30px',
+    padding: '8px 30px',
     minWidth: 150,
   }
 }))
