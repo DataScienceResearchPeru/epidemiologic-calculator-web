@@ -1,35 +1,35 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useResource } from 'react-request-hook';
-import { useNavigation } from 'react-navi';
-import styles from './RegisterUser.module.css';
-import { StateContext } from '../../contexts';
+import React, { useState, useContext, useEffect } from 'react'
+import { useResource } from 'react-request-hook'
+import { useNavigation } from 'react-navi'
+import styles from './RegisterUser.module.css'
+import { StateContext } from '../../contexts'
 
 const RegisterUser = () => {
-  const { dispatch } = useContext(StateContext);
-  const [ firstName, setFirstName ] = useState('');
-  const [ lastName, setLastName ] = useState('');
-  const [ institution, setInstitution ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ passwordRepeat, setPasswordRepeat ] = useState('');
-  const [ registerFailed, setRegisterFailed ] = useState(false);
+  const { dispatch } = useContext(StateContext)
+  const [ firstName, setFirstName ] = useState('')
+  const [ lastName, setLastName ] = useState('')
+  const [ institution, setInstitution ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+  const [ passwordRepeat, setPasswordRepeat ] = useState('')
+  const [ registerFailed, setRegisterFailed ] = useState(false)
 
   const [ user, registerUser ] = useResource((firstName, lastName, institution, email, password) => ({
     url: 'users',
     method: 'post',
     data: { firstName, lastName, institution, email, password }
-  }));
+  }))
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   useEffect(() => {
     if (user && user.data) {
-        setRegisterFailed(false)
-        dispatch({ type: 'REGISTER', email: user.data.email })
-        navigation.navigate('/') 
+      setRegisterFailed(false)
+      dispatch({ type: 'REGISTER', email: user.data.email })
+      navigation.navigate('/') 
     }
     if (user && user.error) {
-      console.log(user.error.data.message);
+      console.log(user.error.data.message)
       setRegisterFailed(true)
     }
   }, [user])
@@ -79,8 +79,8 @@ const RegisterUser = () => {
   )
 }
 
-RegisterUser.propTypes = {};
+RegisterUser.propTypes = {}
 
-RegisterUser.defaultProps = {};
+RegisterUser.defaultProps = {}
 
-export default RegisterUser;
+export default RegisterUser

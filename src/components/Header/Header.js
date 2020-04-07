@@ -1,18 +1,27 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 // import styles from './Header.module.css'
-import { AppBar, Toolbar, Button, makeStyles, Box } from '@material-ui/core'
+import { AppBar, Toolbar, Button, makeStyles, Box, Drawer, List, Divider, ListItem } from '@material-ui/core'
+
 import AppIcon from '../AppIcon/AppIcon'
+
+
 
 const hederclasses = makeStyles((theme) => ({
   header: {
-    flexGrow: 1,
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    WebkitBoxShadow: 'none',
   },
   toolbar: {
-    height:50,
+    ...theme.mixins.toolbar,
+    height:80,
   },
   icon: {
-    fontSize: 140,
+    fontSize: 170,
+    marginLeft: 130,
   },
   iconBox: {
     flexGrow: 1,
@@ -28,7 +37,7 @@ const Header = () => {
   const classes = hederclasses()
   return (
     <Box className={classes.header} data-testid="Header" display="block">
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="inherit" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.iconBox}>
             <AppIcon className={classes.icon}></AppIcon>
