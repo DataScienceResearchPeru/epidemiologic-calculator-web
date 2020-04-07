@@ -27,11 +27,12 @@ const navbarclasses = makeStyles((theme) => ({
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth + 30,
-    height: '85%',
-    marginTop: 80,
-    marginLeft: '1.5%',
-    backgroundColor: '#33cccc',
+    width: drawerWidth,
+    height: 'auto',
+    marginTop: 90,
+    marginLeft: '5%',
+    backgroundColor: '#5ad6d6',
+    border: 'none',
     borderRadius: 15,
   },
   listItem: {

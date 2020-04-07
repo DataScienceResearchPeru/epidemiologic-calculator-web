@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 17,
     backgroundColor: '#5ad6d6',
     padding: '80px 100px',
+    minHeight: '14em',
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   },
   boxInfo: {
