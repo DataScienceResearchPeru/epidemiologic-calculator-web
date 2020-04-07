@@ -28,9 +28,10 @@ const navbarclasses = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth + 30,
+    height: '85%',
     marginTop: 80,
     marginLeft: '1.5%',
-    backgroundColor: 'cyan',
+    backgroundColor: '#33cccc',
     borderRadius: 15,
   },
   listItem: {
