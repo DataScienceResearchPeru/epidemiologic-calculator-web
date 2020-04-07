@@ -1,42 +1,76 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
-// import styles from './Header.module.css'
-import { AppBar, Toolbar, Button, makeStyles, Box } from '@material-ui/core'
-import AppIcon from '../AppIcon/AppIcon'
+import { AppBar, Toolbar, TextField, Button, InputAdornment } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
+import { makeStyles } from '@material-ui/core/styles'
+import logo from '../../images/EK-logo.svg'
 
-const hederclasses = makeStyles((theme) => ({
-  header: {
-    flexGrow: 1,
-  },
+const useStyles = makeStyles((theme) => ({
   toolbar: {
-    height:50,
+    flexWrap: 'wrap',
+    minHeight: 90,
+    paddingLeft: 100,
+    paddingRight: 100,
   },
-  icon: {
-    fontSize: 140,
-  },
-  iconBox: {
+  logo: {
     flexGrow: 1,
-    textAlign: 'initial'
+    '& img': {
+      maxWidth: 210,
+    }
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    marginRight: theme.spacing(5),
+    maxWidth: 253,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchInput: {
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 0)
+    },
+    '& .MuiOutlinedInput-root': {
+      borderRadius: 12
+    },
+    '& .MuiOutlinedInput-adornedEnd': {
+      paddingRight: 0
+    }
+  },
+  button: {
+    borderRadius: 16,
+    fontSize: 10,
+    padding: '6px 30px',
+    minWidth: 150,
+  }
 }))
 
 const Header = () => {
-  // TODO funciones de la cabecera
-  // - cuando se hace click en login debe desplegar un pop up
-  //   que permita hacer login.
-  // - analizar si existira algun menu o navbar para agregarlo
-  const classes = hederclasses()
+  const classes = useStyles()
   return (
-    <Box className={classes.header} data-testid="Header" display="block">
-      <AppBar position="static" color="primary">
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.iconBox}>
-            <AppIcon className={classes.icon}></AppIcon>
-          </div>
-          <Button color="inherit" >Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="static" color="transparent" elevation={0}>
+      <Toolbar className={classes.toolbar}>
+        <div className={classes.logo}>
+          <img src={logo} alt="logo"/>
+        </div>
+        <div className={classes.search}>
+          <TextField
+            id="search"
+            variant="outlined"
+            className={classes.searchInput}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              )
+            }}
+          />
+        </div>
+        <Button variant="outlined" className={classes.button}>Contáctanos</Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
