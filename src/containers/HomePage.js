@@ -1,13 +1,14 @@
-import React from 'react'
-import { Link } from 'react-navi'
-import { Container, Grid, Box, Divider, Button } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Container, Grid, Box, Divider, Button, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+
 import FacebookIcon from '../components/icons/FacebookIcon'
 import LinkedinIcon from '../components/icons/LinkedinIcon'
 import GoogleIcon from '../components/icons/GoogleIcon'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import Login from '../components/Login/Login'
+import RegisterUser from '../components/RegisterUser/RegisterUser'
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '30px 30px 52px',
   },
   boxForm: {
-    maxWidth: 380,
+    maxWidth: 400,
   },
   btnTop: {
     textTransform: 'uppercase',
@@ -92,6 +93,18 @@ const useStyles = makeStyles((theme) => ({
   
 const HomePage = () => {
   const classes = useStyles()
+  const [ showLogin, setShowLogin ] = useState(true)
+  const [ showRegister, setShowRegister ] = useState(false)
+
+  const handleClickShowLogin = () => {
+    setShowLogin(true)
+    setShowRegister(false)
+  }
+
+  const handleClickShowRegister = () => {
+    setShowRegister(true)
+    setShowLogin(false)
+  }
   
   return (
     <React.Fragment>
@@ -112,12 +125,14 @@ const HomePage = () => {
             <Grid item xs={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href={'/register'} className={classes.btnLeft}>Regístrate</Link>
-                  <Link href={'/'} className={classes.btnRight}>iniciar sesión</Link>
+                  <Link href="#" onClick={handleClickShowRegister} className={classes.btnLeft}>Regístrate</Link>
+                  <Link href="#" onClick={handleClickShowLogin} className={classes.btnRight}>iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
-                  <Login />
+                  { showLogin && <Login />}
+                  { showRegister && <RegisterUser />} 
+                  
                   <Divider className={classes.hr} />
                   <div className={classes.circle}></div>
 

@@ -98,7 +98,7 @@ const Login = () => {
   }
   
   return (
-    <form className={classes.form} onSubmit={e => { e.preventDefault(); login(username, password) }}>  
+    <form className={classes.form} data-testid="Login" onSubmit={e => { e.preventDefault(); login(username, password) }}>  
       <FormControl margin="normal" fullWidth>
         <InputLabel htmlFor="username" shrink>Usuario o correo electrónico</InputLabel>
         <Input id="username" type="email" value={username} onChange={handleUsername} autoFocus disableUnderline={true}/>
