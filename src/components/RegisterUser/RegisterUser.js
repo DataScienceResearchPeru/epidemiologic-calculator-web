@@ -1,29 +1,29 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useResource } from 'react-request-hook';
-import { useNavigation } from 'react-navi';
-import styles from './RegisterUser.module.css';
-import { StateContext } from '../../contexts';
-import { api } from '../../middleware/api';
+import React, { useState, useContext, useEffect } from 'react'
+import { useResource } from 'react-request-hook'
+import { useNavigation } from 'react-navi'
+import styles from './RegisterUser.module.css'
+import { StateContext } from '../../contexts'
+import { api } from '../../middleware/api'
 
 const RegisterUser = () => {
-  const { dispatch } = useContext(StateContext);
-  const [ firstName, setFirstName ] = useState('');
-  const [ lastName, setLastName ] = useState('');
-  const [ institution, setInstitution ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ passwordRepeat, setPasswordRepeat ] = useState('');
-  const [ registerFailed, setRegisterFailed ] = useState(false);
-  const [ departmentId, setDepartmentId] = useState(0);
-  const [ provinceId, setProvinceId] = useState(0);
-  const [ districtId, setDistrictId] = useState(0);
+  const { dispatch } = useContext(StateContext)
+  const [ firstName, setFirstName ] = useState('')
+  const [ lastName, setLastName ] = useState('')
+  const [ institution, setInstitution ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+  const [ passwordRepeat, setPasswordRepeat ] = useState('')
+  const [ registerFailed, setRegisterFailed ] = useState(false)
+  const [ departmentId, setDepartmentId] = useState(0)
+  const [ provinceId, setProvinceId] = useState(0)
+  const [ districtId, setDistrictId] = useState(0)
 
-  const [ user, registerUser ] = useResource(api.registerUser);
-  const [ departments, getDepartments ] = useResource(api.getDepartments);
-  const [ provinces, getProvinces ] = useResource(api.getProvinces);
-  const [ districts, getDistricts ] = useResource(api.getDistricts);
+  const [ user, registerUser ] = useResource(api.registerUser)
+  const [ departments, getDepartments ] = useResource(api.getDepartments)
+  const [ provinces, getProvinces ] = useResource(api.getProvinces)
+  const [ districts, getDistricts ] = useResource(api.getDistricts)
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   useEffect(() => getDepartments(), [])
 
@@ -33,12 +33,12 @@ const RegisterUser = () => {
 
   useEffect(() => {
     if (user && user.data) {
-        setRegisterFailed(false)
-        dispatch({ type: 'REGISTER', email: user.data.email })
-        navigation.navigate('/') 
+      setRegisterFailed(false)
+      dispatch({ type: 'REGISTER', email: user.data.email })
+      navigation.navigate('/') 
     }
     if (user && user.error) {
-      console.log(user.error.data.message);
+      console.log(user.error.data.message)
       setRegisterFailed(true)
     }
   }, [user])
@@ -67,16 +67,16 @@ const RegisterUser = () => {
     setPasswordRepeat(e.target.value)
   }
 
-  function handleDistrict(e) {
+  function handleDistrict (e) {
     setDistrictId(e.target.value)
   }
 
-  function handleDepartment(e) {
-    setDepartmentId(e.target.value);
+  function handleDepartment (e) {
+    setDepartmentId(e.target.value)
   }
 
-  function handleProvince(e) {
-    setProvinceId(e.target.value);
+  function handleProvince (e) {
+    setProvinceId(e.target.value)
   }
 
   return (
@@ -124,8 +124,8 @@ const RegisterUser = () => {
   )
 }
 
-RegisterUser.propTypes = {};
+RegisterUser.propTypes = {}
 
-RegisterUser.defaultProps = {};
+RegisterUser.defaultProps = {}
 
-export default RegisterUser;
+export default RegisterUser
