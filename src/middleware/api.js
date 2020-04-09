@@ -40,5 +40,12 @@ export const api = {
       url: 'user/login',
       data: { username, password }
     })
+  },
+  verifyAccount: (token) => {
+    return request({
+      method: 'POST',
+      url: 'user/verify-account',
+      data: { token }
+    })
   }
 }

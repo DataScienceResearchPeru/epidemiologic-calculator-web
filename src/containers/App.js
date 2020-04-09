@@ -1,18 +1,9 @@
-import React, { useReducer } from 'react'
-import { Router, View } from 'react-navi'
-import { mount, route } from 'navi'
+import React, { useReducer, Suspense } from 'react'
+import { NotFoundBoundary, Router, View } from 'react-navi'
 
-import HomePage from '../containers/HomePage'
-import DashboardPage from '../containers/DashboardPage'
-import RegisterUser from '../components/RegisterUser/RegisterUser'
 import appReducer from '../reducers'
 import { StateContext } from '../contexts'
-
-const routes = mount({
-  '/': route({ view: <HomePage /> }),
-  '/dashboard': route({view: <DashboardPage />}),
-  '/register': route({view: <RegisterUser />}),
-})
+import routes from '../routes'
 
 function App () {
   const [ state, dispatch ] = useReducer(appReducer, { user: ''})
@@ -20,8 +11,12 @@ function App () {
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Router routes={routes} context={{user}}> 
-        <View />
+      <Router routes={routes} context={{user}}>
+        <Suspense fallback={null}>
+          <NotFoundBoundary render={() => <h1>Not Found</h1>}>
+            <View />
+          </NotFoundBoundary> 
+        </Suspense>
       </Router>
     </StateContext.Provider>
   )

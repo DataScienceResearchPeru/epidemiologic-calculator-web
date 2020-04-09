@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useResource } from 'react-request-hook'
+import { useNavigation } from 'react-navi'
 import { Input, Button, NativeSelect, FormControl, InputLabel, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -67,6 +68,7 @@ const RegisterUser = () => {
   const [ districts, getDistricts ] = useResource(api.getDistricts)
 
   const classes = useStyles()
+  const navigation = useNavigation()
 
   useEffect(() => getDepartments(), [])
 
@@ -78,6 +80,8 @@ const RegisterUser = () => {
     if (user && user.data) {
       setRegisterFailed(false)
       dispatch({ type: 'REGISTER', email: user.data.email })
+      navigation.navigate('/unconfirmed_account') 
+
     }
     if (user && user.error) {
       console.log(user.error.data.message)
@@ -211,7 +215,7 @@ const RegisterUser = () => {
       <Button
         type="submit"
         variant="contained"
-        disabled={password != passwordRepeat}
+        disabled={password !== passwordRepeat}
         className={`${classes.button} ${classes.submit}`}
       >
         Registrarse
