@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
-      borderRadius: 12,
+      borderRadius: 10,
       marginTop: 22,
     },
     '& .MuiInputBase-input': {
       height: '2em',
-      padding: '6px 8px 7px',
+      padding: '8px 8px 7px',
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputLabel-formControl': {
       color: '#56cdcc',
       fontWeight: 500,
+      fontSize: '1.2rem'
     },
     '& .MuiCheckbox-root': {
       padding: 0,
