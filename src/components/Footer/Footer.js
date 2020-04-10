@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiTypography-body1': {
       fontFamily: '"avenir next", AvenirsNext, sans-serif',
-      fontSize: '0.6rem',
+      fontSize: '0.7rem',
       lineHeight: 1.2,
       color: '#a0a0a0',
       fontWeight: 600
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   logo: {
-    maxWidth: 50,
+    maxWidth: 65,
     marginLeft: theme.spacing(1),
   },
   subtitle: {

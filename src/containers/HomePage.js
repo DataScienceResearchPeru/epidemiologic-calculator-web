@@ -42,12 +42,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     marginBottom: 50,
     '& a': {
-      textDecoration: 'none',
+      display: 'inline-block',
       fontWeight: 600,
-      lineHeight: '1.75',
-      margin: 0,
       borderRadius: 16,
-      textAlign: 'center',
       padding: '7px 30px',
     }
   },
@@ -55,11 +52,14 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #ebebeb',
     backgroundColor: '#ebebeb',
     color: '#56cdcc',
+    minWidth: 100,
+    paddingLeft: '15px !important'
   },
   btnRight: {
     border: '1px solid #56cdcc',
     backgroundColor: '#56cdcc',
     color: '#FFF',
+    marginLeft: -25
   },
   hr: {
     border: '1px solid #56cdcc',
@@ -94,15 +94,19 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = () => {
   const classes = useStyles()
   const [ showLogin, setShowLogin ] = useState(true)
-  const [ showRegister, setShowRegister ] = useState(false)
+  let form
+
+  if (showLogin) {
+    form = <Login />
+  } else {
+    form = <RegisterUser />
+  }
 
   const handleClickShowLogin = () => {
     setShowLogin(true)
-    setShowRegister(false)
   }
 
   const handleClickShowRegister = () => {
-    setShowRegister(true)
     setShowLogin(false)
   }
   
@@ -125,13 +129,12 @@ const HomePage = () => {
             <Grid item xs={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href="#" onClick={handleClickShowRegister} className={classes.btnLeft}>Regístrate</Link>
-                  <Link href="#" onClick={handleClickShowLogin} className={classes.btnRight}>iniciar sesión</Link>
+                  <Link href="#" onClick={handleClickShowRegister} underline="none" className={classes.btnLeft}>Regístrate</Link>
+                  <Link href="#" onClick={handleClickShowLogin} underline="none" className={classes.btnRight}>Iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
-                  { showLogin && <Login />}
-                  { showRegister && <RegisterUser />} 
+                  { form }
                   
                   <Divider className={classes.hr} />
                   <div className={classes.circle}></div>
