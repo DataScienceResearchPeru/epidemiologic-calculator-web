@@ -1,6 +1,5 @@
 import React from 'react'
 import { useResource } from 'react-request-hook'
-import { Link } from 'react-navi'
 import PropTypes from 'prop-types'
 import { Container, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
