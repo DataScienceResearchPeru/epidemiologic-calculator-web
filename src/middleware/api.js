@@ -47,5 +47,12 @@ export const api = {
       url: 'user/verify-account',
       data: { token }
     })
+  },
+  resendEmail: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/resend-email',
+      data: { email }
+    })
   }
 }
