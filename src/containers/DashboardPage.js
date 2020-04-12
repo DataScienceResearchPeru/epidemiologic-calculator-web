@@ -1,17 +1,19 @@
-import React, { useContext } from 'react'
-import { StateContext } from '../contexts'
+import React from 'react'
+import { Container } from '@material-ui/core'
 
 import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 import LineAreaGraphic from '../components/LineGraphic/LineGraphic'
 
 
 const DashboardPage = () => {
-  const { state, dispatch } = useContext(StateContext)
-
   return (
     <React.Fragment>
-      <Header></Header>
-      <LineAreaGraphic></LineAreaGraphic>
+      <Container component="main" maxWidth="lg">
+        <Header />
+        <LineAreaGraphic></LineAreaGraphic>
+      </Container>
+      <Footer />
     </React.Fragment>
   )
 }

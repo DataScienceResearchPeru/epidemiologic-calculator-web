@@ -75,7 +75,6 @@ const RegisterUser = () => {
       setRegisterFailed(false)
       dispatch({ type: 'REGISTER', email: user.data.email })
       navigation.navigate('/unconfirmed_account') 
-
     }
     if (user && user.error) {
       console.log(user.error.data.message)

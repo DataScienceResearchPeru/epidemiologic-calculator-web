@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Grid, Box, Divider, Button, Link } from '@material-ui/core'
+import { Container, Grid, Box, Divider, Link, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import FacebookIcon from '../components/icons/FacebookIcon'
@@ -79,14 +79,12 @@ const useStyles = makeStyles((theme) => ({
   },
   socialMedia:{
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1.5),
     },
-    '& .MuiButton-root': {
-      minWidth: 36,
-      minHeight: 36,
-      borderRadius: '50%',
-      padding: 5,
-      color: '#404040',
+    '& .MuiIconButton-root': {
+      color: '#545353',
+      border: '1px solid #e2e1e1',
+      padding: 6
     }
   },
 }))
@@ -140,9 +138,15 @@ const HomePage = () => {
                   <div className={classes.circle}></div>
 
                   <div className={classes.socialMedia}>
-                    <Button variant="outlined"><GoogleIcon /></Button>
-                    <Button variant="outlined"><FacebookIcon /></Button>
-                    <Button variant="outlined"><LinkedinIcon /></Button>
+                    <IconButton color="default" aria-label="google">
+                      <GoogleIcon />
+                    </IconButton>
+                    <IconButton color="default" aria-label="facebook">
+                      <FacebookIcon />
+                    </IconButton>
+                    <IconButton color="default" aria-label="linkedin">
+                      <LinkedinIcon />
+                    </IconButton>
                   </div>
                 </div>
               </div>
