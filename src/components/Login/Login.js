@@ -4,6 +4,7 @@ import { useNavigation, Link } from 'react-navi'
 import { Input, Button, Checkbox, FormControlLabel, FormControl, InputLabel, InputAdornment, IconButton, Grid } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
+
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
 
@@ -48,16 +49,14 @@ const useStyles = makeStyles((theme) => ({
     color: '#a0a0a0',
     textDecoration: 'none',
   },
-  button: {
-    borderRadius: 16,
-    fontSize: 12,
-    padding: '7px 30px',
-    minWidth: 150,
-  },
   submit: {
     margin: theme.spacing(6, 0, 2),
     backgroundColor: '#56cdcc',
     color: '#FFF',
+    borderRadius: 16,
+    fontSize: 12,
+    padding: '7px 30px',
+    minWidth: 150,
   }
 }))
 
@@ -142,7 +141,7 @@ const Login = () => {
         type="submit"
         variant="contained"
         disabled={username.length === 0 || password.length === 0}
-        className={`${classes.button} ${classes.submit}`}
+        className={classes.submit}
       >
         Ingresar
       </Button>

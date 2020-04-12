@@ -53,13 +53,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ebebeb',
     color: '#56cdcc',
     minWidth: 100,
-    paddingLeft: '15px !important'
+    borderRadius: '16px 0 0 16px !important'
   },
   btnRight: {
     border: '1px solid #56cdcc',
     backgroundColor: '#56cdcc',
     color: '#FFF',
-    marginLeft: -25
+    marginLeft: -13
   },
   hr: {
     border: '1px solid #56cdcc',

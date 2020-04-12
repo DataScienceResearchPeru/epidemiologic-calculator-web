@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useResource } from 'react-request-hook'
 import { useNavigation } from 'react-navi'
-import { Input, Button, NativeSelect, FormControl, InputLabel, Grid, TextField } from '@material-ui/core'
+import { Button, Select, FormControl, InputLabel, Grid, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
@@ -42,9 +42,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#56cdcc',
     color: '#FFF',
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
 }))
 
 const RegisterUser = () => {
@@ -54,10 +51,10 @@ const RegisterUser = () => {
   const [ institution, setInstitution ] = useState('')
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [ registerFailed, setRegisterFailed ] = useState(false)
   const [ departmentId, setDepartmentId] = useState(0)
   const [ provinceId, setProvinceId] = useState(0)
   const [ districtId, setDistrictId] = useState(0)
+  const [ registerFailed, setRegisterFailed ] = useState(false)
 
   const [ user, registerUser ] = useResource(api.registerUser)
   const [ departments, getDepartments ] = useResource(api.getDepartments)
@@ -151,16 +148,18 @@ const RegisterUser = () => {
             <InputLabel htmlFor="department-label">
               Departamento
             </InputLabel>
-            <NativeSelect
+            <Select
+              native
               value={departmentId}
               onChange={handleDepartment}
               inputProps={{
                 name: 'department',
                 id: 'department-label',
               }}
-            >
+            > 
+              <option aria-label="None" value="" />
               {departments.data && departments.data.departments.map((department, index)=> <option value={department.id} key={index}>{department.name}</option>) }
-            </NativeSelect>
+            </Select>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -168,7 +167,8 @@ const RegisterUser = () => {
             <InputLabel htmlFor="province-label">
               Provincia
             </InputLabel>
-            <NativeSelect
+            <Select
+              native
               value={provinceId}
               onChange={handleProvince}
               inputProps={{
@@ -176,8 +176,9 @@ const RegisterUser = () => {
                 id: 'province-label',
               }}
             >
+              <option aria-label="None" value="" />
               {provinces.data && provinces.data.provinces.map((province, index)=> <option value={province.id} key={index}>{province.name}</option>) }
-            </NativeSelect>
+            </Select>
           </FormControl>
         </Grid>
       </Grid>
@@ -185,7 +186,8 @@ const RegisterUser = () => {
         <InputLabel htmlFor="district-label">
           Districto
         </InputLabel>
-        <NativeSelect
+        <Select
+          native
           value={districtId}
           onChange={handleDistrict}
           inputProps={{
@@ -193,8 +195,9 @@ const RegisterUser = () => {
             id: 'district-label',
           }}
         >
+          <option aria-label="None" value="" />
           {districts.data && districts.data.districts.map((district, index)=> <option value={district.id} key={index}>{district.name}</option>) }
-        </NativeSelect>
+        </Select>
       </FormControl>
 
       <TextField id="email" label="Correo electrónico" 
