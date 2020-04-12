@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     border: '10px solid #56cdcc',
     display: 'inline-block',
     marginTop: -15,
-    marginBottom: 38,
+    marginBottom: 21,
   },
   socialMedia:{
     '& > *': {

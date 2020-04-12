@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   submit: {
-    margin: theme.spacing(6, 0, 2),
+    margin: theme.spacing(4, 0, 2),
     backgroundColor: '#56cdcc',
     color: '#FFF',
     borderRadius: 16,

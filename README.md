@@ -5,7 +5,7 @@
 Start by updating the packages list by typing and install curl
 
 ```bash
-$ sudo apt update  && sudo apt install curl
+$ sudo apt update && sudo apt install curl
 ```
 
 Install nodejs using curl and apt package manager
@@ -38,3 +38,5 @@ $ npm install
 ```sh
 $ npm start
 ```
+
+Open the browser at http://localhost:3000/
