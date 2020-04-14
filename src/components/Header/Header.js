@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     flexGrow: 1,
     '& img': {
-      maxWidth: 210,
+      maxWidth: 205,
     }
   },
   search: {
@@ -34,18 +34,20 @@ const useStyles = makeStyles((theme) => ({
       padding: '8px 14px'
     },
     '& .MuiOutlinedInput-root': {
-      borderRadius: 12
+      borderRadius: 10,
+      boxShadow: '0px 1px 4px #00000033'
     },
     '& .MuiOutlinedInput-adornedEnd': {
       paddingRight: 0
     }
   },
   button: {
-    borderRadius: 16,
+    borderRadius: 15,
     fontSize: 10,
     padding: '8px 30px',
     minWidth: 150,
-    marginLeft: 24
+    marginLeft: 24,
+    boxShadow: '0px 2px 4px #00000029'
   }
 }))
 

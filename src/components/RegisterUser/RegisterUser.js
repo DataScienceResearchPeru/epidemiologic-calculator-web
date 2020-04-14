@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       borderRadius: 10,
     },
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       padding: '14.5px 14px',
     },
     '& .MuiInputLabel-formControl': {
-      color: '#56cdcc',
+      color: '#33CCCC',
       fontSize: '0.9rem',
       fontWeight: 400
     },
@@ -34,13 +34,14 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   submit: {
-    borderRadius: 16,
+    borderRadius: 15,
     fontSize: 12,
-    padding: '7px 30px',
+    padding: '7px 27px',
     minWidth: 150,
     margin: theme.spacing(6, 0, 2),
-    backgroundColor: '#56cdcc',
+    backgroundColor: '#33CCCC',
     color: '#FFF',
+    boxShadow: '0px 2px 4px #00000029'
   },
 }))
 
