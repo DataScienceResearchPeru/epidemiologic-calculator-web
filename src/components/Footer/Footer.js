@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import logo from '../../images/logo-grey.png'
+import logo from '../../images/data-science-logo-gray.svg'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center'
     },
     '& .MuiTypography-body1': {
-      fontFamily: '"avenir next", AvenirsNext, sans-serif',
+      fontFamily: '"Raleway", AvenirsNext, sans-serif',
       fontSize: '0.7rem',
       lineHeight: 1.2,
-      color: '#a0a0a0',
-      fontWeight: 600
+      color: '#BFBFBF',
+      fontWeight: 'bold'
     },
     '& .MuiTypography-root': {
       display: 'inline-block',
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   logo: {
-    maxWidth: 65,
+    minWidth: 60,
     marginLeft: theme.spacing(1),
   },
   subtitle: {
-    fontWeight: 300
+    fontWeight: 350
   }
 }))
 

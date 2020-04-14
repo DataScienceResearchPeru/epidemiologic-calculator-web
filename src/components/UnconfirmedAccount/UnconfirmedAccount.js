@@ -8,15 +8,20 @@ import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
+import background from '../../images/background.svg'
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {
     borderRadius: 17,
     backgroundColor: '#5ad6d6',
     padding: '80px 100px',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     color: '#FFF',
     minHeight: 400,
+    backgroundImage: `url(${background})`,
+    backgroundPosition: 'center', 
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     '& h1': {
       fontSize: '1.8em',
       fontWeight: 500,
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UnconfirmedAccount = () => {
   const { state } = useContext(StateContext)
-  const { user } = state
+  const { register } = state
   const classes = useStyles()
   const [ response, resendEmail ] = useResource(api.resendEmail)
 
@@ -52,9 +57,9 @@ const UnconfirmedAccount = () => {
         <Header />
         <Box className={classes.boxContent}>
           <h1>¡Bienvenido!</h1>
-          <p>Por favor revise su correo electrónico ({user}) y pulsa en el enlace de confirmación que te enviamos.
+          <p>Por favor revise su correo electrónico ({register}) y pulsa en el enlace de confirmación que te enviamos.
             Si no ha recibido nuestro correo electrónico en 15 minutos, verifique su carpeta de correo no deseado.</p>
-          <p>¿Aún no recibió el correo electrónico? pulse {user && <Link href="#" underline="none" onClick={e => resendEmail(user)}>reenviar</Link>}.</p>
+          <p>¿Aún no recibió el correo electrónico? pulse {register && <Link href="#" underline="none" onClick={e => resendEmail(register)}>reenviar</Link>}.</p>
 
           <div className={classes.icon}>
             <MailOutlineIcon />

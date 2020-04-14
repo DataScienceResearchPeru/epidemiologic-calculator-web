@@ -6,7 +6,7 @@ import { StateContext } from '../contexts'
 import routes from '../routes'
 
 function App () {
-  const [ state, dispatch ] = useReducer(appReducer, { user: ''})
+  const [ state, dispatch ] = useReducer(appReducer, { user: '', register: '' })
   const { user } = state
 
   return (

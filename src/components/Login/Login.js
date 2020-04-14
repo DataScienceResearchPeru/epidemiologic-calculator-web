@@ -12,22 +12,24 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 10,
       marginTop: 22,
+      WebkitBoxShadow: '0px 1px 4px #00000033',
+      boxShadow: '0px 1px 4px #00000033',
     },
     '& .MuiInputBase-input': {
       height: '2em',
-      padding: '8px 8px 7px',
+      padding: '6px 8px 7px',
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
       },
     },
     '& .MuiInputLabel-formControl': {
-      color: '#56cdcc',
+      color: '#33CCCC',
       fontWeight: 500,
       fontSize: '1.2rem'
     },
@@ -51,12 +53,14 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(4, 0, 2),
-    backgroundColor: '#56cdcc',
+    backgroundColor: '#33CCCC',
     color: '#FFF',
-    borderRadius: 16,
+    borderRadius: 15,
     fontSize: 12,
-    padding: '7px 30px',
+    padding: '6px 27px',
     minWidth: 150,
+    boxShadow: '0px 2px 4px #00000029',
+    lineHeight: 1.5
   }
 }))
 
