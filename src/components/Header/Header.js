@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppBar, Toolbar, TextField, Button, InputAdornment } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-navi'
 
 import logo from '../../images/EK-logo.svg'
 import UserMenu from '../UserMenu/UserMenu'
@@ -59,7 +60,7 @@ const Header = () => {
     <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.logo}>
-          <img src={logo} alt="logo"/>
+          <Link href={'/'}><img src={logo} alt="logo"/></Link>
         </div>
         <div className={classes.search}>
           <TextField
