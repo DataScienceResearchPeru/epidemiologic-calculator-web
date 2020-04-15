@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
+import useErrorApi from "../../hooks/use-error-api";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -69,23 +70,21 @@ const Login = () => {
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ showPassword, setshowPassword ] = useState(false)
-  const [ loginFailed, setLoginFailed ] = useState(false)
 
   const classes = useStyles()
 
   const [ user, login ] = useResource(api.login)
 
+  const [stateError, AlertError, setData] = useErrorApi(user);
+
   const navigation = useNavigation()
 
+
   useEffect(() => {
-    if (user && user.data) {
-      setLoginFailed(false)
+    setData(user);
+    if(stateError && !stateError){
       dispatch({ type: 'LOGIN', name: user.data.full_name })
-      navigation.navigate('/dashboard') 
-    }
-    if (user && user.error) {
-      console.log(user.error.data.message)
-      setLoginFailed(true)
+      navigation.navigate('/dashboard')
     }
   }, [user])
 
@@ -100,9 +99,9 @@ const Login = () => {
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword)
   }
-  
+
   return (
-    <form className={classes.form} data-testid="Login" onSubmit={e => { e.preventDefault(); login(username, password) }}>  
+    <form className={classes.form} data-testid="Login" onSubmit={e => { e.preventDefault(); login(username, password) }}>
       <FormControl margin="normal" fullWidth>
         <InputLabel htmlFor="username" shrink>Usuario o correo electrónico</InputLabel>
         <Input id="username" type="email" value={username} onChange={handleUsername} autoFocus disableUnderline={true}/>
@@ -150,7 +149,7 @@ const Login = () => {
         Ingresar
       </Button>
 
-      {loginFailed && <span style={{ color: 'red' }}>Invalid username or password</span>}
+      <AlertError />
     </form>
   )
 }
