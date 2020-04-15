@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
+import useErrorApi from '../../hooks/use-error-api';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -55,12 +56,14 @@ const RegisterUser = () => {
   const [ departmentId, setDepartmentId] = useState(0)
   const [ provinceId, setProvinceId] = useState(0)
   const [ districtId, setDistrictId] = useState(0)
-  const [ registerFailed, setRegisterFailed ] = useState(false)
+
 
   const [ user, registerUser ] = useResource(api.registerUser)
   const [ departments, getDepartments ] = useResource(api.getDepartments)
   const [ provinces, getProvinces ] = useResource(api.getProvinces)
   const [ districts, getDistricts ] = useResource(api.getDistricts)
+
+  const [stateError, AlertError, setData] = useErrorApi(user);
 
   const classes = useStyles()
   const navigation = useNavigation()
@@ -72,14 +75,10 @@ const RegisterUser = () => {
   useEffect(() => getDistricts(provinceId), [provinceId])
 
   useEffect(() => {
-    if (user && user.data) {
-      setRegisterFailed(false)
+    setData(user);
+    if(stateError && !stateError){
       dispatch({ type: 'REGISTER', email: user.data.email })
-      navigation.navigate('/unconfirmed_account') 
-    }
-    if (user && user.error) {
-      console.log(user.error.data.message)
-      setRegisterFailed(true)
+      navigation.navigate('/unconfirmed_account')
     }
   }, [user])
 
@@ -117,8 +116,8 @@ const RegisterUser = () => {
 
   return (
     <form className={classes.form} data-testid="RegisterUser" onSubmit={e => { e.preventDefault(); registerUser(firstName, lastName, institution, email, password, departmentId, provinceId, districtId)}}>
-      
-      <TextField id="first_name" label="Nombres" 
+
+      <TextField id="first_name" label="Nombres"
         variant="outlined"
         margin="normal"
         value={firstName}
@@ -126,7 +125,7 @@ const RegisterUser = () => {
         fullWidth
         required />
 
-      <TextField id="last_name" label="Apellidos" 
+      <TextField id="last_name" label="Apellidos"
         variant="outlined"
         margin="normal"
         value={lastName}
@@ -134,7 +133,7 @@ const RegisterUser = () => {
         required
         fullWidth />
 
-      <TextField id="institution" label="Institución" 
+      <TextField id="institution" label="Institución"
         variant="outlined"
         margin="normal"
         value={institution}
@@ -156,7 +155,7 @@ const RegisterUser = () => {
                 name: 'department',
                 id: 'department-label',
               }}
-            > 
+            >
               <option aria-label="None" value="" />
               {departments.data && departments.data.departments.map((department, index)=> <option value={department.id} key={index}>{department.name}</option>) }
             </Select>
@@ -200,7 +199,7 @@ const RegisterUser = () => {
         </Select>
       </FormControl>
 
-      <TextField id="email" label="Correo electrónico" 
+      <TextField id="email" label="Correo electrónico"
         variant="outlined"
         margin="normal"
         type="email"
@@ -208,8 +207,8 @@ const RegisterUser = () => {
         onChange={handleEmail}
         required
         fullWidth />
-      
-      <TextField id="password" label="Contraseña" 
+
+      <TextField id="password" label="Contraseña"
         variant="outlined"
         margin="normal"
         type="password"
@@ -225,6 +224,8 @@ const RegisterUser = () => {
       >
         Registrarse
       </Button>
+
+      <AlertError />
     </form>
   )
 }
