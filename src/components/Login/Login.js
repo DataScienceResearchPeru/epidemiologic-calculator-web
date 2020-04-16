@@ -82,7 +82,7 @@ const Login = () => {
 
   useEffect(() => {
     setData(user);
-    if(stateError && !stateError){
+    if(user && user.data && !stateError){
       dispatch({ type: 'LOGIN', name: user.data.full_name })
       navigation.navigate('/dashboard')
     }

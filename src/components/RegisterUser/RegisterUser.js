@@ -76,7 +76,7 @@ const RegisterUser = () => {
 
   useEffect(() => {
     setData(user);
-    if(stateError && !stateError){
+    if(user && user.data && !stateError){
       dispatch({ type: 'REGISTER', email: user.data.email })
       navigation.navigate('/unconfirmed_account')
     }
