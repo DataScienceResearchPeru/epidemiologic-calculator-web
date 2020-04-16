@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
-import useErrorApi from '../../hooks/use-error-api';
+import useErrorApi from '../../hooks/use-error-api'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -63,7 +63,7 @@ const RegisterUser = () => {
   const [ provinces, getProvinces ] = useResource(api.getProvinces)
   const [ districts, getDistricts ] = useResource(api.getDistricts)
 
-  const [stateError, AlertError, setData] = useErrorApi(user);
+  const [stateError, AlertError, setData] = useErrorApi(user)
 
   const classes = useStyles()
   const navigation = useNavigation()
@@ -75,7 +75,7 @@ const RegisterUser = () => {
   useEffect(() => getDistricts(provinceId), [provinceId])
 
   useEffect(() => {
-    setData(user);
+    setData(user)
     if(user && user.data && !stateError){
       dispatch({ type: 'REGISTER', email: user.data.email })
       navigation.navigate('/unconfirmed_account')
