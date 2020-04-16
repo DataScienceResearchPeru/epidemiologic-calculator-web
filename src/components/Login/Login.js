@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
-import useErrorApi from "../../hooks/use-error-api";
+import useErrorApi from '../../hooks/use-error-api'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -75,13 +75,13 @@ const Login = () => {
 
   const [ user, login ] = useResource(api.login)
 
-  const [stateError, AlertError, setData] = useErrorApi(user);
+  const [stateError, AlertError, setData] = useErrorApi(user)
 
   const navigation = useNavigation()
 
 
   useEffect(() => {
-    setData(user);
+    setData(user)
     if(user && user.data && !stateError){
       dispatch({ type: 'LOGIN', name: user.data.full_name })
       navigation.navigate('/dashboard')
