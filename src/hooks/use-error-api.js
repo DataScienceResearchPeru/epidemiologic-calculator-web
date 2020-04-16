@@ -11,7 +11,7 @@ function Alert(props) {
 export default (dataResponse) => {
 
     const [data, setData] = useState(null);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(true);
     const [open, setOpen] = useState(false);
 
     const handleClose = () => {
@@ -43,9 +43,10 @@ export default (dataResponse) => {
 
         if(data && data.error){
             setOpen(true);
-            setError(true)
+            setError(true);
         } else{
             setOpen(false);
+            setError(false);
         }
     }, [data])
 
