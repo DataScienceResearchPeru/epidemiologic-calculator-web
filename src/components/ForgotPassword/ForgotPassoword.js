@@ -109,7 +109,11 @@ const ForgotPassword = (props) => {
 
   const handlerCloseConfirmation = () => {
     setConfirmation(false)
-    props.handler()
+    close()
+  }
+
+  const close = () => {
+    if(props.handler) props.handler()
   }
   
 
@@ -132,7 +136,7 @@ const ForgotPassword = (props) => {
 
         <Button         
           variant="contained"
-          onClick={props.handler}
+          onClick={close}
           className={classes.cancel}
         >
           Cerrar
