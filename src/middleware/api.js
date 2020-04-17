@@ -54,5 +54,12 @@ export const api = {
       url: 'user/resend-email',
       data: { email }
     })
+  },
+  forgotPassword: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/forgot-password',
+      data: { email }
+    })
   }
 }

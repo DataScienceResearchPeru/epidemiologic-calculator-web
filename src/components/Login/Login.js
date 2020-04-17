@@ -4,6 +4,7 @@ import { useNavigation, Link } from 'react-navi'
 import { Input, Button, Checkbox, FormControlLabel, FormControl, InputLabel, InputAdornment, IconButton, Grid } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Login = () => {
+const Login = (props) => {
   const { dispatch } = useContext(StateContext)
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
@@ -135,7 +136,7 @@ const Login = () => {
           />
         </Grid>
         <Grid item>
-          <Link href="#" className={classes.forgotPassword}>
+          <Link href="#" className={classes.forgotPassword} onClick={props.handlerForgotPassword}>
             {'¿Olvidaste tu contraseña?'}
           </Link>
         </Grid>
@@ -154,7 +155,9 @@ const Login = () => {
   )
 }
 
-Login.propTypes = {}
+Login.propTypes = {
+  handlerForgotPassword: PropTypes.func
+}
 
 Login.defaultProps = {}
 
