@@ -1,0 +1,28 @@
+.LineGraphic {
+  line-height: normal;
+}
+
+.vertical-grid-line,
+.horizontal-grid-line {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #EBEBEB;
+  stroke-width: 1;
+}
+
+.tick text {
+  fill: #888888;
+  font-size: 0.75rem;
+  font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}
+.tick line {
+  fill: none;
+  stroke: #EBEBEB;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.data-point-mark {
+  fill: #FFF;
+  stroke: #69b3a2;
+}

@@ -11,7 +11,16 @@ const DashboardPage = () => {
     <React.Fragment>
       <Container component="main" maxWidth="lg">
         <Header />
-        <LineAreaGraphic></LineAreaGraphic>
+        <LineAreaGraphic 
+          width={800}
+          height={400}
+          margin={{
+            top: 50,
+            left: 50,
+            right: 50,
+            bottom: 50
+          }}
+        />
       </Container>
       <Footer />
     </React.Fragment>
