@@ -4,18 +4,23 @@ import { useNavigation, Link } from 'react-navi'
 import { Input, Button, Checkbox, FormControlLabel, FormControl, InputLabel, InputAdornment, IconButton, Grid } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
+
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
+import useErrorApi from '../../hooks/use-error-api'
 
 const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
-      borderRadius: 12,
+      borderRadius: 10,
       marginTop: 22,
+      WebkitBoxShadow: '0px 1px 4px #00000033',
+      boxShadow: '0px 1px 4px #00000033',
     },
     '& .MuiInputBase-input': {
       height: '2em',
@@ -26,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '& .MuiInputLabel-formControl': {
-      color: '#56cdcc',
+      color: '#33CCCC',
       fontWeight: 500,
+      fontSize: '1.2rem'
     },
     '& .MuiCheckbox-root': {
       padding: 0,
@@ -47,41 +53,39 @@ const useStyles = makeStyles((theme) => ({
     color: '#a0a0a0',
     textDecoration: 'none',
   },
-  button: {
-    borderRadius: 16,
-    fontSize: 12,
-    padding: '7px 30px',
-    minWidth: 150,
-  },
   submit: {
-    margin: theme.spacing(6, 0, 2),
-    backgroundColor: '#56cdcc',
+    margin: theme.spacing(4, 0, 2),
+    backgroundColor: '#33CCCC',
     color: '#FFF',
+    borderRadius: 15,
+    fontSize: 12,
+    padding: '6px 27px',
+    minWidth: 150,
+    boxShadow: '0px 2px 4px #00000029',
+    lineHeight: 1.5
   }
 }))
 
-const Login = () => {
+const Login = (props) => {
   const { dispatch } = useContext(StateContext)
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ showPassword, setshowPassword ] = useState(false)
-  const [ loginFailed, setLoginFailed ] = useState(false)
 
   const classes = useStyles()
 
   const [ user, login ] = useResource(api.login)
 
+  const [stateError, AlertError, setData] = useErrorApi(user)
+
   const navigation = useNavigation()
 
+
   useEffect(() => {
-    if (user && user.data) {
-      setLoginFailed(false)
+    setData(user)
+    if(user && user.data && !stateError){
       dispatch({ type: 'LOGIN', name: user.data.full_name })
-      navigation.navigate('/dashboard') 
-    }
-    if (user && user.error) {
-      console.log(user.error.data.message)
-      setLoginFailed(true)
+      navigation.navigate('/dashboard')
     }
   }, [user])
 
@@ -96,9 +100,9 @@ const Login = () => {
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword)
   }
-  
+
   return (
-    <form className={classes.form} onSubmit={e => { e.preventDefault(); login(username, password) }}>  
+    <form className={classes.form} data-testid="Login" onSubmit={e => { e.preventDefault(); login(username, password) }}>
       <FormControl margin="normal" fullWidth>
         <InputLabel htmlFor="username" shrink>Usuario o correo electrónico</InputLabel>
         <Input id="username" type="email" value={username} onChange={handleUsername} autoFocus disableUnderline={true}/>
@@ -132,7 +136,7 @@ const Login = () => {
           />
         </Grid>
         <Grid item>
-          <Link href="#" className={classes.forgotPassword}>
+          <Link href="#" className={classes.forgotPassword} onClick={props.handlerForgotPassword}>
             {'¿Olvidaste tu contraseña?'}
           </Link>
         </Grid>
@@ -141,17 +145,19 @@ const Login = () => {
         type="submit"
         variant="contained"
         disabled={username.length === 0 || password.length === 0}
-        className={`${classes.button} ${classes.submit}`}
+        className={classes.submit}
       >
         Ingresar
       </Button>
 
-      {loginFailed && <span style={{ color: 'red' }}>Invalid username or password</span>}
+      <AlertError />
     </form>
   )
 }
 
-Login.propTypes = {}
+Login.propTypes = {
+  handlerForgotPassword: PropTypes.func
+}
 
 Login.defaultProps = {}
 

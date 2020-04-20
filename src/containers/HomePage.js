@@ -1,27 +1,41 @@
-import React from 'react'
-import { Link } from 'react-navi'
-import { Container, Grid, Box, Divider, Button } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Container, Grid, Box, Divider, Link, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+
 import FacebookIcon from '../components/icons/FacebookIcon'
 import LinkedinIcon from '../components/icons/LinkedinIcon'
 import GoogleIcon from '../components/icons/GoogleIcon'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import Login from '../components/Login/Login'
+import RegisterUser from '../components/RegisterUser/RegisterUser'
+import background from '../images/background.svg'
+import DialogContainer from './DialogContainer'
+import ForgotPassword from '../components/ForgotPassword/ForgotPassoword'
+
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {
     borderRadius: 17,
-    backgroundColor: '#5ad6d6',
+    backgroundColor: '#33CCCC',
     padding: '80px 100px',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
+    backgroundImage: `url(${background})`,
+    backgroundPosition: 'center', 
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   },
   boxInfo: {
     color: '#FFF',
-    width: 380,
+    width: 389,
     '& h1': {
-      fontSize: '1.8em',
-      fontWeight: 500,
+      fontSize: '25px',
+      fontWeight: 'bold',
+      marginBottom: '0.8em'
+    },
+    '& p': {
+      fontSize: 16,
+      fontWeight: 350
     }
   },
   boxRight: {
@@ -31,67 +45,96 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     alignItems: 'center',
     borderRadius: 17,
-    padding: '30px 30px 52px',
+    padding: '30px 27px 50px',
+    boxShadow: '0px 2px 10px #00000033',
+    opacity: 1
   },
   boxForm: {
-    maxWidth: 380,
+    maxWidth: 385,
   },
   btnTop: {
     textTransform: 'uppercase',
     fontSize: 12,
     marginBottom: 50,
     '& a': {
-      textDecoration: 'none',
+      display: 'inline-block',
       fontWeight: 600,
-      lineHeight: '1.75',
-      margin: 0,
-      borderRadius: 16,
-      textAlign: 'center',
-      padding: '7px 30px',
+      borderRadius: 15,
+      padding: '7px 27px',
     }
   },
   btnLeft:{
     border: '1px solid #ebebeb',
     backgroundColor: '#ebebeb',
-    color: '#56cdcc',
+    color: '#33CCCC',
+    minWidth: 100,
+    borderRadius: '15px 0 0 15px !important'
   },
   btnRight: {
-    border: '1px solid #56cdcc',
-    backgroundColor: '#56cdcc',
+    border: '1px solid #33CCCC',
+    backgroundColor: '#33CCCC',
     color: '#FFF',
+    marginLeft: -13,
+    boxShadow: '0px 2px 4px #00000029',
+    WebkitBoxShadow: '0px 2px 4px #00000029',
   },
   hr: {
-    border: '1px solid #56cdcc',
+    border: '1px solid #33CCCC',
     width: '100%',
     height: 0,
   },
   circle: {
     height: 10,
     width: 10,
-    backgroundColor: '#56cdcc',
+    backgroundColor: '#33CCCC',
     borderRadius: '100%',
     boxShadow: 'inset 0px 0px 0px 2px #FFF',
-    border: '10px solid #56cdcc',
+    border: '10px solid #33CCCC',
     display: 'inline-block',
     marginTop: -15,
-    marginBottom: 38,
+    marginBottom: 21,
   },
   socialMedia:{
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1.5),
     },
-    '& .MuiButton-root': {
-      minWidth: 36,
-      minHeight: 36,
-      borderRadius: '50%',
-      padding: 5,
-      color: '#404040',
+    '& .MuiIconButton-root': {
+      color: '#545353',
+      border: '1px solid #e2e1e1',
+      padding: 6,
+      boxShadow: '0px 2px 4px #00000029'
     }
   },
 }))
   
 const HomePage = () => {
   const classes = useStyles()
+  const [ showLogin, setShowLogin ] = useState(true)
+  let form
+
+  const [open, setOpen] = React.useState(false)
+
+  const showDialogoForgotPassword = () => {
+    setOpen(true)
+  }
+
+  if (showLogin) {
+    form = <Login handlerForgotPassword={showDialogoForgotPassword} />
+  } else {
+    form = <RegisterUser />
+  }
+
+  const handleClose = () => {    
+    setOpen(false)
+  }  
+
+  const handleClickShowLogin = () => {
+    setShowLogin(true)
+  }
+
+  const handleClickShowRegister = () => {
+    setShowLogin(false)
+  }
   
   return (
     <React.Fragment>
@@ -103,31 +146,40 @@ const HomePage = () => {
               <div className={classes.boxInfo}>
                 <h1>BIENVENIDO</h1>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est. 
                 </p>
               </div>
             </Grid>
             <Grid item xs={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href={'/register'} className={classes.btnLeft}>Regístrate</Link>
-                  <Link href={'/'} className={classes.btnRight}>iniciar sesión</Link>
+                  <Link href="#" onClick={handleClickShowRegister} underline="none" className={classes.btnLeft}>Regístrate</Link>
+                  <Link href="#" onClick={handleClickShowLogin} underline="none" className={classes.btnRight}>Iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
-                  <Login />
+                  { form }
+                  
                   <Divider className={classes.hr} />
                   <div className={classes.circle}></div>
 
                   <div className={classes.socialMedia}>
-                    <Button variant="outlined"><GoogleIcon /></Button>
-                    <Button variant="outlined"><FacebookIcon /></Button>
-                    <Button variant="outlined"><LinkedinIcon /></Button>
+                    <IconButton color="default" aria-label="google">
+                      <GoogleIcon />
+                    </IconButton>
+                    <IconButton color="default" aria-label="facebook">
+                      <FacebookIcon />
+                    </IconButton>
+                    <IconButton color="default" aria-label="linkedin">
+                      <LinkedinIcon />
+                    </IconButton>
                   </div>
                 </div>
               </div>
+
+              <DialogContainer isOpen={open} handler={handleClose}  >
+                <ForgotPassword handler={handleClose} />
+              </DialogContainer>             
             </Grid>
           </Grid>
         </Box>
