@@ -17,17 +17,20 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 10,
-      marginTop: 15,
+      marginTop: '0px !important',
       WebkitBoxShadow: '0px 1px 4px #00000033',
       boxShadow: '0px 1px 4px #00000033',
     },
     '& .MuiInputBase-input': {
-      height: '1.6em',
-      padding: '4px 6px 7px',
+      height: '1.3em',
+      padding: '4px 6px 6px',
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
-      },
+      },      
+    },
+    '& .MuiGrid-item': {
+      padding: '2px !important'
     }
   }
 }))
@@ -64,38 +67,47 @@ const VariableSlider = withStyles({
 
 const Variable = (props) => {
 
-  const [value, setValue] = React.useState(30)
+  const defaultValue = props.value ? props.value : 0
+  const maxValue = defaultValue < 100 ? 100 : defaultValue + (defaultValue * 0.9)
+  const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const handleChange = (event, newValue) => {    
+    if(newValue && newValue > 0) {
+      setValue(newValue)
+      props.changeValues(newValue)
+    }
+  }
+
+  function handleValueSlider (e) {
+    let value = e.target.value
+    if(value && value > 0) {
+      setValue(parseInt(value))
+      props.changeValues(parseInt(value))
+    }
+    
   }
 
   return (
-    <React.Fragment>
+    <React.Fragment>      
       <Grid container spacing={2} className={classes.variable}>
         <Grid item xs={6}>     
           <p> {props.title} </p>    
         </Grid>
-        <Grid item xs={6}>
-          <div>
-            <Tooltip title={props.tooltip}>
-              <span>
-                <Button disabled>Info</Button>
-              </span>
-            </Tooltip>
-          </div>
+        <Grid item xs={6} >
+          {props.children}
         </Grid>
         <Grid item xs={12}>
-          <VariableSlider value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
+          <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
         </Grid>
         <Grid item xs={6}>
-          <Input type="text" value={props.value} disableUnderline={true}/>
+          <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
         </Grid>
         <Grid item xs={6}>
           {props.descriptionLabel}
         </Grid>
       </Grid>
+      
     </React.Fragment>    
   )  
 
@@ -103,9 +115,9 @@ const Variable = (props) => {
 
 Variable.propTypes = {
   title: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
   descriptionLabel: PropTypes.string,
-  tooltip: PropTypes.string,
+  changeValues: PropTypes.func
 }
 
 Variable.defaultProps = {}
