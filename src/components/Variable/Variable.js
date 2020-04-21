@@ -31,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiGrid-item': {
       padding: '2px !important'
-    }
+    }  
+  },
+  descriptionLabel: {
+    marginTop: '5px',
+    marginLeft: '5px'
   }
 }))
 
@@ -75,7 +79,8 @@ const Variable = (props) => {
   const handleChange = (event, newValue) => {    
     if(newValue && newValue > 0) {
       setValue(newValue)
-      props.changeValues(newValue)
+      if(props.changeValues)
+        props.changeValues(newValue)
     }
   }
 
@@ -83,7 +88,8 @@ const Variable = (props) => {
     let value = e.target.value
     if(value && value > 0) {
       setValue(parseInt(value))
-      props.changeValues(parseInt(value))
+      if(props.changeValues)
+        props.changeValues(parseInt(value))
     }
     
   }
@@ -103,8 +109,8 @@ const Variable = (props) => {
         <Grid item xs={6}>
           <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
         </Grid>
-        <Grid item xs={6}>
-          {props.descriptionLabel}
+        <Grid item xs={6} >
+          <div className={classes.descriptionLabel}> {props.descriptionLabel} </div> 
         </Grid>
       </Grid>
       
