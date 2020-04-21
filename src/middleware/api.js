@@ -68,5 +68,11 @@ export const api = {
       url: 'user/reset-password',
       data: { newPassword, resetToken }
     })
-  }
+  },
+  getDataSeaichurd: () => {
+    return request({
+      method: 'GET',
+      url: 'seaichurd',
+    })
+  },
 }
