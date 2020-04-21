@@ -54,5 +54,11 @@ export const api = {
       url: 'user/resend-email',
       data: { email }
     })
-  }
+  },
+  getDataSeaichurd: () => {
+    return request({
+      method: 'GET',
+      url: 'seaichurd',
+    })
+  },
 }

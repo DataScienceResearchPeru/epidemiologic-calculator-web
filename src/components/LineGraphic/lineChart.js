@@ -1,17 +1,18 @@
 import * as d3 from 'd3'
 
 function line () {
-  let data
+  let dataByVariable
+  let time
   let svg
   let margin = {
-    top: 20,
-    right: 20,
+    top: 10,
+    right: 10,
     bottom: 30,
-    left: 40
+    left: 80
   }
 
   let width = 960
-  let height = 500
+  let height = 450
   let chartWidth
   let chartHeight
   let xScale
@@ -24,7 +25,7 @@ function line () {
   let verticalGridLines
   let horizontalGridLines
   
-  let yTicks = 5
+  let yTicks = 8
   let tickPadding = 5
   let shouldShowAllDataPoints = true
 
@@ -36,13 +37,21 @@ function line () {
     'customMouseClick'
   )
 
-  // extractors
-  const getFrequency = ({ frequency }) => frequency
-  const getTime = ({ time }) => time
+  const colors = {
+    'susceptible': '#24DADA',
+    'exposed': '#FFD16A',
+    'asymptomatic': '#FF8181',
+    'infected': '#DB96FF',
+    'quarantine': '#5AB3FF',
+    'hospitalized': '#5AB3FF',
+    'uci': '#5AB3FF',
+    'recovered': '#5AB3FF',
+    'death': '#404040'
+  }
 
   function exports (_selection) {
     _selection.each(function (_data){
-      data = _data
+      dataByVariable = cleanData(_data)
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
       buildScales()
@@ -54,13 +63,12 @@ function line () {
       if (shouldShowAllDataPoints) {
         drawAllDataPoints()
       }
-
     })
   }
 
   function buildAxes () {
     xAxis = d3.axisBottom(xScale)
-      .ticks(5)
+      .ticks(time.length)
       .tickSize(10, 0)
       .tickPadding(tickPadding)
 
@@ -69,19 +77,23 @@ function line () {
       .tickSize([0])
       .tickPadding(tickPadding)
     
-    drawGridLines(5, yTicks)
+    drawGridLines(time.length, yTicks)
   }
 
   function buildScales () {
     xScale = d3
       .scaleLinear()
       .rangeRound([0, chartWidth])
-      .domain([0, d3.max(data, getTime)])
+      .domain([0, d3.max(time)])
 
     yScale = d3
       .scaleLinear()
       .rangeRound([chartHeight, 0])
-      .domain([0, d3.max(data, getFrequency)])
+      .domain([0, d3.max(dataByVariable, function (c) {
+        return d3.max(c.values, function (d) {
+          return d.value })
+      })
+      ])
   }
 
   function buildContainerGroups () {
@@ -124,52 +136,27 @@ function line () {
 
     svg
       .select('.y-axis-group .axis.y')
-      // .attr('transform', `translate(${-xAxisPadding.left}, 0)`)
       .call(yAxis)
   }
 
   function drawLines () {
-
-    // let lines = svg
-    //   .select('.chart-group')
-    //   .selectAll('.line')
-    //   .data(data)
-    
-    // paths = lines.enter()
-    //   .append('g')
-    //   .append('path')
-    //   .attr('class', 'line')
-    //   .merge(lines)
-    //   .attr('d', d3.line()
-    //     .x(function ({ time }) { return xScale(time) })
-    //     .y(function ({ frequency }) { return yScale(frequency) })
-    //   )
-
+    const line = d3.line()
+      .x(function (d) { return xScale(d.time) })
+      .y(function (d) { return yScale(d.value) })
 
     let lines = svg
       .select('.chart-group')
+      .selectAll('.line')
+      .data(dataByVariable)
+    
+    paths = lines.enter()
+      .append('g')
+      .attr('class', 'variable')
       .append('path')
-      .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', '#69b3a2')
-      .attr('stroke-width', 1.5)
-      .attr('d', d3.line()
-        .x(function ({ time }) { return xScale(time) })
-        .y(function ({ frequency }) { return yScale(frequency) })
-      )
-     
-      .on('mouseover', function (d) {
-        dispatcher.call('customMouseOver', this, d)
-      })
-      .on('mousemove', function (d) {
-        dispatcher.call('customMouseMove', this, d)
-      })
-      .on('mouseout', function (d) {
-        dispatcher.call('customMouseOut', this, d)
-      })
-      .on('click', function (d) {
-        dispatcher.call('customMouseClick', this, d)
-      })
+      .attr('class', 'line')
+      .merge(lines)
+      .attr('d', function (d) { return line(d.values) })
+      .style('stroke', (d, i) => (colors[d.id]))
 
     // Exit
     lines
@@ -210,24 +197,50 @@ function line () {
     }
   }
 
-  function drawAllDataPoints () {
+  function drawAllDataPoints (thisk) {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
-    
+
     let allDataPoints = svg.select('.chart-group')
       .append('g')
       .classed('data-points-container', true)
-      .selectAll('circle')
-      .data(data)
+      .selectAll('.points')
+      .data(dataByVariable)
       .enter()
+      .append('g')
+      .attr('class', 'points')
+      .style('stroke', (d, i) => (colors[d.id]))
+
+    allDataPoints
+      .selectAll('circle')
+      .data(function (d) {return d.values})
+      .enter()  
       .append('circle')
       .classed('data-point-mark', true)
-      .attr('r', 5)
+      .attr('r', 4)
       .style('stroke-width', 2)
       .style('cursor', 'pointer')
       .attr('cx', (d) => xScale(d.time))
-      .attr('cy', (d) => yScale(d.frequency))
+      .attr('cy', (d) => yScale(d.value))
+  }
+
+  function cleanData (data) {
+    let dataset = []
+    data = Object.entries(data)
+
+    data.forEach(function ( [key, value] ) {
+      if (key === 'time') { time = value }
+      else {
+        dataset.push([key,value])
+      }
+    })
+
+    dataset = dataset.map(([ key, val ]) => { 
+      return {id: key, values: val.map(function (x, i){ return { value: x, time: time[i]  } }) }  
+    })
+
+    return dataset
   }
 
   exports.height = function (_x) {

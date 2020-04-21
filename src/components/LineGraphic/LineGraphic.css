@@ -10,8 +10,15 @@
   stroke-width: 1;
 }
 
+.line-chart .variable .line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round; 
+}
+
 .tick text {
-  fill: #888888;
+  fill: #aaa;
   font-size: 0.75rem;
   font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
 }
@@ -24,5 +31,4 @@
 
 .data-point-mark {
   fill: #FFF;
-  stroke: #69b3a2;
 }
