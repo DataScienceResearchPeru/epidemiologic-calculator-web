@@ -10,6 +10,9 @@ import Header from '../components/Header/Header'
 import Login from '../components/Login/Login'
 import RegisterUser from '../components/RegisterUser/RegisterUser'
 import background from '../images/background.svg'
+import DialogContainer from './DialogContainer'
+import ForgotPassword from '../components/ForgotPassword/ForgotPassoword'
+
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {
@@ -109,11 +112,21 @@ const HomePage = () => {
   const [ showLogin, setShowLogin ] = useState(true)
   let form
 
+  const [open, setOpen] = React.useState(false)
+
+  const showDialogoForgotPassword = () => {
+    setOpen(true)
+  }
+
   if (showLogin) {
-    form = <Login />
+    form = <Login handlerForgotPassword={showDialogoForgotPassword} />
   } else {
     form = <RegisterUser />
   }
+
+  const handleClose = () => {    
+    setOpen(false)
+  }  
 
   const handleClickShowLogin = () => {
     setShowLogin(true)
@@ -163,6 +176,10 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
+
+              <DialogContainer isOpen={open} handler={handleClose}  >
+                <ForgotPassword handler={handleClose} />
+              </DialogContainer>             
             </Grid>
           </Grid>
         </Box>

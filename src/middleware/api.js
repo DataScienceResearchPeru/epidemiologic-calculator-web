@@ -55,6 +55,20 @@ export const api = {
       data: { email }
     })
   },
+  forgotPassword: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/forgot-password',
+      data: { email }
+    })
+  },
+  resetPassword: (newPassword, resetToken) => {
+    return request({
+      method: 'POST',
+      url: 'user/reset-password',
+      data: { newPassword, resetToken }
+    })
+  },
   getDataSeaichurd: () => {
     return request({
       method: 'GET',
