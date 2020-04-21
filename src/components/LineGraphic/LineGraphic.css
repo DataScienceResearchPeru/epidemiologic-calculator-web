@@ -32,3 +32,10 @@
 .data-point-mark {
   fill: #FFF;
 }
+
+.legend .serie text {
+  color: #404040;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}

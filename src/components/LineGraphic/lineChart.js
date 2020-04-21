@@ -8,7 +8,7 @@ function line () {
     top: 10,
     right: 10,
     bottom: 30,
-    left: 80
+    left: 230
   }
 
   let width = 960
@@ -40,13 +40,25 @@ function line () {
   const colors = {
     'susceptible': '#24DADA',
     'exposed': '#FFD16A',
-    'asymptomatic': '#FF8181',
-    'infected': '#DB96FF',
-    'quarantine': '#5AB3FF',
-    'hospitalized': '#5AB3FF',
-    'uci': '#5AB3FF',
+    'asymptomatic': '#58D68D',
+    'infected': '#FF8181',
+    'quarantine': '#CCD1D1',
+    'hospitalized': '#DB96FF',
+    'uci': '#E74C3C',
     'recovered': '#5AB3FF',
     'death': '#404040'
+  }
+
+  const variabletoSpanish = {
+    'susceptible': 'Susceptibles',
+    'exposed': 'Expuestos',
+    'asymptomatic': 'Asintomáticos',
+    'infected': 'Infectados',
+    'quarantine': 'Cuarentena',
+    'hospitalized': 'Hospitalizados',
+    'uci': 'UCI',
+    'recovered': 'Recuperados',
+    'death': 'Fallecidos'
   }
 
   function exports (_selection) {
@@ -59,6 +71,7 @@ function line () {
       buildAxes()
       drawAxes()
       drawLines()
+      legend()
 
       if (shouldShowAllDataPoints) {
         drawAllDataPoints()
@@ -112,6 +125,8 @@ function line () {
       .append('g').classed('grid-lines-group', true)
     container
       .append('g').classed('chart-group', true)
+    container
+      .append('g').classed('chart-legend', true)
     container
       .append('g').classed('metadata-group', true)
   }
@@ -197,7 +212,7 @@ function line () {
     }
   }
 
-  function drawAllDataPoints (thisk) {
+  function drawAllDataPoints () {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
@@ -223,6 +238,37 @@ function line () {
       .style('cursor', 'pointer')
       .attr('cx', (d) => xScale(d.time))
       .attr('cy', (d) => yScale(d.value))
+  }
+
+  function legend () {
+    svg.select('.chart-legend')
+      .selectAll('.legend')
+      .remove()
+
+    let legend = svg.select('.chart-legend')
+      .append('g')
+      .classed('legend', true)
+      .selectAll('serie')
+      .data(dataByVariable)
+      .enter()
+      .append('g')
+      .classed('serie', true)
+      .attr('transform', (d, i) => `translate(${-margin.left},${i*48})`)
+    
+    legend.append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('rx', 6)
+      .attr('ry', 6)
+      .attr('width', 22)
+      .attr('height', 22)
+      .style('fill', (d, i) => colors[d.id])
+
+    legend.append('text')
+      .attr('x', 40)
+      .attr('y', 16)
+      .text((d, i) => variabletoSpanish[d.id])
+      
   }
 
   function cleanData (data) {
