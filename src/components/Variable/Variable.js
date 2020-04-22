@@ -1,129 +1,93 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import styles from './Variable.module.css'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import {Slider, Tooltip, IconButton, Button} from '@material-ui/core'
-import {InfoIcon} from '@material-ui/icons/Info'
-import { Input } from '@material-ui/core'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { Box, Grid, Divider } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
+import VariableItem from '../VariableItem/VariableItem'
 
 const useStyles = makeStyles((theme) => ({
-  variable: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(4),
+  contentVariable: {
     fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
-    '& .MuiInputBase-root': {
-      border: '1px solid #ccc',
-      borderRadius: 10,
-      marginTop: '0px !important',
-      WebkitBoxShadow: '0px 1px 4px #00000033',
-      boxShadow: '0px 1px 4px #00000033',
+    '& h3': {
+      margin: '11px 0',
+      textTransform: 'uppercase',
+      fontSize: '14px',
+      color: '#24DADA'
     },
-    '& .MuiInputBase-input': {
-      height: '1.3em',
-      padding: '4px 6px 6px',
-      '&:-webkit-autofill': {
-        WebkitBoxShadow: '0 0 0 30px white inset !important',
-        borderRadius: 'inherit'
-      },      
-    },
-    '& .MuiGrid-item': {
-      padding: '2px !important'
-    }  
   },
-  descriptionLabel: {
-    marginTop: '5px',
-    marginLeft: '5px'
+  contentItems: {
+    boxShadow: '0px 1px 6px #00000029',
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    padding: '7px 7px 0',
+    minHeight: 236
+  },
+  subtitle: {
+    margin: 0,
+    backgroundColor: '#BFBFBF',
+    color: '#FFF',
+    textAlign: 'center',
+    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: '12px',
+    borderRadius: 8,
+    padding: 6
   }
 }))
 
-const VariableSlider = withStyles({
-  root: {
-    color: '#258B8B',
-    height: 12,
-  },
-  thumb: {
-    height: 30,
-    width: 30,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
-    '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: 'calc(-50% + 4px)',
-  },
-  track: {
-    height: 12,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 12,
-    borderRadius: 4,
-  },
-})(Slider)
-
 const Variable = (props) => {
-
-  const defaultValue = props.value ? props.value : 0
-  const maxValue = defaultValue < 100 ? 100 : defaultValue + (defaultValue * 0.9)
-  const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
-
-  const handleChange = (event, newValue) => {    
-    if(newValue && newValue > 0) {
-      setValue(newValue)
-      if(props.changeValues)
-        props.changeValues(newValue)
-    }
+  const { columns, title } = props 
+  
+  const changeValueVar1 = (val) => {
+    console.log(val)
   }
-
-  function handleValueSlider (e) {
-    let value = e.target.value
-    if(value && value > 0) {
-      setValue(parseInt(value))
-      if(props.changeValues)
-        props.changeValues(parseInt(value))
-    }
     
-  }
-
   return (
-    <React.Fragment>      
-      <Grid container spacing={2} className={classes.variable}>
-        <Grid item xs={6}>     
-          <p> {props.title} </p>    
-        </Grid>
-        <Grid item xs={6} >
-          {props.children}
-        </Grid>
-        <Grid item xs={12}>
-          <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
-        </Grid>
-        <Grid item xs={6}>
-          <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
-        </Grid>
-        <Grid item xs={6} >
-          <div className={classes.descriptionLabel}> {props.descriptionLabel} </div> 
-        </Grid>
-      </Grid>
-      
-    </React.Fragment>    
+    <Box className={classes.contentVariable}>
+      <h3>{title}</h3>
+      <Box className={classes.contentItems}>
+        <Grid container justify="center" spacing={1}>
+          {
+            columns.values.map((value, index) => (
+              <Grid item xs={4} key={index}>
+                <h5 className={classes.subtitle}>{value.title}</h5>
+                {
+                  value.items.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <VariableItem 
+                        title={item.title}
+                        descriptionLabel={item.label}
+                        descriptionTooltip={item.help}
+                        value={item.value} 
+                        changeValues={changeValueVar1} />
+                      {!index && <Divider variant="middle" />}
+                    </React.Fragment>  
+                  ))
+                }
+              </Grid>
+            ))
+          }
+        </Grid>          
+      </Box>
+    </Box>
   )  
-
 }
 
 Variable.propTypes = {
   title: PropTypes.string,
-  value: PropTypes.number,
-  descriptionLabel: PropTypes.string,
-  changeValues: PropTypes.func
+  columns: PropTypes.shape({
+    values: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        label: PropTypes.string,
+        help: PropTypes.string,
+        value: PropTypes.number
+      }))
+    }))
+  }
+  )
+  
 }
 
 Variable.defaultProps = {}
