@@ -8,7 +8,7 @@ function line () {
     top: 10,
     right: 10,
     bottom: 30,
-    left: 80
+    left: 230
   }
 
   let width = 960
@@ -27,42 +27,60 @@ function line () {
   
   let yTicks = 8
   let tickPadding = 5
-  let shouldShowAllDataPoints = true
+  let shouldShowAllDataPoints = true 
 
   // events
   const dispatcher = d3.dispatch(
-    'customMouseOver',
-    'customMouseMove',
-    'customMouseOut',
-    'customMouseClick'
+    'legendMouseClick'
   )
 
   const colors = {
     'susceptible': '#24DADA',
     'exposed': '#FFD16A',
-    'asymptomatic': '#FF8181',
-    'infected': '#DB96FF',
-    'quarantine': '#5AB3FF',
-    'hospitalized': '#5AB3FF',
-    'uci': '#5AB3FF',
+    'asymptomatic': '#58D68D',
+    'infected': '#FF8181',
+    'quarantine': '#CCD1D1',
+    'hospitalized': '#DB96FF',
+    'uci': '#E74C3C',
     'recovered': '#5AB3FF',
     'death': '#404040'
   }
 
+  const variabletoSpanish = {
+    'susceptible': 'Susceptibles',
+    'exposed': 'Expuestos',
+    'asymptomatic': 'Asintomáticos',
+    'infected': 'Infectados',
+    'quarantine': 'Cuarentena',
+    'hospitalized': 'Hospitalizados',
+    'uci': 'UCI',
+    'recovered': 'Recuperados',
+    'death': 'Fallecidos'
+  }
+
   function exports (_selection) {
     _selection.each(function (_data){
-      dataByVariable = cleanData(_data)
+
+      if (dataByVariable === undefined) {
+        dataByVariable = cleanData(_data)
+      }
+            
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
+
       buildScales()
       buildSVG(this)
       buildAxes()
       drawAxes()
+      drawLegend()
       drawLines()
 
       if (shouldShowAllDataPoints) {
         drawAllDataPoints()
       }
+
+      events(_selection) 
+
     })
   }
 
@@ -85,11 +103,15 @@ function line () {
       .scaleLinear()
       .rangeRound([0, chartWidth])
       .domain([0, d3.max(time)])
+    
+    let data = dataByVariable.filter(function (d) {
+      return !d.disabled
+    })
 
     yScale = d3
       .scaleLinear()
       .rangeRound([chartHeight, 0])
-      .domain([0, d3.max(dataByVariable, function (c) {
+      .domain([0, d3.max(data, function (c) {
         return d3.max(c.values, function (d) {
           return d.value })
       })
@@ -112,6 +134,8 @@ function line () {
       .append('g').classed('grid-lines-group', true)
     container
       .append('g').classed('chart-group', true)
+    container
+      .append('g').classed('chart-legend', true)
     container
       .append('g').classed('metadata-group', true)
   }
@@ -147,7 +171,9 @@ function line () {
     let lines = svg
       .select('.chart-group')
       .selectAll('.line')
-      .data(dataByVariable)
+      .data(dataByVariable.filter(function (d) {
+        return !d.disabled
+      }))
     
     paths = lines.enter()
       .append('g')
@@ -163,6 +189,7 @@ function line () {
       .exit()
       .style('opacity', 0)
       .remove()
+
   }
 
   function drawGridLines (xTicks, yTicks){
@@ -197,7 +224,7 @@ function line () {
     }
   }
 
-  function drawAllDataPoints (thisk) {
+  function drawAllDataPoints () {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
@@ -206,7 +233,9 @@ function line () {
       .append('g')
       .classed('data-points-container', true)
       .selectAll('.points')
-      .data(dataByVariable)
+      .data(dataByVariable.filter(function (d) {
+        return !d.disabled
+      }))
       .enter()
       .append('g')
       .attr('class', 'points')
@@ -225,6 +254,42 @@ function line () {
       .attr('cy', (d) => yScale(d.value))
   }
 
+  function drawLegend () {
+    svg.select('.chart-legend')
+      .selectAll('.legend')
+      .remove()
+
+    let legend = svg.select('.chart-legend')
+      .append('g')
+      .classed('legend', true)
+      .selectAll('serie')
+      .data(dataByVariable)
+      .enter()
+      .append('g')
+      .classed('serie', true)
+      .attr('transform', (d, i) => `translate(${-margin.left},${i*48})`)
+      .on('click', (d, i) => {
+        dispatcher.call('legendMouseClick', this, d, i)
+      })
+      .classed('disabled', function (d) { return d.disabled })
+    
+    legend.append('rect')
+      .attr('x', 1)
+      .attr('y', 1)
+      .attr('rx', 6)
+      .attr('ry', 6)
+      .attr('width', 21)
+      .attr('height', 21)
+      .style('fill', (d, i) => colors[d.id])
+      .style('stroke', (d, i) => colors[d.id])
+
+    legend.append('text')
+      .attr('x', 40)
+      .attr('y', 16)
+      .text((d, i) => variabletoSpanish[d.id])
+
+  }
+
   function cleanData (data) {
     let dataset = []
     data = Object.entries(data)
@@ -241,6 +306,21 @@ function line () {
     })
 
     return dataset
+  }
+
+  function events (selection) {
+    dispatcher.on('legendMouseClick', function (d, i) {
+      d.disabled = !d.disabled
+
+      if (!dataByVariable.filter(function (d) { return !d.disabled }).length) {
+        dataByVariable.forEach(function (d) {
+          d.disabled = false
+        })
+      }
+
+      selection.call(exports)
+
+    })
   }
 
   exports.height = function (_x) {
