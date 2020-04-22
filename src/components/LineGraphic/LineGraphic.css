@@ -32,3 +32,22 @@
 .data-point-mark {
   fill: #FFF;
 }
+
+.legend .serie {
+  cursor: pointer;
+}
+
+.legend rect {
+  stroke-width: 1.5;
+}
+
+.legend .disabled rect {
+  fill-opacity: 0
+}
+
+.legend .serie text {
+  color: #404040;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}
