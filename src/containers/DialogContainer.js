@@ -1,13 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-
 const DialogContainer = (props) => {
-
   const { isOpen } = props
   const [open, setOpen] = React.useState(isOpen)
 

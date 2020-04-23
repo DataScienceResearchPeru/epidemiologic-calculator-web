@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useResource } from 'react-request-hook'
 import { Input, Button, FormControl, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -92,7 +92,7 @@ const ForgotPassword = (props) => {
   }
 
   const emailValid = () => {
-    return ((username.length === 0) || validateEmail(username) == false)
+    return ((username.length === 0) || validateEmail(username) === false)
   }
 
   useEffect(() => {

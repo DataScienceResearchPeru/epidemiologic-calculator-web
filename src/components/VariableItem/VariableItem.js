@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import { Input, IconButton, Slider, Tooltip, Grid } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
-import SearchIcon from '@material-ui/icons/Search'
 import InfoIcon from '@material-ui/icons/Info'
 
 const useStyles = makeStyles((theme) => ({
