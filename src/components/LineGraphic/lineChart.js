@@ -8,7 +8,7 @@ function line () {
     top: 10,
     right: 10,
     bottom: 30,
-    left: 230
+    left: 50
   }
 
   let width = 960
@@ -26,8 +26,9 @@ function line () {
   let horizontalGridLines
   
   let yTicks = 8
+  let xTicks = 8
   let tickPadding = 5
-  let shouldShowAllDataPoints = true 
+  let shouldShowAllDataPoints = false 
 
   // events
   const dispatcher = d3.dispatch(
@@ -86,7 +87,7 @@ function line () {
 
   function buildAxes () {
     xAxis = d3.axisBottom(xScale)
-      .ticks(time.length)
+      .ticks(xTicks)
       .tickSize(10, 0)
       .tickPadding(tickPadding)
 
@@ -95,7 +96,7 @@ function line () {
       .tickSize([0])
       .tickPadding(tickPadding)
     
-    drawGridLines(time.length, yTicks)
+    drawGridLines(xTicks, yTicks)
   }
 
   function buildScales () {
@@ -267,7 +268,7 @@ function line () {
       .enter()
       .append('g')
       .classed('serie', true)
-      .attr('transform', (d, i) => `translate(${-margin.left},${i*48})`)
+      .attr('transform', (d, i) => `translate(${-margin.left},${i*38})`)
       .on('click', (d, i) => {
         dispatcher.call('legendMouseClick', this, d, i)
       })

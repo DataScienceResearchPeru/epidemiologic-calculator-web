@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useResource } from 'react-request-hook'
 import PropTypes from 'prop-types'
-import { Container, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Input, Button, FormControl, Grid, InputLabel } from '@material-ui/core'
-import { useNavigation, Link } from 'react-navi'
+import { Container, Input, Button, FormControl, Grid, InputLabel } from '@material-ui/core'
+import { useNavigation } from 'react-navi'
+
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import { api } from '../../middleware/api'
