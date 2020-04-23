@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Grid, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'

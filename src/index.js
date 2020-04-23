@@ -6,11 +6,9 @@ import * as serviceWorker from './serviceWorker'
 import axiosInstance from './middleware/api'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <RequestProvider value={axiosInstance}>
-      <App />
-    </RequestProvider>
-  </React.StrictMode>,
+  <RequestProvider value={axiosInstance}>
+    <App />
+  </RequestProvider>,
   document.getElementById('root')
 )
 

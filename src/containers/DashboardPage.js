@@ -148,13 +148,13 @@ const DashboardPage = () => {
             </Grid>
           </Grid> 
           <LineAreaGraphic 
-            width={800}
-            height={400}
+            width={980}
+            height={360}
             margin={{
-              top: 50,
-              left: 50,
-              right: 50,
-              bottom: 50
+              top: 10,
+              left: 230,
+              right: 10,
+              bottom: 30
             }}
           />
         </Box>
