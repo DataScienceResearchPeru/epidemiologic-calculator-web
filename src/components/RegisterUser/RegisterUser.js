@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useResource } from 'react-request-hook'
 import { useNavigation } from 'react-navi'
-import { Button, Select, FormControl, InputLabel, Grid, TextField } from '@material-ui/core'
+import { Button, Select, FormControl, InputLabel, Grid, TextField, FormHelperText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { StateContext } from '../../contexts'
@@ -56,6 +56,7 @@ const RegisterUser = () => {
   const [ departmentId, setDepartmentId] = useState(0)
   const [ provinceId, setProvinceId] = useState(0)
   const [ districtId, setDistrictId] = useState(0)
+  const [ errorValidation, setErrorValidation] = useState({})
 
 
   const [ user, registerUser ] = useResource(api.registerUser)
@@ -114,36 +115,117 @@ const RegisterUser = () => {
     setProvinceId(e.target.value)
   }
 
+  function updateErrorValidation (name, isInvalid) {
+    let error = {}
+    error[name] = isInvalid
+    setErrorValidation({...errorValidation, ...error}) 
+  }
+
+  function handleOnBlur (e){
+    let name = e.target.name    
+    switch(name){
+      case 'provinceId':
+        if (provinceId === 0){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'districtId':
+        if (districtId === 0){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'departmentId':
+        if (departmentId === 0){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'firstName':
+        if (firstName === ''){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'lastName':
+        if (lastName === ''){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'institution':
+        if (institution === ''){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'email':
+        if (email === ''){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      case 'password':
+        if (password === ''){          
+          updateErrorValidation(name, true)
+        } else {
+          updateErrorValidation(name, false)
+        }
+        break
+      
+    }
+  }
+
   return (
     <form className={classes.form} data-testid="RegisterUser" onSubmit={e => { e.preventDefault(); registerUser(firstName, lastName, institution, email, password, departmentId, provinceId, districtId)}}>
 
       <TextField id="first_name" label="Nombres"
         variant="outlined"
         margin="normal"
+        name="firstName"
+        error={errorValidation['firstName']}
+        helperText={errorValidation['firstName'] ? 'El nombre es obligatorio': ' '}
         value={firstName}
         onChange={handleFirstName}
+        onBlur={handleOnBlur}
         fullWidth
         required />
 
       <TextField id="last_name" label="Apellidos"
         variant="outlined"
         margin="normal"
+        name="lastName"
+        error={errorValidation['lastName']}
+        helperText={errorValidation['lastName'] ? 'El apellido es obligatorio': ' '}
         value={lastName}
         onChange={handleLastName}
+        onBlur={handleOnBlur}
         required
         fullWidth />
 
       <TextField id="institution" label="Institución"
         variant="outlined"
         margin="normal"
+        name="institution"
+        error={errorValidation['institution']}
+        helperText={errorValidation['institution'] ? 'La institución es obligatoria': ' '}
         value={institution}
         onChange={handleInstitution}
+        onBlur={handleOnBlur}
         required
         fullWidth />
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <FormControl margin="normal" fullWidth>
+          <FormControl margin="normal" fullWidth error={errorValidation['departmentId']}>
             <InputLabel htmlFor="department-label">
               Departamento
             </InputLabel>
@@ -151,18 +233,20 @@ const RegisterUser = () => {
               native
               value={departmentId}
               onChange={handleDepartment}
+              onBlur={handleOnBlur}
               inputProps={{
-                name: 'department',
+                name: 'departmentId',
                 id: 'department-label',
               }}
             >
               <option aria-label="None" value="" />
               {departments.data && departments.data.departments.map((department, index)=> <option value={department.id} key={index}>{department.name}</option>) }
             </Select>
+            {errorValidation['departmentId'] && <FormHelperText>El departamento es obligatorio</FormHelperText>}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <FormControl margin="normal" fullWidth>
+          <FormControl margin="normal" fullWidth error={errorValidation['provinceId']}>
             <InputLabel htmlFor="province-label">
               Provincia
             </InputLabel>
@@ -170,41 +254,49 @@ const RegisterUser = () => {
               native
               value={provinceId}
               onChange={handleProvince}
+              onBlur={handleOnBlur}
               inputProps={{
-                name: 'province',
+                name: 'provinceId',
                 id: 'province-label',
               }}
             >
               <option aria-label="None" value="" />
               {provinces.data && provinces.data.provinces.map((province, index)=> <option value={province.id} key={index}>{province.name}</option>) }
             </Select>
+            {errorValidation['provinceId'] && <FormHelperText>La provincia es obligatoria</FormHelperText>}
           </FormControl>
         </Grid>
       </Grid>
-      <FormControl margin="normal" fullWidth>
+      <FormControl margin="normal" fullWidth error={errorValidation['districtId']}>
         <InputLabel htmlFor="district-label">
-          Districto
+          Distrito
         </InputLabel>
         <Select
           native
           value={districtId}
           onChange={handleDistrict}
+          onBlur={handleOnBlur}
           inputProps={{
-            name: 'district',
+            name: 'districtId',
             id: 'district-label',
           }}
         >
           <option aria-label="None" value="" />
           {districts.data && districts.data.districts.map((district, index)=> <option value={district.id} key={index}>{district.name}</option>) }
         </Select>
+        {errorValidation['districtId'] && <FormHelperText>El distrito es obligatorio</FormHelperText>} 
       </FormControl>
 
       <TextField id="email" label="Correo electrónico"
         variant="outlined"
         margin="normal"
         type="email"
+        name="email"
+        error={errorValidation['email']}
+        helperText={errorValidation['email'] ? 'El email es obligatoria': ' '}
         value={email}
         onChange={handleEmail}
+        onBlur={handleOnBlur}
         required
         fullWidth />
 
@@ -212,8 +304,12 @@ const RegisterUser = () => {
         variant="outlined"
         margin="normal"
         type="password"
+        name="password"
+        error={errorValidation['password']}
+        helperText={errorValidation['password'] ? 'El password es obligatoria': ' '}
         value={password}
         onChange={handlePassword}
+        onBlur={handleOnBlur}
         required
         fullWidth />
 
