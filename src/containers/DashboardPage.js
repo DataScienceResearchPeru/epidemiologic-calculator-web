@@ -37,7 +37,7 @@ const DashboardPage = () => {
           <div className={classes.information}>
             Simula escenarios de evolución de la epidemia de COVID-19 de una manera fácil y rápido. Está calculadora lo ayudará a planificar los recursos en la epidemia y visibilizar el progreso durante la pandemia.
           </div>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             <Grid item xs={6}>
               <Variable title="VARIABLES DE TRANSMISIÓN" 
                 columns={{values: [
