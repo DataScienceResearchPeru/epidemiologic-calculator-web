@@ -2,8 +2,6 @@ function userReducer (state, action) {
   switch (action.type) {
     case 'LOGIN':
       return action.name
-    case 'REGISTER':
-      return action.email
     case 'LOGOUT':
       return ''
     default:
@@ -11,8 +9,18 @@ function userReducer (state, action) {
   }
 }
 
+function RegisterReducer (state, action) {
+  switch (action.type) {
+    case 'REGISTER':
+      return action.email
+    default:
+      return state
+  }
+}
+
 export default function appReducer (state, action) {
   return {
-    user: userReducer(state.user, action)
+    user: userReducer(state.user, action),
+    register: RegisterReducer(state.register, action)
   }
 }

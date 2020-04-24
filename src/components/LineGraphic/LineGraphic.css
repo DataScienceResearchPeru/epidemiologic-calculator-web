@@ -1,0 +1,49 @@
+.vertical-grid-line,
+.horizontal-grid-line {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #EBEBEB;
+  stroke-width: 1;
+}
+
+.line-chart .variable .line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round; 
+}
+
+.tick text {
+  fill: #aaa;
+  font-size: 0.75rem;
+  font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}
+.tick line {
+  fill: none;
+  stroke: #EBEBEB;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.data-point-mark {
+  fill: #FFF;
+}
+
+.legend .serie {
+  cursor: pointer;
+}
+
+.legend rect {
+  stroke-width: 1.5;
+}
+
+.legend .disabled rect {
+  fill-opacity: 0
+}
+
+.legend .serie text {
+  color: #404040;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}

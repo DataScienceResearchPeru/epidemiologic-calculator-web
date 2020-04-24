@@ -43,5 +43,39 @@ export const api = {
       url: 'user/login',
       data: { username, password }
     })
+  },
+  verifyAccount: (token) => {
+    return request({
+      method: 'POST',
+      url: 'user/verify-account',
+      data: { token }
+    })
+  },
+  resendEmail: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/resend-email',
+      data: { email }
+    })
+  },
+  forgotPassword: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/forgot-password',
+      data: { email }
+    })
+  },
+  resetPassword: (newPassword, resetToken) => {
+    return request({
+      method: 'POST',
+      url: 'user/reset-password',
+      data: { newPassword, resetToken }
+    })
+  },
+  getDataSeaichurd: () => {
+    return request({
+      method: 'GET',
+      url: 'seaichurd'
+    })
   }
 }

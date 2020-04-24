@@ -1,63 +1,42 @@
-# Epidemicalk Web
+# epidemiologic-calculator-web
 
 ## Installation
 
-Make sure that you have installed node 13.x.x or later.
+Start by updating the packages list by typing and install curl
 
-It wil be better if you can handle your node versions with [nvm](https://github.com/nvm-sh/nvm).
-
-Is mandatory to make the dependency handling with [yarn](https://yarnpkg.com/)
-
-### A note before doing anything
-
-If you have nvm here a trick to have yarn working globaly
-
-```
-nvm install 13.13.0
-nvm use 13.13.0
-npm install -g yarn
+```bash
+$ sudo apt update && sudo apt install curl
 ```
 
-This will put yarn in the correct path to run directly from your terminal. Any other GLOBAL package must be installed with npm, BUT all project dependencies needs to be installed with yarn.
+Install nodejs using curl and apt package manager
+
+```bash
+$ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+```
+ 
+```bash
+$ sudo apt install nodejs
+```
+To verify the installation execute the following command
+```bash
+$ node -v
+$ npm -v
+```
 
 ### Start project
 
+- Clone repository and install dependencies:
+    
 ```sh
-git clone git@github.com:DataScienceResearchPeru/epidemiologic-calculator-web.git
+$ git clone git@github.com:DataScienceResearchPeru/epidemiologic-calculator-web.git
+$ cd epidemiologic-calculator-web
+$ npm install
 ```
 
-Enter the project directory
-
+- Run application:
+    
 ```sh
- cd epidemiologic-calculator-web
+$ npm start
 ```
 
-Install all the dependencies
-
-```sh
-$ yarn install
-```
-
-Run project
-
-```sh
-$ yarn serve
-```
-
-Open the browser at `http://127.0.0.1:3000/`
-
-### Environment variables!
-
-Create and `.env` file according to the example in `.env.template`.
-
-## Development and code quality
-
-Every time you want to commit, you will have many error alerts.
-
-Some of these errors will be easy to solve, you can do it automatically with
-
-```
-$ yarn lint --fix
-```
-
-Other errors will be more complex you will have to correct them manually before uploading your changes.
+Open the browser at http://localhost:3000/
