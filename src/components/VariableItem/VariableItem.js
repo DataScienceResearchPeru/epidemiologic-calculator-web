@@ -33,12 +33,17 @@ const useStyles = makeStyles((theme) => ({
       },      
     },
     '& .MuiGrid-item': {
-      padding: '2px 8px !important'
+      padding: '2px 8px !important',
+      margin: 'auto'
     },
     '& .MuiIconButton-root': {
       float: 'right',
       padding: 0
-    }  
+    }, 
+    '& p': {
+      float: 'right',
+      margin: 0
+    } 
   },  
 }))
 
@@ -111,11 +116,11 @@ const VariableItem = (props) => {
       <Grid item xs={12}>
         <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
       </Grid>
-      <Grid item xs={6}>
-        <span>{props.descriptionLabel}</span> 
+      <Grid item xs={5}>
+        <p>{props.descriptionLabel}</p> 
       </Grid>
     </Grid>   
   )  

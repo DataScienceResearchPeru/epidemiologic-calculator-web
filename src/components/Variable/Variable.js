@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     '& h3': {
       margin: '11px 0',
       textTransform: 'uppercase',
-      fontSize: '14px',
+      fontSize: '0.71em',
       color: '#24DADA'
     },
   },
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
 const Variable = (props) => {
   const classes = useStyles()
   const { columns, title } = props 
-  
+  let show = false
+
   const changeValueVar1 = (val) => {
     console.log(val)
   }
@@ -49,7 +50,7 @@ const Variable = (props) => {
         <Grid container justify="center" spacing={1}>
           {
             columns.values.map((value, index) => (
-              <Grid item xs={4} key={index}>
+              <Grid item xs key={index}>
                 <h5 className={classes.subtitle}>{value.title}</h5>
                 {
                   value.items.map((item, index) => (
@@ -60,7 +61,14 @@ const Variable = (props) => {
                         descriptionTooltip={item.help}
                         value={item.value} 
                         changeValues={changeValueVar1} />
-                      {!index && <Divider variant="middle" />}
+                      {
+                        value.items.length === 2 
+                          ? show = index < 1 ? true : false
+                          : value.items.length > 1 
+                            ? show = index < 3 ? true : false
+                            : null
+                      }
+                      { show && <Divider variant="middle" /> }
                     </React.Fragment>  
                   ))
                 }

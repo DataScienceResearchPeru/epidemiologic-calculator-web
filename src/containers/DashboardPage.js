@@ -37,8 +37,8 @@ const DashboardPage = () => {
           <div className={classes.information}>
             Simula escenarios de evolución de la epidemia de COVID-19 de una manera fácil y rápido. Está calculadora lo ayudará a planificar los recursos en la epidemia y visibilizar el progreso durante la pandemia.
           </div>
-          <Grid container spacing={4}>
-            <Grid item xs={6}>
+          <Grid container spacing={3}>
+            <Grid item xs={2}>
               <Variable title="VARIABLES DE TRANSMISIÓN" 
                 columns={{values: [
                   {
@@ -48,81 +48,106 @@ const DashboardPage = () => {
                         title: 'Tamaño de la población',
                         label: 'Personas',
                         help: 'Ayuda',
-                        value: 8575000
+                        value: 32000000
                       },
                       {
                         title: 'Número inicial de infectados',
                         label: 'infectados',
                         help: 'Ayuda',
-                        value: 4
+                        value: 6
                       } 
                     ]
                   },
-                  {
-                    title: 'Reproducción Básica RO',
-                    items: [
-                      {
-                        title: 'Medida de contagio',
-                        label: 'infectados',
-                        help: 'Ayuda',
-                        value: 2.2
-                      },
-                    ]
-                  },
-                  {
-                    title: 'Tiempo de transmisión',
-                    items: [
-                      {
-                        title: 'Tamaño de la población',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 8575000
-                      },
-                      {
-                        title: 'Tiempo de infección del paciente',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 6.9
-                      } 
-                    ]
-                  }
                 ]
                 }}/>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={10}>
               <Variable title="VARIABLES CLÍNICAS" 
                 columns={{values: [
                   {
                     title: 'Estadísticas de mortalidad',
                     items: [
                       {
-                        title: 'Tasa de letalidad',
+                        title: 'A1',
                         label: '%',
-                        help: 'Ayuda',
-                        value: 2.00
+                        help: 'Contagio de susceptible por un infectado  [1/T]',
+                        value: 50.00
                       },
                       {
-                        title: 'Tiempo desde el final de la incubación hasta la muerte',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 32
-                      } 
+                        title: 'A2',
+                        label: '%',
+                        help: 'Contagio de susceptible por un asintomático [1/T] (12.5 días)',
+                        value: 28.00
+                      },
+                      {
+                        title: 'A3',
+                        label: '%',
+                        help: 'Periodo latente de un asintomático [1/T] (5 días)',
+                        value: 35.00
+                      },
+                      {
+                        title: 'A4',
+                        label: '%',
+                        help: 'Periodo latente de un infectado [1/T] (5 días)',
+                        value: 40.00
+                      },
                     ]
                   },
                   {
-                    title: 'Tiempos de recuperación',
+                    title: 'Estadísticas de mortalidad',
                     items: [
                       {
-                        title: 'Duración de la estancia hospitalaria',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 28.6
+                        title: 'A5',
+                        label: '%',
+                        help: 'Periodo latente de asintomático para ser un infectado [1/T] (5 días)',
+                        value: 20.00
+                      }, 
+                      {
+                        title: 'D1',
+                        label: '%',
+                        help: 'Muerte de un infectado [1/T]',
+                        value: 0.10
                       },
                       {
-                        title: 'Tiempo de recuperación para casos leves',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 11.1
+                        title: 'D2',
+                        label: '%',
+                        help: 'Muerte de un hospitalizado [1/T]',
+                        value: 0.20
+                      },
+                      {
+                        title: 'D3',
+                        label: '%',
+                        help: 'Muerte de un UCI [1/T]',
+                        value: 0.50
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Estadísticas de recuperación',
+                    items: [
+                      {
+                        title: 'R1',
+                        label: '%',
+                        help: 'Recuperación de un asintomático [1/T] (30 días)',
+                        value: 20.00
+                      },
+                      {
+                        title: 'R2',
+                        label: '%',
+                        help: 'Recuperación de un infectado [1/T] (40 días)',
+                        value: 15.00
+                      },
+                      {
+                        title: 'R3',
+                        label: '%',
+                        help: 'Recuperación de un hospitalizado [1/T] (40 días)',
+                        value: 7.00
+                      },
+                      {
+                        title: 'R4',
+                        label: '%',
+                        help: 'Recuperación de un UCI [1/T] (20 días)',
+                        value: 3.00
                       }
                     ]
                   },
@@ -130,16 +155,39 @@ const DashboardPage = () => {
                     title: 'Estadísticas de cuidados',
                     items: [
                       {
-                        title: 'Tasa de hospitalización',
+                        title: 'A6',
                         label: '%',
-                        help: 'Ayuda',
-                        value: 20.00
+                        help: 'Transición de uno en cuarentena a infectado [1/T]',
+                        value: 35.00
                       },
                       {
-                        title: 'Tiempo de hospitalización',
+                        title: 'A7',
                         label: '%',
-                        help: 'Ayuda',
-                        value: 5
+                        help: 'Contagio de susceptibles-cuarentena por un asintomático [1/T]',
+                        value: 50.00
+                      },
+                      {
+                        title: 'A8',
+                        label: '%',
+                        help: 'Hospitalizado trasladado a UCI [1/T]',
+                        value: 15.00
+                      },
+                      {
+                        title: 'A9',
+                        label: '%',
+                        help: 'Transición de un infectado a hospitalizado [1/T]',
+                        value: 15.00
+                      },
+                    ]
+                  },
+                  {
+                    title: 'Estadísticas de cuidados',
+                    items: [
+                      {
+                        title: 'QQ',
+                        label: '%',
+                        help: 'Estado de cuarentena',
+                        value: 15.00
                       } 
                     ]
                   }
