@@ -54,5 +54,19 @@ export const api = {
       url: 'user/resend-email',
       data: { email }
     })
+  },
+  forgotPassword: (email) => {
+    return request({
+      method: 'POST',
+      url: 'user/forgot-password',
+      data: { email }
+    })
+  },
+  resetPassword: (newPassword, resetToken) => {
+    return request({
+      method: 'POST',
+      url: 'user/reset-password',
+      data: { newPassword, resetToken }
+    })
   }
 }
