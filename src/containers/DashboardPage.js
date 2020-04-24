@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#404040',
     fontSize: '14px',
     fontWeight: 320,
-    marginBottom: 31,
+    marginBottom: 31
   }
 
 }))
@@ -30,8 +30,8 @@ const DashboardPage = () => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
         <Box className={classes.sectionContent}>
           <div className={classes.information}>
@@ -39,115 +39,121 @@ const DashboardPage = () => {
           </div>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <Variable title="VARIABLES DE TRANSMISIÓN" 
-                columns={{values: [
-                  {
-                    title: 'Población',
-                    items: [
-                      {
-                        title: 'Tamaño de la población',
-                        label: 'Personas',
-                        help: 'Ayuda',
-                        value: 8575000
-                      },
-                      {
-                        title: 'Número inicial de infectados',
-                        label: 'infectados',
-                        help: 'Ayuda',
-                        value: 4
-                      } 
-                    ]
-                  },
-                  {
-                    title: 'Reproducción Básica RO',
-                    items: [
-                      {
-                        title: 'Medida de contagio',
-                        label: 'infectados',
-                        help: 'Ayuda',
-                        value: 2.2
-                      },
-                    ]
-                  },
-                  {
-                    title: 'Tiempo de transmisión',
-                    items: [
-                      {
-                        title: 'Tamaño de la población',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 8575000
-                      },
-                      {
-                        title: 'Tiempo de infección del paciente',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 6.9
-                      } 
-                    ]
-                  }
-                ]
-                }}/>
+              <Variable
+                title='VARIABLES DE TRANSMISIÓN'
+                columns={{
+                  values: [
+                    {
+                      title: 'Población',
+                      items: [
+                        {
+                          title: 'Tamaño de la población',
+                          label: 'Personas',
+                          help: 'Ayuda',
+                          value: 8575000
+                        },
+                        {
+                          title: 'Número inicial de infectados',
+                          label: 'infectados',
+                          help: 'Ayuda',
+                          value: 4
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Reproducción Básica RO',
+                      items: [
+                        {
+                          title: 'Medida de contagio',
+                          label: 'infectados',
+                          help: 'Ayuda',
+                          value: 2.2
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Tiempo de transmisión',
+                      items: [
+                        {
+                          title: 'Tamaño de la población',
+                          label: 'días',
+                          help: 'Ayuda',
+                          value: 8575000
+                        },
+                        {
+                          title: 'Tiempo de infección del paciente',
+                          label: 'días',
+                          help: 'Ayuda',
+                          value: 6.9
+                        }
+                      ]
+                    }
+                  ]
+                }}
+              />
             </Grid>
             <Grid item xs={6}>
-              <Variable title="VARIABLES CLÍNICAS" 
-                columns={{values: [
-                  {
-                    title: 'Estadísticas de mortalidad',
-                    items: [
-                      {
-                        title: 'Tasa de letalidad',
-                        label: '%',
-                        help: 'Ayuda',
-                        value: 2.00
-                      },
-                      {
-                        title: 'Tiempo desde el final de la incubación hasta la muerte',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 32
-                      } 
-                    ]
-                  },
-                  {
-                    title: 'Tiempos de recuperación',
-                    items: [
-                      {
-                        title: 'Duración de la estancia hospitalaria',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 28.6
-                      },
-                      {
-                        title: 'Tiempo de recuperación para casos leves',
-                        label: 'días',
-                        help: 'Ayuda',
-                        value: 11.1
-                      }
-                    ]
-                  },
-                  {
-                    title: 'Estadísticas de cuidados',
-                    items: [
-                      {
-                        title: 'Tasa de hospitalización',
-                        label: '%',
-                        help: 'Ayuda',
-                        value: 20.00
-                      },
-                      {
-                        title: 'Tiempo de hospitalización',
-                        label: '%',
-                        help: 'Ayuda',
-                        value: 5
-                      } 
-                    ]
-                  }
-                ]
-                }}/>
+              <Variable
+                title='VARIABLES CLÍNICAS'
+                columns={{
+                  values: [
+                    {
+                      title: 'Estadísticas de mortalidad',
+                      items: [
+                        {
+                          title: 'Tasa de letalidad',
+                          label: '%',
+                          help: 'Ayuda',
+                          value: 2.00
+                        },
+                        {
+                          title: 'Tiempo desde el final de la incubación hasta la muerte',
+                          label: 'días',
+                          help: 'Ayuda',
+                          value: 32
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Tiempos de recuperación',
+                      items: [
+                        {
+                          title: 'Duración de la estancia hospitalaria',
+                          label: 'días',
+                          help: 'Ayuda',
+                          value: 28.6
+                        },
+                        {
+                          title: 'Tiempo de recuperación para casos leves',
+                          label: 'días',
+                          help: 'Ayuda',
+                          value: 11.1
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Estadísticas de cuidados',
+                      items: [
+                        {
+                          title: 'Tasa de hospitalización',
+                          label: '%',
+                          help: 'Ayuda',
+                          value: 20.00
+                        },
+                        {
+                          title: 'Tiempo de hospitalización',
+                          label: '%',
+                          help: 'Ayuda',
+                          value: 5
+                        }
+                      ]
+                    }
+                  ]
+                }}
+              />
             </Grid>
-          </Grid> 
-          <LineAreaGraphic 
+          </Grid>
+          <LineAreaGraphic
             width={980}
             height={360}
             margin={{
@@ -160,7 +166,7 @@ const DashboardPage = () => {
         </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 

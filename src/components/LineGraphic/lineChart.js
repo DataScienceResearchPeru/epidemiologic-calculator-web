@@ -1,3 +1,7 @@
+/**
+ * FIX:
+ * Varaibles never used or with incomplete specs in this file!
+ */
 import * as d3 from 'd3'
 
 function line () {
@@ -19,16 +23,16 @@ function line () {
   let yScale
   let xAxis
   let yAxis
-  let paths
+  // let paths
 
   let grid = null
-  let verticalGridLines
-  let horizontalGridLines
-  
+  // let verticalGridLines
+  // let horizontalGridLines
+
   let yTicks = 8
-  let xTicks = 8
-  let tickPadding = 5
-  let shouldShowAllDataPoints = false 
+  const xTicks = 8
+  const tickPadding = 5
+  const shouldShowAllDataPoints = false
 
   // events
   const dispatcher = d3.dispatch(
@@ -36,36 +40,35 @@ function line () {
   )
 
   const colors = {
-    'susceptible': '#24DADA',
-    'exposed': '#FFD16A',
-    'asymptomatic': '#58D68D',
-    'infected': '#FF8181',
-    'quarantine': '#CCD1D1',
-    'hospitalized': '#DB96FF',
-    'uci': '#E74C3C',
-    'recovered': '#5AB3FF',
-    'death': '#404040'
+    susceptible: '#24DADA',
+    exposed: '#FFD16A',
+    asymptomatic: '#58D68D',
+    infected: '#FF8181',
+    quarantine: '#CCD1D1',
+    hospitalized: '#DB96FF',
+    uci: '#E74C3C',
+    recovered: '#5AB3FF',
+    death: '#404040'
   }
 
   const variabletoSpanish = {
-    'susceptible': 'Susceptibles',
-    'exposed': 'Expuestos',
-    'asymptomatic': 'Asintomáticos',
-    'infected': 'Infectados',
-    'quarantine': 'Cuarentena',
-    'hospitalized': 'Hospitalizados',
-    'uci': 'UCI',
-    'recovered': 'Recuperados',
-    'death': 'Fallecidos'
+    susceptible: 'Susceptibles',
+    exposed: 'Expuestos',
+    asymptomatic: 'Asintomáticos',
+    infected: 'Infectados',
+    quarantine: 'Cuarentena',
+    hospitalized: 'Hospitalizados',
+    uci: 'UCI',
+    recovered: 'Recuperados',
+    death: 'Fallecidos'
   }
 
   function exports (_selection) {
-    _selection.each(function (_data){
-
+    _selection.each(function (_data) {
       if (dataByVariable === undefined) {
         dataByVariable = cleanData(_data)
       }
-            
+
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
 
@@ -80,8 +83,7 @@ function line () {
         drawAllDataPoints()
       }
 
-      events(_selection) 
-
+      events(_selection)
     })
   }
 
@@ -95,7 +97,7 @@ function line () {
       .ticks(yTicks)
       .tickSize([0])
       .tickPadding(tickPadding)
-    
+
     drawGridLines(xTicks, yTicks)
   }
 
@@ -104,8 +106,8 @@ function line () {
       .scaleLinear()
       .rangeRound([0, chartWidth])
       .domain([0, d3.max(time)])
-    
-    let data = dataByVariable.filter(function (d) {
+
+    const data = dataByVariable.filter(function (d) {
       return !d.disabled
     })
 
@@ -114,13 +116,14 @@ function line () {
       .rangeRound([chartHeight, 0])
       .domain([0, d3.max(data, function (c) {
         return d3.max(c.values, function (d) {
-          return d.value })
+          return d.value
+        })
       })
       ])
   }
 
   function buildContainerGroups () {
-    let container = svg
+    const container = svg
       .append('g')
       .classed('container-group', true)
       .attr('transform', `translate(${margin.left},${margin.top})`)
@@ -165,64 +168,63 @@ function line () {
   }
 
   function drawLines () {
-    const line = d3.line()
-      .x(function (d) { return xScale(d.time) })
-      .y(function (d) { return yScale(d.value) })
+    // const line = d3.line()
+    //   .x(function (d) { return xScale(d.time) })
+    //   .y(function (d) { return yScale(d.value) })
 
-    let lines = svg
+    const lines = svg
       .select('.chart-group')
       .selectAll('.line')
       .data(dataByVariable.filter(function (d) {
         return !d.disabled
       }))
-    
-    paths = lines.enter()
-      .append('g')
-      .attr('class', 'variable')
-      .append('path')
-      .attr('class', 'line')
-      .merge(lines)
-      .attr('d', function (d) { return line(d.values) })
-      .style('stroke', (d, i) => (colors[d.id]))
+
+    // paths = lines.enter()
+    //   .append('g')
+    //   .attr('class', 'variable')
+    //   .append('path')
+    //   .attr('class', 'line')
+    //   .merge(lines)
+    //   .attr('d', function (d) { return line(d.values) })
+    //   .style('stroke', (d, i) => (colors[d.id]))
 
     // Exit
     lines
       .exit()
       .style('opacity', 0)
       .remove()
-
   }
 
-  function drawGridLines (xTicks, yTicks){
+  function drawGridLines (xTicks, yTicks) {
     svg.select('.grid-lines-group')
       .selectAll('line')
       .remove()
-    
-    if (grid === 'horizontal' || grid === 'full') {
-      horizontalGridLines = svg.select('.grid-lines-group')
-        .selectAll('line.horizontal-grid-line')
-        .data(yScale.ticks(yTicks))
-        .enter()
-        .append('line')
-        .attr('class', 'horizontal-grid-line')
-        .attr('x1', 0)
-        .attr('x2', chartWidth)
-        .attr('y1', (d) => yScale(d))
-        .attr('y2', (d) => yScale(d))
-    }
 
-    if (grid === 'vertical' || grid === 'full') {
-      verticalGridLines = svg.select('.grid-lines-group')
-        .selectAll('line.vertical-grid-line')
-        .data(xScale.ticks(xTicks))
-        .enter()
-        .append('line')
-        .attr('class', 'vertical-grid-line')
-        .attr('y1', 0)
-        .attr('y2', chartHeight)
-        .attr('x1', (d) => xScale(d))
-        .attr('x2', (d) => xScale(d))
-    }
+    // if (grid === 'horizontal' || grid === 'full') {
+    //   horizontalGridLines = svg.select('.grid-lines-group')
+    //     .selectAll('line.horizontal-grid-line')
+    //     .data(yScale.ticks(yTicks))
+    //     .enter()
+    //     .append('line')
+    //     .attr('class', 'horizontal-grid-line')
+    //     .attr('x1', 0)
+    //     .attr('x2', chartWidth)
+    //     .attr('y1', (d) => yScale(d))
+    //     .attr('y2', (d) => yScale(d))
+    // }
+
+    // if (grid === 'vertical' || grid === 'full') {
+    //   verticalGridLines = svg.select('.grid-lines-group')
+    //     .selectAll('line.vertical-grid-line')
+    //     .data(xScale.ticks(xTicks))
+    //     .enter()
+    //     .append('line')
+    //     .attr('class', 'vertical-grid-line')
+    //     .attr('y1', 0)
+    //     .attr('y2', chartHeight)
+    //     .attr('x1', (d) => xScale(d))
+    //     .attr('x2', (d) => xScale(d))
+    // }
   }
 
   function drawAllDataPoints () {
@@ -230,7 +232,7 @@ function line () {
       .selectAll('.data-points-container')
       .remove()
 
-    let allDataPoints = svg.select('.chart-group')
+    const allDataPoints = svg.select('.chart-group')
       .append('g')
       .classed('data-points-container', true)
       .selectAll('.points')
@@ -244,8 +246,8 @@ function line () {
 
     allDataPoints
       .selectAll('circle')
-      .data(function (d) {return d.values})
-      .enter()  
+      .data(function (d) { return d.values })
+      .enter()
       .append('circle')
       .classed('data-point-mark', true)
       .attr('r', 4)
@@ -260,7 +262,7 @@ function line () {
       .selectAll('.legend')
       .remove()
 
-    let legend = svg.select('.chart-legend')
+    const legend = svg.select('.chart-legend')
       .append('g')
       .classed('legend', true)
       .selectAll('serie')
@@ -268,12 +270,12 @@ function line () {
       .enter()
       .append('g')
       .classed('serie', true)
-      .attr('transform', (d, i) => `translate(${-margin.left},${i*38})`)
+      .attr('transform', (d, i) => `translate(${-margin.left},${i * 38})`)
       .on('click', (d, i) => {
         dispatcher.call('legendMouseClick', this, d, i)
       })
       .classed('disabled', function (d) { return d.disabled })
-    
+
     legend.append('rect')
       .attr('x', 1)
       .attr('y', 1)
@@ -288,22 +290,20 @@ function line () {
       .attr('x', 40)
       .attr('y', 16)
       .text((d, i) => variabletoSpanish[d.id])
-
   }
 
   function cleanData (data) {
     let dataset = []
     data = Object.entries(data)
 
-    data.forEach(function ( [key, value] ) {
-      if (key === 'time') { time = value }
-      else {
-        dataset.push([key,value])
+    data.forEach(function ([key, value]) {
+      if (key === 'time') { time = value } else {
+        dataset.push([key, value])
       }
     })
 
-    dataset = dataset.map(([ key, val ]) => { 
-      return {id: key, values: val.map(function (x, i){ return { value: x, time: time[i]  } }) }  
+    dataset = dataset.map(([key, val]) => {
+      return { id: key, values: val.map(function (x, i) { return { value: x, time: time[i] } }) }
     })
 
     return dataset
@@ -320,7 +320,6 @@ function line () {
       }
 
       selection.call(exports)
-
     })
   }
 
@@ -346,7 +345,7 @@ function line () {
   }
 
   exports.on = function () {
-    let value = dispatcher.on.apply(dispatcher, arguments)
+    const value = dispatcher.on.apply(dispatcher, arguments)
 
     return value === dispatcher ? exports : value
   }
@@ -379,7 +378,6 @@ function line () {
   }
 
   return exports
-    
 }
 
 export default line

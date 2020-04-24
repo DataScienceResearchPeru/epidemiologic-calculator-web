@@ -12,25 +12,20 @@ const DialogContainer = (props) => {
   useEffect(() => {
     setOpen(isOpen)
   }, [isOpen])
-  
+
+  const handleOnClose = () => {
+    if (props.handler) props.handler()
+  }
 
   return (
-    <Dialog open={open} onClose={props.handler} aria-labelledby="form-dialog-title" maxWidth="md">
-      <DialogTitle id="form-dialog-title">Recuperar Contraseña</DialogTitle>
+    <Dialog open={open} onClose={handleOnClose} aria-labelledby='form-dialog-title' maxWidth='md'>
+      <DialogTitle id='form-dialog-title'>Recuperar Contraseña</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Por favor, ingrese su correo electrónico.
         </DialogContentText>
         {props.children}
       </DialogContent>
-      {/* <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleClose} color="primary">
-          Subscribe
-        </Button>
-      </DialogActions> */}
     </Dialog>
   )
 }
@@ -38,6 +33,7 @@ const DialogContainer = (props) => {
 DialogContainer.propTypes = {
   isOpen: PropTypes.bool,
   handler: PropTypes.func,
+  children: PropTypes.any
 }
 
 DialogContainer.defaultProps = {}

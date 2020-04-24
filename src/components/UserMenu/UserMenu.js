@@ -8,7 +8,7 @@ import { useNavigation } from 'react-navi'
 
 import { StateContext } from '../../contexts'
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(0, 1, 0, 0.25)
   },
@@ -48,31 +48,31 @@ const UserMenu = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' })
-    navigation.navigate('/') 
+    navigation.navigate('/')
   }
 
   return (
     <div>
-      <IconButton color="primary" aria-label="add to shopping cart">
+      <IconButton color='primary' aria-label='add to shopping cart'>
         <NotificationsNoneRoundedIcon className={classes.notificationIcon} />
       </IconButton>
 
       <IconButton
-        aria-label="account of current user"
-        aria-controls="primary-search-account-menu"
-        aria-haspopup="true"
-        color="inherit"
-        classes={{root: classes.root}}
+        aria-label='account of current user'
+        aria-controls='primary-search-account-menu'
+        aria-haspopup='true'
+        color='inherit'
+        classes={{ root: classes.root }}
       >
-        <AccountCircle className={classes.userIcon}/>
+        <AccountCircle className={classes.userIcon} />
       </IconButton>
-        
-      <Button classes={{label: classes.label}} aria-controls="profile-menu" aria-haspopup="true" onClick={handleClick}>
+
+      <Button classes={{ label: classes.label }} aria-controls='profile-menu' aria-haspopup='true' onClick={handleClick}>
         {user}
-        <ExpandMoreIcon className={classes.expandIcon}/>
+        <ExpandMoreIcon className={classes.expandIcon} />
       </Button>
       <Menu
-        id="profile-menu"
+        id='profile-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}

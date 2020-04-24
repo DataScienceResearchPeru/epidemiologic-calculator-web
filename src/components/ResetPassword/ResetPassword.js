@@ -22,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF',
     minHeight: 400,
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center', 
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     '& h1': {
       fontSize: '1.8em',
-      fontWeight: 500,
+      fontWeight: 500
     },
     '& a': {
       color: '#FFF',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 10,
       marginTop: 22,
       WebkitBoxShadow: '0px 1px 4px #00000033',
-      boxShadow: '0px 1px 4px #00000033',
+      boxShadow: '0px 1px 4px #00000033'
     },
     '& .MuiInputBase-input': {
       height: '2em',
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
-      },
+      }
     },
     '& .MuiInputLabel-formControl': {
       color: '#33CCCC',
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.2rem'
     },
     '& .MuiCheckbox-root': {
-      padding: 0,
+      padding: 0
     },
     '& .MuiFormControlLabel-root': {
       float: 'left',
@@ -68,13 +68,13 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTypography-body1': {
       fontSize: '0.8rem',
       color: '#a0a0a0',
-      marginLeft: 4,
+      marginLeft: 4
     }
   },
   forgotPassword: {
     fontSize: '0.8rem',
     color: '#a0a0a0',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   submit: {
     margin: theme.spacing(4, 0, 2),
@@ -96,30 +96,29 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px 27px',
     minWidth: 150,
     boxShadow: '0px 2px 4px #00000029',
-    lineHeight: 1.5,    
+    lineHeight: 1.5
   }
 }))
 
 function Alert (props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
+  return <MuiAlert elevation={6} variant='filled' {...props} />
 }
 
 const ResetPassword = (props) => {
   const { token } = props
-  const classes = useStyles() 
+  const classes = useStyles()
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [messageConfirmation, setMessageConfirmation] = useState('')
   const [openConfirmation, setConfirmation] = useState(false)
 
-  const [ response, resetPassword ] = useResource(api.resetPassword) 
+  const [response, resetPassword] = useResource(api.resetPassword)
   const [stateError, AlertError, setData] = useErrorApi(response)
   const navigation = useNavigation()
-  
-  
+
   useEffect(() => {
     setData(response)
-    if(response && response.data && !stateError){
+    if (response && response.data && !stateError) {
       console.log('reset success')
       setConfirmation(true)
       setMessageConfirmation(response.data.message)
@@ -127,7 +126,6 @@ const ResetPassword = (props) => {
       setPasswordConfirm('')
     }
   }, [response])
-  
 
   function handlePassword (e) {
     setPassword(e.target.value)
@@ -145,46 +143,46 @@ const ResetPassword = (props) => {
     navigation.navigate('/')
   }
 
-  const handlerCloseConfirmation = () => {
+  const handleCloseConfirmation = () => {
     setConfirmation(false)
     backLogin()
   }
 
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="md">
+    <>
+      <Container component='main' maxWidth='md'>
         <Header />
-        
-        <Grid container justify="center" alignItems="center">
-          <Grid item xs={6} >
-            
-            <form className={classes.form} data-testid="ResetPassword" onSubmit={e => { e.preventDefault(); resetPassword(password, token) }}>
-            
-              <FormControl margin="normal" fullWidth>
-                <InputLabel htmlFor="username" shrink>Contraseña</InputLabel>
-                <Input type="password" value={password} onChange={handlePassword} autoFocus disableUnderline={true}/> 
-              </FormControl> 
 
-              <FormControl margin="normal" fullWidth>
-                <InputLabel htmlFor="username" shrink>Repetir Contraseña</InputLabel>
-                <Input type="password" value={passwordConfirm} onChange={handlePasswordConfirm} disableUnderline={true}/> 
-              </FormControl> 
+        <Grid container justify='center' alignItems='center'>
+          <Grid item xs={6}>
 
-              <Grid container style={{justifyContent: 'center'}}>        
+            <form className={classes.form} data-testid='ResetPassword' onSubmit={e => { e.preventDefault(); resetPassword(password, token) }}>
+
+              <FormControl margin='normal' fullWidth>
+                <InputLabel htmlFor='username' shrink>Contraseña</InputLabel>
+                <Input type='password' value={password} onChange={handlePassword} autoFocus disableUnderline />
+              </FormControl>
+
+              <FormControl margin='normal' fullWidth>
+                <InputLabel htmlFor='username' shrink>Repetir Contraseña</InputLabel>
+                <Input type='password' value={passwordConfirm} onChange={handlePasswordConfirm} disableUnderline />
+              </FormControl>
+
+              <Grid container style={{ justifyContent: 'center' }}>
 
                 <Button
-                  type="submit"
+                  type='submit'
                   disabled={formInvalid()}
-                  variant="contained"             
+                  variant='contained'
                   className={classes.submit}
                 >
                   Recuperar
                 </Button>
 
-                <Button         
-                  variant="contained"  
+                <Button
+                  variant='contained'
                   onClick={backLogin}
-                  className={classes.cancel}            
+                  className={classes.cancel}
                 >
                   Regresar
                 </Button>
@@ -193,27 +191,27 @@ const ResetPassword = (props) => {
 
               <AlertError />
 
-              <React.Fragment>
-                <Snackbar open={openConfirmation} autoHideDuration={6000} onClose={handlerCloseConfirmation}>
-                  <Alert onClose={handlerCloseConfirmation} severity="success">
+              <>
+                <Snackbar open={openConfirmation} autoHideDuration={6000} onClose={handleCloseConfirmation}>
+                  <Alert onClose={handleCloseConfirmation} severity='success'>
                     {messageConfirmation}
                   </Alert>
                 </Snackbar>
-              </React.Fragment>
+              </>
             </form>
 
           </Grid>
-        
+
         </Grid>
 
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 
 ResetPassword.propTypes = {
-  token: PropTypes.string,
+  token: PropTypes.string
 }
 
 export default ResetPassword

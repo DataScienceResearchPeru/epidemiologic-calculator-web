@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       textTransform: 'uppercase',
       fontSize: '14px',
       color: '#24DADA'
-    },
+    }
   },
   contentItems: {
     boxShadow: '0px 1px 6px #00000029',
@@ -36,17 +36,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Variable = (props) => {
   const classes = useStyles()
-  const { columns, title } = props 
-  
+  const { columns, title } = props
+
   const changeValueVar1 = (val) => {
     console.log(val)
   }
-    
+
   return (
     <Box className={classes.contentVariable}>
       <h3>{title}</h3>
       <Box className={classes.contentItems}>
-        <Grid container justify="center" spacing={1}>
+        <Grid container justify='center' spacing={1}>
           {
             columns.values.map((value, index) => (
               <Grid item xs={4} key={index}>
@@ -54,23 +54,24 @@ const Variable = (props) => {
                 {
                   value.items.map((item, index) => (
                     <React.Fragment key={index}>
-                      <VariableItem 
+                      <VariableItem
                         title={item.title}
                         descriptionLabel={item.label}
                         descriptionTooltip={item.help}
-                        value={item.value} 
-                        changeValues={changeValueVar1} />
-                      {!index && <Divider variant="middle" />}
-                    </React.Fragment>  
+                        value={item.value}
+                        changeValues={changeValueVar1}
+                      />
+                      {!index && <Divider variant='middle' />}
+                    </React.Fragment>
                   ))
                 }
               </Grid>
             ))
           }
-        </Grid>          
+        </Grid>
       </Box>
     </Box>
-  )  
+  )
 }
 
 Variable.propTypes = {
@@ -87,7 +88,7 @@ Variable.propTypes = {
     }))
   }
   )
-  
+
 }
 
 Variable.defaultProps = {}
