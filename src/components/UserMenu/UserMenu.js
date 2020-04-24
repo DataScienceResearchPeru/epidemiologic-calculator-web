@@ -52,7 +52,7 @@ const UserMenu = () => {
   }
 
   return (
-    <div>
+    <div data-testid='UserMenu'>
       <IconButton color='primary' aria-label='add to shopping cart'>
         <NotificationsNoneRoundedIcon className={classes.notificationIcon} />
       </IconButton>

@@ -7,7 +7,14 @@ describe('<VariableItem />', () => {
   afterEach(cleanup)
 
   test('it should mount', () => {
-    const { getByTestId } = render(<VariableItem />)
+    const changeValueVar = (val) => { console.log(val) }
+    const { getByTestId } = render(<VariableItem
+    title='title'
+    valueInitial={0}
+    descriptionLabel='description'
+    changeValues={changeValueVar}
+    descriptionTooltip='help'
+    />)
     const variableItem = getByTestId('VariableItem')
 
     expect(variableItem).toBeInTheDocument()

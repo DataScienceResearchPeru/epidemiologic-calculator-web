@@ -78,7 +78,8 @@ const VariableSlider = withStyles({
 })(Slider)
 
 const VariableItem = (props) => {
-  const defaultValue = props.value ? props.value : 0
+  const { title, valueInitial, descriptionLabel, changeValues, descriptionTooltip } = props
+  const defaultValue = valueInitial ? valueInitial : 0
   const maxValue = defaultValue < 100 ? 100 : defaultValue + (defaultValue * 0.9)
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
@@ -86,7 +87,7 @@ const VariableItem = (props) => {
   const handleChange = (event, newValue) => {
     if (newValue && newValue > 0) {
       setValue(newValue)
-      if (props.changeValues) { props.changeValues(newValue) }
+      if (changeValues) { changeValues(newValue) }
     }
   }
 
@@ -94,17 +95,17 @@ const VariableItem = (props) => {
     const value = e.target.value
     if (value && value > 0) {
       setValue(parseInt(value))
-      if (props.changeValues) { props.changeValues(parseInt(value)) }
+      if (changeValues) { changeValues(parseInt(value)) }
     }
   }
 
   return (
-    <Grid container spacing={2} className={classes.variable}>
+    <Grid container spacing={2} className={classes.variable} data-testid='VariableItem'>
       <Grid item xs={9}>
-        <span>{props.title}</span>
+        <span>{title}</span>
       </Grid>
       <Grid item xs={3}>
-        <Tooltip title={props.descriptionTooltip}>
+        <Tooltip title={descriptionTooltip}>
           <IconButton aria-label='info'>
             <InfoIcon />
           </IconButton>
@@ -117,7 +118,7 @@ const VariableItem = (props) => {
         <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
       </Grid>
       <Grid item xs={5}>
-        <p>{props.descriptionLabel}</p> 
+        <p>{descriptionLabel}</p> 
       </Grid>
     </Grid>
   )
@@ -125,7 +126,7 @@ const VariableItem = (props) => {
 
 VariableItem.propTypes = {
   title: PropTypes.string,
-  value: PropTypes.number,
+  valueInitial: PropTypes.number,
   descriptionLabel: PropTypes.string,
   changeValues: PropTypes.func,
   descriptionTooltip: PropTypes.string

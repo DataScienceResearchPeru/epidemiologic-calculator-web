@@ -44,7 +44,7 @@ const Variable = (props) => {
   }
 
   return (
-    <Box className={classes.contentVariable}>
+    <Box className={classes.contentVariable} data-testid='Variable'>
       <h3>{title}</h3>
       <Box className={classes.contentItems}>
         <Grid container justify='center' spacing={1}>
@@ -59,7 +59,7 @@ const Variable = (props) => {
                         title={item.title}
                         descriptionLabel={item.label}
                         descriptionTooltip={item.help}
-                        value={item.value} 
+                        valueInitial={item.value} 
                         changeValues={changeValueVar1} />
                       {
                         value.items.length === 2 
