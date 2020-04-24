@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     minWidth: 60,
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(1)
   },
   subtitle: {
     fontWeight: 350
@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () => {
   const classes = useStyles()
   return (
-    <footer className={classes.footer} data-testid="Footer">
-      <Container maxWidth="lg">
-        <img src={logo} alt="logo" className={classes.logo} />
-        <Typography align="left">
+    <footer className={classes.footer} data-testid='Footer'>
+      <Container maxWidth='lg'>
+        <img src={logo} alt='logo' className={classes.logo} />
+        <Typography align='left'>
           Data Science Research Perú <br />
           <span className={classes.subtitle}>Todos los derechos reservados © 2020</span>
         </Typography>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useResource } from 'react-request-hook'
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-import { Box} from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import './LineGraphic.css'
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LineGraphic = (props) => {
   const { height, width, margin } = props
-  const [ data, getData ] = useResource(api.getDataSeaichurd)
+  const [data, getData] = useResource(api.getDataSeaichurd)
   const classes = useStyles()
   const container = d3.select('#figure')
   const chart = line()
@@ -28,7 +28,7 @@ const LineGraphic = (props) => {
     .width(width)
     .margin(margin)
     .grid('full')
-  
+
   useEffect(() => getData(), [])
 
   if (!data.isLoading && data.data) {
@@ -36,8 +36,8 @@ const LineGraphic = (props) => {
   }
 
   return (
-    <Box className={classes.LineGraphic} data-testid="LineGraphic">
-      <div className="line-container" id="figure"></div>
+    <Box className={classes.LineGraphic} data-testid='LineGraphic'>
+      <div className='line-container' id='figure' />
     </Box>
   )
 }

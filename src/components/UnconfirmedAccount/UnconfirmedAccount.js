@@ -19,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF',
     minHeight: 400,
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center', 
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     '& h1': {
       fontSize: '1.8em',
-      fontWeight: 500,
+      fontWeight: 500
     },
     '& a': {
       color: '#FFF',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     textAlign: 'center',
     '& .MuiSvgIcon-root': {
-      fontSize: '9em',
+      fontSize: '9em'
     }
   }
 }))
@@ -43,7 +43,7 @@ const UnconfirmedAccount = () => {
   const { state } = useContext(StateContext)
   const { register } = state
   const classes = useStyles()
-  const [ response, resendEmail ] = useResource(api.resendEmail)
+  const [response, resendEmail] = useResource(api.resendEmail)
 
   useEffect(() => {
     if (response && response.error) {
@@ -52,25 +52,26 @@ const UnconfirmedAccount = () => {
   }, [])
 
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
         <Box className={classes.boxContent}>
           <h1>¡Bienvenido!</h1>
           <p>Por favor revise su correo electrónico ({register}) y pulsa en el enlace de confirmación que te enviamos.
-            Si no ha recibido nuestro correo electrónico en 15 minutos, verifique su carpeta de correo no deseado.</p>
-          <p>¿Aún no recibió el correo electrónico? pulse {register && <Link href="#" underline="none" onClick={e => resendEmail(register)}>reenviar</Link>}.</p>
+            Si no ha recibido nuestro correo electrónico en 15 minutos, verifique su carpeta de correo no deseado.
+          </p>
+          <p>¿Aún no recibió el correo electrónico? pulse {register && <Link href='#' underline='none' onClick={e => resendEmail(register)}>reenviar</Link>}.</p>
 
           <div className={classes.icon}>
             <MailOutlineIcon />
           </div>
-        </Box> 
+        </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
-  
+
 UnconfirmedAccount.propTypes = {}
 
 UnconfirmedAccount.defaultProps = {}

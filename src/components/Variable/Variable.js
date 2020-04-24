@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       textTransform: 'uppercase',
       fontSize: '0.71em',
       color: '#24DADA'
-    },
+    }
   },
   contentItems: {
     boxShadow: '0px 1px 6px #00000029',
@@ -42,12 +42,12 @@ const Variable = (props) => {
   const changeValueVar1 = (val) => {
     console.log(val)
   }
-    
+
   return (
     <Box className={classes.contentVariable}>
       <h3>{title}</h3>
       <Box className={classes.contentItems}>
-        <Grid container justify="center" spacing={1}>
+        <Grid container justify='center' spacing={1}>
           {
             columns.values.map((value, index) => (
               <Grid item xs key={index}>
@@ -55,7 +55,7 @@ const Variable = (props) => {
                 {
                   value.items.map((item, index) => (
                     <React.Fragment key={index}>
-                      <VariableItem 
+                      <VariableItem
                         title={item.title}
                         descriptionLabel={item.label}
                         descriptionTooltip={item.help}
@@ -75,10 +75,10 @@ const Variable = (props) => {
               </Grid>
             ))
           }
-        </Grid>          
+        </Grid>
       </Box>
     </Box>
-  )  
+  )
 }
 
 Variable.propTypes = {
@@ -95,7 +95,7 @@ Variable.propTypes = {
     }))
   }
   )
-  
+
 }
 
 Variable.defaultProps = {}

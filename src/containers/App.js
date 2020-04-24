@@ -6,16 +6,16 @@ import { StateContext } from '../contexts'
 import routes from '../routes'
 
 function App () {
-  const [ state, dispatch ] = useReducer(appReducer, { user: '', register: '' })
+  const [state, dispatch] = useReducer(appReducer, { user: '', register: '' })
   const { user } = state
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Router routes={routes} context={{user}}>
+      <Router routes={routes} context={{ user }}>
         <Suspense fallback={null}>
           <NotFoundBoundary render={() => <h1>Not Found</h1>}>
             <View />
-          </NotFoundBoundary> 
+          </NotFoundBoundary>
         </Suspense>
       </Router>
     </StateContext.Provider>

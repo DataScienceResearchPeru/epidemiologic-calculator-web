@@ -1,15 +1,15 @@
-import React from 'react';
-import { cleanup, render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import Variable from './Variable';
+import React from 'react'
+import { cleanup, render } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import Variable from './Variable'
 
 describe('<Variable />', () => {
-  afterEach(cleanup);
+  afterEach(cleanup)
 
   test('it should mount', () => {
-    const { getByTestId } = render(<Variable />);
-    const variable = getByTestId('Variable');
+    const { getByTestId } = render(<Variable />)
+    const variable = getByTestId('Variable')
 
-    expect(variable).toBeInTheDocument();
-  });
-});
+    expect(variable).toBeInTheDocument()
+  })
+})

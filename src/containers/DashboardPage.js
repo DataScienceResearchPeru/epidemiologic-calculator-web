@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#404040',
     fontSize: '14px',
     fontWeight: 320,
-    marginBottom: 31,
+    marginBottom: 31
   }
 
 }))
@@ -30,8 +30,8 @@ const DashboardPage = () => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
         <Box className={classes.sectionContent}>
           <div className={classes.information}>
@@ -39,8 +39,10 @@ const DashboardPage = () => {
           </div>
           <Grid container spacing={3}>
             <Grid item xs={2}>
-              <Variable title="VARIABLES DE TRANSMISIÓN" 
-                columns={{values: [
+              <Variable 
+                title="VARIABLES DE TRANSMISIÓN" 
+                columns={{
+                  values: [
                   {
                     title: 'Población',
                     items: [
@@ -62,8 +64,10 @@ const DashboardPage = () => {
                 }}/>
             </Grid>
             <Grid item xs={10}>
-              <Variable title="VARIABLES CLÍNICAS" 
-                columns={{values: [
+              <Variable
+                title="VARIABLES CLÍNICAS" 
+                columns={{
+                  values: [
                   {
                     title: 'Estadísticas de mortalidad',
                     items: [
@@ -193,9 +197,9 @@ const DashboardPage = () => {
                   }
                 ]
                 }}/>
-            </Grid>
-          </Grid> 
-          <LineAreaGraphic 
+          </Grid>
+        </Grid>
+          <LineAreaGraphic
             width={980}
             height={360}
             margin={{
@@ -208,7 +212,7 @@ const DashboardPage = () => {
         </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 

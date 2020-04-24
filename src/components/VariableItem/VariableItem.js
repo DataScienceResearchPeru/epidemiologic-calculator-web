@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputBase-root': {
       border: '0.5px solid #BFBFBF',
       borderRadius: 8,
-      marginTop: '0px !important',
+      marginTop: '0px !important'
     },
     '& .MuiInputBase-input': {
       height: '0.7em',
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
-      },      
+      }
     },
     '& .MuiGrid-item': {
       padding: '2px 8px !important',
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
       float: 'right',
       margin: 0
     } 
-  },  
+  }
 }))
 
 const VariableSlider = withStyles({
@@ -58,12 +58,12 @@ const VariableSlider = withStyles({
     backgroundColor: '#fff',
     border: '2px solid currentColor',
     '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
+      boxShadow: 'inherit'
+    }
   },
   active: {},
   valueLabel: {
-    left: 'calc(-50% + 4px)',
+    left: 'calc(-50% + 4px)'
   },
   track: {
     height: 8,
@@ -74,7 +74,7 @@ const VariableSlider = withStyles({
     height: 8,
     borderRadius: 3,
     background: '#D3D3D3 0% 0% no-repeat padding-box'
-  },
+  }
 })(Slider)
 
 const VariableItem = (props) => {
@@ -83,38 +83,35 @@ const VariableItem = (props) => {
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
 
-  const handleChange = (event, newValue) => {    
-    if(newValue && newValue > 0) {
+  const handleChange = (event, newValue) => {
+    if (newValue && newValue > 0) {
       setValue(newValue)
-      if(props.changeValues)
-        props.changeValues(newValue)
+      if (props.changeValues) { props.changeValues(newValue) }
     }
   }
 
   function handleValueSlider (e) {
-    let value = e.target.value
-    if(value && value > 0) {
+    const value = e.target.value
+    if (value && value > 0) {
       setValue(parseInt(value))
-      if(props.changeValues)
-        props.changeValues(parseInt(value))
+      if (props.changeValues) { props.changeValues(parseInt(value)) }
     }
-    
   }
 
   return (
     <Grid container spacing={2} className={classes.variable}>
-      <Grid item xs={9}>     
+      <Grid item xs={9}>
         <span>{props.title}</span>
       </Grid>
       <Grid item xs={3}>
         <Tooltip title={props.descriptionTooltip}>
-          <IconButton aria-label="info">
+          <IconButton aria-label='info'>
             <InfoIcon />
           </IconButton>
         </Tooltip>
       </Grid>
       <Grid item xs={12}>
-        <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
+        <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby='continuous-slider' />
       </Grid>
       <Grid item xs={7}>
         <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
@@ -122,8 +119,8 @@ const VariableItem = (props) => {
       <Grid item xs={5}>
         <p>{props.descriptionLabel}</p> 
       </Grid>
-    </Grid>   
-  )  
+    </Grid>
+  )
 }
 
 VariableItem.propTypes = {
