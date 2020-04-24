@@ -11,7 +11,7 @@ import Login from '../components/Login/Login'
 import RegisterUser from '../components/RegisterUser/RegisterUser'
 import background from '../images/background.svg'
 import DialogContainer from './DialogContainer'
-import ForgotPassword from '../components/ForgotPassword/ForgotPassoword'
+import ForgotPassword from '../components/ForgotPassword/ForgotPassword'
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {

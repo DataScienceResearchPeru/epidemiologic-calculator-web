@@ -29,6 +29,7 @@ const LineGraphic = (props) => {
     .margin(margin)
     .grid('full')
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getData(), [])
 
   if (!data.isLoading && data.data) {

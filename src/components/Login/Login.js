@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useResource } from 'react-request-hook'
 import { useNavigation, Link } from 'react-navi'
 import { Input, Button, Checkbox, FormControlLabel, FormControl, InputLabel, InputAdornment, IconButton, Grid } from '@material-ui/core'
@@ -77,16 +77,17 @@ const Login = (props) => {
   const [user, login] = useResource(api.login)
 
   const [stateError, AlertError, setData] = useErrorApi(user)
-
-  const navigation = useNavigation()
-
+  
+  const navigation =  useRef(useNavigation())
+  
   useEffect(() => {
     setData(user)
     if (user && user.data && !stateError) {
       dispatch({ type: 'LOGIN', name: user.data.full_name })
-      navigation.navigate('/dashboard')
+      navigation.current.navigate('/dashboard')
+      
     }
-  }, [user])
+  }, [user, dispatch])
 
   function handleUsername (e) {
     setUsername(e.target.value)

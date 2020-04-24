@@ -2,7 +2,7 @@ import React from 'react'
 import { RequestProvider } from 'react-request-hook'
 import { cleanup, render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import ForgotPassword from './ForgotPassoword'
+import ForgotPassword from './ForgotPassword'
 import axiosInstance from '../../middleware/api'
 
 describe('<ForgotPassword />', () => {

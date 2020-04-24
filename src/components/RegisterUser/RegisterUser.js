@@ -1,12 +1,4 @@
-/**
- * FIX:
- * Unused variables here!
- * Verify that they are not nedded before to delete this comment.
- *
- * On imports:
- * const [registerFailed, setRegisterFailed] = useState(false)
- */
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useResource } from 'react-request-hook'
 import { useNavigation } from 'react-navi'
 import { Button, Select, FormControl, InputLabel, Grid, TextField, FormHelperText } from '@material-ui/core'
@@ -74,21 +66,24 @@ const RegisterUser = () => {
   const [stateError, AlertError, setData] = useErrorApi(user)
 
   const classes = useStyles()
-  const navigation = useNavigation()
+  const navigation = useRef(useNavigation())
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getDepartments(), [])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getProvinces(departmentId), [departmentId])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getDistricts(provinceId), [provinceId])
 
   useEffect(() => {
     setData(user)
     if (user && user.data && !stateError) {
       dispatch({ type: 'REGISTER', email: user.data.email })
-      navigation.navigate('/unconfirmed_account')
+      navigation.current.navigate('/unconfirmed_account')
     }
-  }, [user])
+  }, [user, dispatch])
 
   function handleFirstName (e) {
     setFirstName(e.target.value)

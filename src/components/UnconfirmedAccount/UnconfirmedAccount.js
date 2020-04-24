@@ -3,6 +3,7 @@ import { useResource } from 'react-request-hook'
 import { Container, Box, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
+import useErrorApi from '../../hooks/use-error-api'
 
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -44,12 +45,14 @@ const UnconfirmedAccount = () => {
   const { register } = state
   const classes = useStyles()
   const [response, resendEmail] = useResource(api.resendEmail)
+  const [stateError, AlertError, setData] = useErrorApi(response)
 
   useEffect(() => {
-    if (response && response.error) {
-      console.log(response.error.data.message)
+    setData(response)
+    if (response && response.data && !stateError) {
+      console.log('response success')
     }
-  }, [])
+  }, [response])
 
   return (
     <>
@@ -65,6 +68,8 @@ const UnconfirmedAccount = () => {
           <div className={classes.icon}>
             <MailOutlineIcon />
           </div>
+
+          <AlertError />
         </Box>
       </Container>
       <Footer />
