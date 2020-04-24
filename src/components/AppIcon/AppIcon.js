@@ -4,11 +4,10 @@ import styles from './AppIcon.module.css'
 import { SvgIcon } from '@material-ui/core'
 import { ReactComponent as Logo } from '../../images/EK-logo.svg'
 
-
 const AppIcon = (props) => (
-  <div className={styles.AppIcon} data-testid="AppIcon">
+  <div className={styles.AppIcon} data-testid='AppIcon'>
     <SvgIcon {...props}>
-      <Logo></Logo>
+      <Logo />
     </SvgIcon>
   </div>
 )

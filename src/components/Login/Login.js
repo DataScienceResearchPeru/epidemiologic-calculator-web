@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 12,
-      marginTop: 22,
+      marginTop: 22
     },
     '& .MuiInputBase-input': {
       height: '2em',
@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) => ({
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
-      },
+      }
     },
     '& .MuiInputLabel-formControl': {
       color: '#56cdcc',
-      fontWeight: 500,
+      fontWeight: 500
     },
     '& .MuiCheckbox-root': {
-      padding: 0,
+      padding: 0
     },
     '& .MuiFormControlLabel-root': {
       float: 'left',
@@ -39,37 +39,37 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTypography-body1': {
       fontSize: '0.8rem',
       color: '#a0a0a0',
-      marginLeft: 4,
+      marginLeft: 4
     }
   },
   forgotPassword: {
     fontSize: '0.8rem',
     color: '#a0a0a0',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   button: {
     borderRadius: 16,
     fontSize: 12,
     padding: '7px 30px',
-    minWidth: 150,
+    minWidth: 150
   },
   submit: {
     margin: theme.spacing(6, 0, 2),
     backgroundColor: '#56cdcc',
-    color: '#FFF',
+    color: '#FFF'
   }
 }))
 
 const Login = () => {
   const { dispatch } = useContext(StateContext)
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ showPassword, setshowPassword ] = useState(false)
-  const [ loginFailed, setLoginFailed ] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setshowPassword] = useState(false)
+  const [loginFailed, setLoginFailed] = useState(false)
 
   const classes = useStyles()
 
-  const [ user, login ] = useResource(api.login)
+  const [user, login] = useResource(api.login)
 
   const navigation = useNavigation()
 
@@ -77,7 +77,7 @@ const Login = () => {
     if (user && user.data) {
       setLoginFailed(false)
       dispatch({ type: 'LOGIN', name: user.data.full_name })
-      navigation.navigate('/dashboard') 
+      navigation.navigate('/dashboard')
     }
     if (user && user.error) {
       console.log(user.error.data.message)
@@ -96,26 +96,26 @@ const Login = () => {
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword)
   }
-  
+
   return (
-    <form className={classes.form} onSubmit={e => { e.preventDefault(); login(username, password) }}>  
-      <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="username" shrink>Usuario o correo electrónico</InputLabel>
-        <Input id="username" type="email" value={username} onChange={handleUsername} autoFocus disableUnderline={true}/>
+    <form className={classes.form} onSubmit={e => { e.preventDefault(); login(username, password) }}>
+      <FormControl margin='normal' fullWidth>
+        <InputLabel htmlFor='username' shrink>Usuario o correo electrónico</InputLabel>
+        <Input id='username' type='email' value={username} onChange={handleUsername} autoFocus disableUnderline />
       </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="password" shrink>Contraseña</InputLabel>
+      <FormControl margin='normal' fullWidth>
+        <InputLabel htmlFor='password' shrink>Contraseña</InputLabel>
         <Input
-          id="password"
-          disableUnderline={true}
+          id='password'
+          disableUnderline
           type={showPassword ? 'text' : 'password'}
-          name="password"
+          name='password'
           value={password}
           onChange={handlePassword}
           endAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position='end'>
               <IconButton
-                aria-label="toggle password visibility"
+                aria-label='toggle password visibility'
                 onClick={handleClickShowPassword}
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -127,19 +127,19 @@ const Login = () => {
       <Grid container>
         <Grid item xs>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" size="small" />}
-            label="Recordar mis datos"
+            control={<Checkbox value='remember' color='primary' size='small' />}
+            label='Recordar mis datos'
           />
         </Grid>
         <Grid item>
-          <Link href="#" className={classes.forgotPassword}>
-            {'¿Olvidaste tu contraseña?'}
+          <Link href='#' className={classes.forgotPassword}>
+            ¿Olvidaste tu contraseña?
           </Link>
         </Grid>
       </Grid>
       <Button
-        type="submit"
-        variant="contained"
+        type='submit'
+        variant='contained'
         disabled={username.length === 0 || password.length === 0}
         className={`${classes.button} ${classes.submit}`}
       >

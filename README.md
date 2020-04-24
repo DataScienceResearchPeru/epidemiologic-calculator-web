@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Epidemicalk Web
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Make sure that you have installed node 13.x.x or later.
 
-### `yarn start`
+It wil be better if you can handle your node versions with [nvm](https://github.com/nvm-sh/nvm).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Is mandatory to make the dependency handling with [yarn](https://yarnpkg.com/)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### A note before doing anything
 
-### `yarn test`
+If you have nvm here a trick to have yarn working globaly
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+nvm install 13.13.0
+nvm use 13.13.0
+npm install -g yarn
+```
 
-### `yarn build`
+This will put yarn in the correct path to run directly from your terminal. Any other GLOBAL package must be installed with npm, BUT all project dependencies needs to be installed with yarn.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Start project
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```sh
+git clone git@github.com:DataScienceResearchPeru/epidemiologic-calculator-web.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Enter the project directory
 
-### `yarn eject`
+```sh
+ cd epidemiologic-calculator-web
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Install all the dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+$ yarn install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Run project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+$ yarn serve
+```
 
-## Learn More
+Open the browser at `http://127.0.0.1:3000/`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Environment variables!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create and `.env` file according to the example in `.env.template`.
 
-### Code Splitting
+## Development and code quality
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Every time you want to commit, you will have many error alerts.
 
-### Analyzing the Bundle Size
+Some of these errors will be easy to solve, you can do it automatically with
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+$ yarn lint --fix
+```
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Other errors will be more complex you will have to correct them manually before uploading your changes.

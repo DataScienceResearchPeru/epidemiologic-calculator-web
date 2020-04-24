@@ -1,15 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './UserMenu.module.css';
+/**
+ * FIX:
+ * Unused variables here!
+ * Verify that they are not nedded before to delete this comment.
+ *
+ * On imports:
+ * import PropTypes from 'prop-types'
+ */
+import React from 'react'
+
+import styles from './UserMenu.module.css'
 
 const UserMenu = () => (
-  <div className={styles.UserMenu} data-testid="UserMenu">
+  <div className={styles.UserMenu} data-testid='UserMenu'>
     UserMenu Component
   </div>
-);
+)
 
-UserMenu.propTypes = {};
+UserMenu.propTypes = {}
 
-UserMenu.defaultProps = {};
+UserMenu.defaultProps = {}
 
-export default UserMenu;
+export default UserMenu

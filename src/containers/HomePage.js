@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: 380,
     '& h1': {
       fontSize: '1.8em',
-      fontWeight: 500,
+      fontWeight: 500
     }
   },
   boxRight: {
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     alignItems: 'center',
     borderRadius: 17,
-    padding: '30px 30px 52px',
+    padding: '30px 30px 52px'
   },
   boxForm: {
-    maxWidth: 380,
+    maxWidth: 380
   },
   btnTop: {
     textTransform: 'uppercase',
@@ -47,23 +47,23 @@ const useStyles = makeStyles((theme) => ({
       margin: 0,
       borderRadius: 16,
       textAlign: 'center',
-      padding: '7px 30px',
+      padding: '7px 30px'
     }
   },
-  btnLeft:{
+  btnLeft: {
     border: '1px solid #ebebeb',
     backgroundColor: '#ebebeb',
-    color: '#56cdcc',
+    color: '#56cdcc'
   },
   btnRight: {
     border: '1px solid #56cdcc',
     backgroundColor: '#56cdcc',
-    color: '#FFF',
+    color: '#FFF'
   },
   hr: {
     border: '1px solid #56cdcc',
     width: '100%',
-    height: 0,
+    height: 0
   },
   circle: {
     height: 10,
@@ -74,57 +74,57 @@ const useStyles = makeStyles((theme) => ({
     border: '10px solid #56cdcc',
     display: 'inline-block',
     marginTop: -15,
-    marginBottom: 38,
+    marginBottom: 38
   },
-  socialMedia:{
+  socialMedia: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1)
     },
     '& .MuiButton-root': {
       minWidth: 36,
       minHeight: 36,
       borderRadius: '50%',
       padding: 5,
-      color: '#404040',
+      color: '#404040'
     }
-  },
+  }
 }))
-  
+
 const HomePage = () => {
   const classes = useStyles()
-  
+
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
-        <Box className={classes.boxContent}> 
+        <Box className={classes.boxContent}>
           <Grid container>
             <Grid item xs={6}>
               <div className={classes.boxInfo}>
                 <h1>BIENVENIDO</h1>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry standard dummy text ever since the 1500s,
+                  when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </p>
               </div>
             </Grid>
             <Grid item xs={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href={'/register'} className={classes.btnLeft}>Regístrate</Link>
-                  <Link href={'/'} className={classes.btnRight}>iniciar sesión</Link>
+                  <Link href='/register' className={classes.btnLeft}>Regístrate</Link>
+                  <Link href='/' className={classes.btnRight}>iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
                   <Login />
                   <Divider className={classes.hr} />
-                  <div className={classes.circle}></div>
+                  <div className={classes.circle} />
 
                   <div className={classes.socialMedia}>
-                    <Button variant="outlined"><GoogleIcon /></Button>
-                    <Button variant="outlined"><FacebookIcon /></Button>
-                    <Button variant="outlined"><LinkedinIcon /></Button>
+                    <Button variant='outlined'><GoogleIcon /></Button>
+                    <Button variant='outlined'><FacebookIcon /></Button>
+                    <Button variant='outlined'><LinkedinIcon /></Button>
                   </div>
                 </div>
               </div>
@@ -133,7 +133,7 @@ const HomePage = () => {
         </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 

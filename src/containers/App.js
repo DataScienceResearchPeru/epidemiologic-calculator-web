@@ -10,17 +10,17 @@ import { StateContext } from '../contexts'
 
 const routes = mount({
   '/': route({ view: <HomePage /> }),
-  '/dashboard': route({view: <DashboardPage />}),
-  '/register': route({view: <RegisterUser />}),
+  '/dashboard': route({ view: <DashboardPage /> }),
+  '/register': route({ view: <RegisterUser /> })
 })
 
 function App () {
-  const [ state, dispatch ] = useReducer(appReducer, { user: ''})
+  const [state, dispatch] = useReducer(appReducer, { user: '' })
   const { user } = state
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Router routes={routes} context={{user}}> 
+      <Router routes={routes} context={{ user }}>
         <View />
       </Router>
     </StateContext.Provider>

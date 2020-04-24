@@ -1,18 +1,26 @@
-import React, { useContext } from 'react'
-import { StateContext } from '../contexts'
+/**
+ * FIX:
+ * Unused variables here!
+ * Verify that they are not nedded before to delete this comment.
+ *
+ * On imports:
+ * import { useContext } from 'react'
+ * import { StateContext } from '../contexts'
+ *
+ * On DashboardPage
+ * const { state, dispatch } = useContext(StateContext)
+ */
+import React from 'react'
 
 import Header from '../components/Header/Header'
 import LineAreaGraphic from '../components/LineGraphic/LineGraphic'
 
-
 const DashboardPage = () => {
-  const { state, dispatch } = useContext(StateContext)
-
   return (
-    <React.Fragment>
-      <Header></Header>
-      <LineAreaGraphic></LineAreaGraphic>
-    </React.Fragment>
+    <>
+      <Header />
+      <LineAreaGraphic />
+    </>
   )
 }
 
