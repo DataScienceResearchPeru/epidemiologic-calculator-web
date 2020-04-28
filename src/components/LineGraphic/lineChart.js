@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { tree } from 'd3'
 
 function line () {
   let dataByVariable
@@ -24,7 +25,7 @@ function line () {
   let yTicks = 8
   const xTicks = 8
   const tickPadding = 5
-  const shouldShowAllDataPoints = false
+  const shouldShowAllDataPoints = true
 
   // events
   const dispatcher = d3.dispatch(
@@ -40,7 +41,7 @@ function line () {
     hospitalized: '#DB96FF',
     uci: '#E74C3C',
     recovered: '#5AB3FF',
-    death: '#404040'
+    death: '#656565'
   }
 
   const variabletoSpanish = {
@@ -123,7 +124,7 @@ function line () {
       .append('g')
       .classed('container-group', true)
       .attr('transform', `translate(${margin.left},${margin.top})`)
-
+    
     container
       .append('g').classed('x-axis-group', true)
       .append('g').classed('axis x', true)
@@ -163,10 +164,35 @@ function line () {
       .call(yAxis)
   }
 
+  function gradient(color, id) {
+    svg.select('.chart-group')
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', id)
+      .attr('x1', '0%').attr('y1', '0%')
+      .attr('x2', '0%').attr('y2', '100%')
+    
+    d3.select(`#${id}`)
+      .selectAll('stop')
+      .data([
+        {offset: 0, color: color, opacity: 1},
+        {offset: 0.6, color: '#FFFFFF', opacity: 0.1},
+      ])
+      .enter().append('stop')
+      .attr('offset', function(d) { return d.offset })
+      .attr('stop-color', function(d) { return d.color })
+      .attr('stop-opacity', function(d) { return d.opacity })
+  }
+
   function drawLines () {
     const line = d3.line()
       .x(function (d) { return xScale(d.time) })
       .y(function (d) { return yScale(d.value) })
+
+    const area = d3.area()
+      .x(function (d) { return xScale(d.time) })
+      .y0(function (d) { return yScale(d.value) })
+      .y1(height - margin.bottom - margin.top)
 
     const lines = svg
       .select('.chart-group')
@@ -174,7 +200,14 @@ function line () {
       .data(dataByVariable.filter(function (d) {
         return !d.disabled
       }))
-
+    
+    const areas = svg
+      .select('.chart-group')
+      .selectAll('.area')
+      .data(dataByVariable.filter(function (d) {
+        return !d.disabled
+      }))
+    
     lines.enter()
       .append('g')
       .attr('class', 'variable')
@@ -182,10 +215,24 @@ function line () {
       .attr('class', 'line')
       .merge(lines)
       .attr('d', function (d) { return line(d.values) })
-      .style('stroke', (d, i) => (colors[d.id]))
+      .style('stroke', (d) => (colors[d.id]))
+
+    areas.enter()
+      .append('g')
+      .attr('class', 'variable')
+      .append('path')
+      .attr('class', 'area')
+      .merge(areas)
+      .attr('d', function (d) { return area(d.values) })
+      .attr('fill', function (d) { gradient(colors[d.id], d.id ); return `url(#${d.id})`} )
 
     // Exit
     lines
+      .exit()
+      .style('opacity', 0)
+      .remove()
+    
+    areas
       .exit()
       .style('opacity', 0)
       .remove()
