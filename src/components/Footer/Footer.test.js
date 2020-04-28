@@ -1,15 +1,15 @@
-import React from 'react';
-import { cleanup, render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import Footer from './Footer';
+import React from 'react'
+import { cleanup, render } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import Footer from './Footer'
 
 describe('<Footer />', () => {
-  afterEach(cleanup);
+  afterEach(cleanup)
 
   test('it should mount', () => {
-    const { getByTestId } = render(<Footer />);
-    const footer = getByTestId('Footer');
+    const { getByTestId } = render(<Footer />)
+    const footer = getByTestId('Footer')
 
-    expect(footer).toBeInTheDocument();
-  });
-});
+    expect(footer).toBeInTheDocument()
+  })
+})

@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     minHeight: 90,
     paddingLeft: 100,
-    paddingRight: 100,
+    paddingRight: 100
   },
   logo: {
     flexGrow: 1,
     '& img': {
-      maxWidth: 205,
+      maxWidth: 205
     }
   },
   search: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     maxWidth: 250,
     [theme.breakpoints.up('sm')]: {
-      width: 'auto',
-    },
+      width: 'auto'
+    }
   },
   searchInput: {
     '& .MuiInputBase-input': {
@@ -57,19 +57,19 @@ const Header = () => {
   const { user } = state
   const classes = useStyles()
   return (
-    <AppBar position="static" color="transparent" elevation={0}>
+    <AppBar position='static' color='transparent' elevation={0}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.logo}>
-          <Link href={'/'}><img src={logo} alt="logo"/></Link>
+          <Link href='/'><img src={logo} alt='logo' /></Link>
         </div>
         <div className={classes.search}>
           <TextField
-            id="search"
-            variant="outlined"
+            id='search'
+            variant='outlined'
             className={classes.searchInput}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position='start'>
                   <SearchIcon />
                 </InputAdornment>
               )
@@ -77,9 +77,9 @@ const Header = () => {
           />
         </div>
 
-        {user && <UserMenu user={user}/>}
+        {user && <UserMenu user={user} />}
 
-        {!user && <Button variant="outlined" className={classes.button}>Contáctanos</Button>}
+        {!user && <Button variant='outlined' className={classes.button}>Contáctanos</Button>}
       </Toolbar>
     </AppBar>
   )

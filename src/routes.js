@@ -9,20 +9,20 @@ import ResetPassword from './components/ResetPassword/ResetPassword'
 
 const routes = mount({
   '/': route({ view: <HomePage /> }),
-  '/dashboard': route({view: <DashboardPage />}),
-  '/unconfirmed_account': route({view: <UnconfirmedAccount />}),
+  '/dashboard': route({ view: <DashboardPage /> }),
+  '/unconfirmed_account': route({ view: <UnconfirmedAccount /> }),
   '/verify_account/:token': route(async req => {
-    let token = req.params.token
+    const token = req.params.token
     return {
       view: <VerifyAccount token={token} />
     }
   }),
   '/reset-password/:token': route(async req => {
-    let token = req.params.token
+    const token = req.params.token
     return {
       view: <ResetPassword token={token} />
     }
-  }),
+  })
 })
 
 export default routes

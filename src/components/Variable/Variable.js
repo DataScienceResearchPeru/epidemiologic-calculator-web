@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     '& h3': {
       margin: '11px 0',
       textTransform: 'uppercase',
-      fontSize: '14px',
+      fontSize: '0.71em',
       color: '#24DADA'
-    },
+    }
   },
   contentItems: {
     boxShadow: '0px 1px 6px #00000029',
@@ -37,44 +37,48 @@ const useStyles = makeStyles((theme) => ({
 const Variable = (props) => {
   const classes = useStyles()
   const { columns, title } = props 
-  
-  const changeValueVar1 = (val) => {
-    console.log(val)
-  }
-    
+  let show = false
+
   return (
-    <Box className={classes.contentVariable}>
+    <Box className={classes.contentVariable} data-testid='Variable'>
       <h3>{title}</h3>
       <Box className={classes.contentItems}>
-        <Grid container justify="center" spacing={1}>
+        <Grid container justify='center' spacing={1}>
           {
             columns.values.map((value, index) => (
-              <Grid item xs={4} key={index}>
+              <Grid item xs key={index}>
                 <h5 className={classes.subtitle}>{value.title}</h5>
                 {
                   value.items.map((item, index) => (
                     <React.Fragment key={index}>
-                      <VariableItem 
+                      <VariableItem
                         title={item.title}
                         descriptionLabel={item.label}
                         descriptionTooltip={item.help}
-                        value={item.value} 
-                        changeValues={changeValueVar1} />
-                      {!index && <Divider variant="middle" />}
+                        valueInitial={item.value} 
+                        onChange={item.changeValue} />
+                      {
+                        value.items.length === 2 
+                          ? show = index < 1 ? true : false
+                          : value.items.length > 1 
+                            ? show = index < 3 ? true : false
+                            : null
+                      }
+                      { show && <Divider variant="middle" /> }
                     </React.Fragment>  
                   ))
                 }
               </Grid>
             ))
           }
-        </Grid>          
+        </Grid>
       </Box>
     </Box>
-  )  
+  )
 }
 
 Variable.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   columns: PropTypes.shape({
     values: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string,
@@ -82,12 +86,11 @@ Variable.propTypes = {
         title: PropTypes.string,
         label: PropTypes.string,
         help: PropTypes.string,
-        value: PropTypes.number
+        value: PropTypes.number,
+        changeValue: PropTypes.func
       }))
     }))
-  }
-  )
-  
+  }).isRequired
 }
 
 Variable.defaultProps = {}

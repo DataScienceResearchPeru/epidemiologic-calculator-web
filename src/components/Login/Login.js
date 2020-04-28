@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useResource } from 'react-request-hook'
 import { useNavigation, Link } from 'react-navi'
 import { Input, Button, Checkbox, FormControlLabel, FormControl, InputLabel, InputAdornment, IconButton, Grid } from '@material-ui/core'
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 10,
       marginTop: 22,
       WebkitBoxShadow: '0px 1px 4px #00000033',
-      boxShadow: '0px 1px 4px #00000033',
+      boxShadow: '0px 1px 4px #00000033'
     },
     '& .MuiInputBase-input': {
       height: '2em',
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
       '&:-webkit-autofill': {
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
-      },
+      }
     },
     '& .MuiInputLabel-formControl': {
       color: '#33CCCC',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.2rem'
     },
     '& .MuiCheckbox-root': {
-      padding: 0,
+      padding: 0
     },
     '& .MuiFormControlLabel-root': {
       float: 'left',
@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTypography-body1': {
       fontSize: '0.8rem',
       color: '#a0a0a0',
-      marginLeft: 4,
+      marginLeft: 4
     }
   },
   forgotPassword: {
     fontSize: '0.8rem',
     color: '#a0a0a0',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   submit: {
     margin: theme.spacing(4, 0, 2),
@@ -68,26 +68,26 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
   const { dispatch } = useContext(StateContext)
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ showPassword, setshowPassword ] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setshowPassword] = useState(false)
 
   const classes = useStyles()
 
-  const [ user, login ] = useResource(api.login)
+  const [user, login] = useResource(api.login)
 
   const [stateError, AlertError, setData] = useErrorApi(user)
-
-  const navigation = useNavigation()
-
-
+  
+  const navigation =  useRef(useNavigation())
+  
   useEffect(() => {
     setData(user)
-    if(user && user.data && !stateError){
+    if (user && user.data && !stateError) {
       dispatch({ type: 'LOGIN', name: user.data.full_name })
-      navigation.navigate('/dashboard')
+      navigation.current.navigate('/dashboard')
+      
     }
-  }, [user])
+  }, [user, dispatch])
 
   function handleUsername (e) {
     setUsername(e.target.value)
@@ -102,24 +102,24 @@ const Login = (props) => {
   }
 
   return (
-    <form className={classes.form} data-testid="Login" onSubmit={e => { e.preventDefault(); login(username, password) }}>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="username" shrink>Usuario o correo electrónico</InputLabel>
-        <Input id="username" type="email" value={username} onChange={handleUsername} autoFocus disableUnderline={true}/>
+    <form className={classes.form} data-testid='Login' onSubmit={e => { e.preventDefault(); login(username, password) }}>
+      <FormControl margin='normal' fullWidth>
+        <InputLabel htmlFor='username' shrink>Usuario o correo electrónico</InputLabel>
+        <Input id='username' type='email' value={username} onChange={handleUsername} autoFocus disableUnderline />
       </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="password" shrink>Contraseña</InputLabel>
+      <FormControl margin='normal' fullWidth>
+        <InputLabel htmlFor='password' shrink>Contraseña</InputLabel>
         <Input
-          id="password"
-          disableUnderline={true}
+          id='password'
+          disableUnderline
           type={showPassword ? 'text' : 'password'}
-          name="password"
+          name='password'
           value={password}
           onChange={handlePassword}
           endAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position='end'>
               <IconButton
-                aria-label="toggle password visibility"
+                aria-label='toggle password visibility'
                 onClick={handleClickShowPassword}
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -131,19 +131,19 @@ const Login = (props) => {
       <Grid container>
         <Grid item xs>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" size="small" />}
-            label="Recordar mis datos"
+            control={<Checkbox value='remember' color='primary' size='small' />}
+            label='Recordar mis datos'
           />
         </Grid>
         <Grid item>
-          <Link href="#" className={classes.forgotPassword} onClick={props.handlerForgotPassword}>
-            {'¿Olvidaste tu contraseña?'}
+          <Link href='#' className={classes.forgotPassword} onClick={props.handleForgotPassword}>
+            ¿Olvidaste tu contraseña?
           </Link>
         </Grid>
       </Grid>
       <Button
-        type="submit"
-        variant="contained"
+        type='submit'
+        variant='contained'
         disabled={username.length === 0 || password.length === 0}
         className={classes.submit}
       >
@@ -156,7 +156,7 @@ const Login = (props) => {
 }
 
 Login.propTypes = {
-  handlerForgotPassword: PropTypes.func
+  handleForgotPassword: PropTypes.func
 }
 
 Login.defaultProps = {}

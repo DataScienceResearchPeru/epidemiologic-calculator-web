@@ -11,8 +11,7 @@ import Login from '../components/Login/Login'
 import RegisterUser from '../components/RegisterUser/RegisterUser'
 import background from '../images/background.svg'
 import DialogContainer from './DialogContainer'
-import ForgotPassword from '../components/ForgotPassword/ForgotPassoword'
-
+import ForgotPassword from '../components/ForgotPassword/ForgotPassword'
 
 const useStyles = makeStyles((theme) => ({
   boxContent: {
@@ -21,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '80px 100px',
     fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center', 
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    backgroundSize: 'cover'
   },
   boxInfo: {
     color: '#FFF',
@@ -50,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     opacity: 1
   },
   boxForm: {
-    maxWidth: 385,
+    maxWidth: 385
   },
   btnTop: {
     textTransform: 'uppercase',
@@ -60,10 +59,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'inline-block',
       fontWeight: 600,
       borderRadius: 15,
-      padding: '7px 27px',
+      padding: '7px 27px'
     }
   },
-  btnLeft:{
+  btnLeft: {
     border: '1px solid #ebebeb',
     backgroundColor: '#ebebeb',
     color: '#33CCCC',
@@ -76,12 +75,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF',
     marginLeft: -13,
     boxShadow: '0px 2px 4px #00000029',
-    WebkitBoxShadow: '0px 2px 4px #00000029',
+    WebkitBoxShadow: '0px 2px 4px #00000029'
   },
   hr: {
     border: '1px solid #33CCCC',
     width: '100%',
-    height: 0,
+    height: 0
   },
   circle: {
     height: 10,
@@ -92,11 +91,11 @@ const useStyles = makeStyles((theme) => ({
     border: '10px solid #33CCCC',
     display: 'inline-block',
     marginTop: -15,
-    marginBottom: 21,
+    marginBottom: 21
   },
-  socialMedia:{
+  socialMedia: {
     '& > *': {
-      margin: theme.spacing(1.5),
+      margin: theme.spacing(1.5)
     },
     '& .MuiIconButton-root': {
       color: '#545353',
@@ -104,12 +103,12 @@ const useStyles = makeStyles((theme) => ({
       padding: 6,
       boxShadow: '0px 2px 4px #00000029'
     }
-  },
+  }
 }))
-  
+
 const HomePage = () => {
   const classes = useStyles()
-  const [ showLogin, setShowLogin ] = useState(true)
+  const [showLogin, setShowLogin] = useState(true)
   let form
 
   const [open, setOpen] = React.useState(false)
@@ -119,14 +118,14 @@ const HomePage = () => {
   }
 
   if (showLogin) {
-    form = <Login handlerForgotPassword={showDialogoForgotPassword} />
+    form = <Login handleForgotPassword={showDialogoForgotPassword} />
   } else {
     form = <RegisterUser />
   }
 
-  const handleClose = () => {    
+  const handleClose = () => {
     setOpen(false)
-  }  
+  }
 
   const handleClickShowLogin = () => {
     setShowLogin(true)
@@ -135,57 +134,57 @@ const HomePage = () => {
   const handleClickShowRegister = () => {
     setShowLogin(false)
   }
-  
+
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
-        <Box className={classes.boxContent}> 
+        <Box className={classes.boxContent}>
           <Grid container>
             <Grid item xs={6}>
               <div className={classes.boxInfo}>
                 <h1>BIENVENIDO</h1>
                 <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est. 
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est.
                 </p>
               </div>
             </Grid>
             <Grid item xs={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href="#" onClick={handleClickShowRegister} underline="none" className={classes.btnLeft}>Regístrate</Link>
-                  <Link href="#" onClick={handleClickShowLogin} underline="none" className={classes.btnRight}>Iniciar sesión</Link>
+                  <Link href='#' onClick={handleClickShowRegister} underline='none' className={classes.btnLeft}>Regístrate</Link>
+                  <Link href='#' onClick={handleClickShowLogin} underline='none' className={classes.btnRight}>Iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
-                  { form }
-                  
+                  {form}
+
                   <Divider className={classes.hr} />
-                  <div className={classes.circle}></div>
+                  <div className={classes.circle} />
 
                   <div className={classes.socialMedia}>
-                    <IconButton color="default" aria-label="google">
+                    <IconButton color='default' aria-label='google'>
                       <GoogleIcon />
                     </IconButton>
-                    <IconButton color="default" aria-label="facebook">
+                    <IconButton color='default' aria-label='facebook'>
                       <FacebookIcon />
                     </IconButton>
-                    <IconButton color="default" aria-label="linkedin">
+                    <IconButton color='default' aria-label='linkedin'>
                       <LinkedinIcon />
                     </IconButton>
                   </div>
                 </div>
               </div>
 
-              <DialogContainer isOpen={open} handler={handleClose}  >
+              <DialogContainer isOpen={open} handler={handleClose}>
                 <ForgotPassword handler={handleClose} />
-              </DialogContainer>             
+              </DialogContainer>
             </Grid>
           </Grid>
         </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 
