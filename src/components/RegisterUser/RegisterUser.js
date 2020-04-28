@@ -68,14 +68,11 @@ const RegisterUser = () => {
   const classes = useStyles()
   const navigation = useRef(useNavigation())
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getDepartments(), [])
+  useEffect(() => getDepartments(), [getDepartments])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getProvinces(departmentId), [departmentId])
+  useEffect(() => getProvinces(departmentId), [getProvinces, departmentId])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getDistricts(provinceId), [provinceId])
+  useEffect(() => getDistricts(provinceId), [getDistricts, provinceId])
 
   useEffect(() => {
     setData(user)

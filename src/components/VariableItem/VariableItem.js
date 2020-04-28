@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Input, IconButton, Slider, Tooltip, Grid } from '@material-ui/core'
@@ -78,47 +78,62 @@ const VariableSlider = withStyles({
 })(Slider)
 
 const VariableItem = (props) => {
-  const { title, valueInitial, descriptionLabel, changeValues, descriptionTooltip } = props
+  const { valueInitial } = props
   const defaultValue = valueInitial ? valueInitial : 0
   const maxValue = defaultValue < 100 ? 100 : defaultValue + (defaultValue * 0.9)
-  const [value, setValue] = React.useState(defaultValue)
+  const [value, setValue] = useState(defaultValue)
   const classes = useStyles()
 
-  const handleChange = (event, newValue) => {
-    if (newValue && newValue > 0) {
-      setValue(newValue)
-      if (changeValues) { changeValues(newValue) }
+  const handleSliderChange = (e, newValue) => {
+    setValue(newValue)
+    if (props.onChange) { 
+      props.onChange(newValue) 
     }
   }
 
-  function handleValueSlider (e) {
-    const value = e.target.value
-    if (value && value > 0) {
-      setValue(parseInt(value))
-      if (changeValues) { changeValues(parseInt(value)) }
+  const handleInputChange = (e) => {
+    setValue(e.target.value === '' ? '' : Number(e.target.value))
+    
+    if (props.onChange && e.target.value !== '') { 
+      props.onChange(Number(e.target.value)) 
     }
   }
 
   return (
     <Grid container spacing={2} className={classes.variable} data-testid='VariableItem'>
       <Grid item xs={9}>
-        <span>{title}</span>
+        <span>{props.title}</span>
       </Grid>
       <Grid item xs={3}>
-        <Tooltip title={descriptionTooltip}>
+        <Tooltip title={props.descriptionTooltip}>
           <IconButton aria-label='info'>
             <InfoIcon />
           </IconButton>
         </Tooltip>
       </Grid>
       <Grid item xs={12}>
-        <VariableSlider max={maxValue} value={value} onChange={handleChange} aria-labelledby='continuous-slider' />
+        <VariableSlider
+          max={maxValue}
+          value={typeof value === 'number' ? value : 0}
+          onChange={handleSliderChange}
+          aria-labelledby='input-slider'
+        />
       </Grid>
       <Grid item xs={7}>
-        <Input type="text" value={value} onChange={handleValueSlider} disableUnderline={true}/>
+        <Input
+         value={value}
+         onChange={handleInputChange}
+         disableUnderline={true}
+         inputProps={{
+            min: 0,
+            max: 100,
+            type: 'number',
+            'aria-labelledby': 'input-slider',
+          }}
+         />
       </Grid>
       <Grid item xs={5}>
-        <p>{descriptionLabel}</p> 
+        <p>{props.descriptionLabel}</p> 
       </Grid>
     </Grid>
   )
@@ -128,8 +143,8 @@ VariableItem.propTypes = {
   title: PropTypes.string,
   valueInitial: PropTypes.number,
   descriptionLabel: PropTypes.string,
-  changeValues: PropTypes.func,
-  descriptionTooltip: PropTypes.string
+  descriptionTooltip: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 VariableItem.defaultProps = {}

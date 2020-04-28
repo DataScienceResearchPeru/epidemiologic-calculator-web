@@ -39,10 +39,6 @@ const Variable = (props) => {
   const { columns, title } = props 
   let show = false
 
-  const changeValueVar1 = (val) => {
-    console.log(val)
-  }
-
   return (
     <Box className={classes.contentVariable} data-testid='Variable'>
       <h3>{title}</h3>
@@ -60,7 +56,7 @@ const Variable = (props) => {
                         descriptionLabel={item.label}
                         descriptionTooltip={item.help}
                         valueInitial={item.value} 
-                        changeValues={changeValueVar1} />
+                        onChange={item.changeValue} />
                       {
                         value.items.length === 2 
                           ? show = index < 1 ? true : false
@@ -82,7 +78,7 @@ const Variable = (props) => {
 }
 
 Variable.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   columns: PropTypes.shape({
     values: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string,
@@ -90,12 +86,11 @@ Variable.propTypes = {
         title: PropTypes.string,
         label: PropTypes.string,
         help: PropTypes.string,
-        value: PropTypes.number
+        value: PropTypes.number,
+        changeValue: PropTypes.func
       }))
     }))
-  }
-  )
-
+  }).isRequired
 }
 
 Variable.defaultProps = {}

@@ -1,7 +1,3 @@
-/**
- * FIX:
- * Varaibles never used or with incomplete specs in this file!
- */
 import * as d3 from 'd3'
 
 function line () {
@@ -59,12 +55,16 @@ function line () {
     death: 'Fallecidos'
   }
 
+  let legendEvent = false
+
   function exports (_selection) {
     _selection.each(function (_data) {
-      if (dataByVariable === undefined) {
+  
+      if (!legendEvent) {
         dataByVariable = cleanData(_data)
       }
 
+      legendEvent = false 
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
 
@@ -112,9 +112,9 @@ function line () {
       .rangeRound([chartHeight, 0])
       .domain([0, d3.max(data, function (c) {
         return d3.max(c.values, function (d) {
-          return d.value
+            return d.value
+          })
         })
-      })
       ])
   }
 
@@ -315,6 +315,7 @@ function line () {
         })
       }
 
+      legendEvent = true
       selection.call(exports)
     })
   }
