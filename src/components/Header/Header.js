@@ -99,9 +99,7 @@ const Header = () => {
             }}
           />
         </div>
-
         {user && <UserMenu user={user} />}
-
         {!user && (
           <Button variant="outlined" className={classes.button}>
             Contáctanos
