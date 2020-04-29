@@ -9,12 +9,8 @@ const LineGraphic = (props) => {
 
   useEffect(() => {
     const { height, width, margin, grid } = props
-<<<<<<< HEAD
-    const configuration = { height, width, margin, grid }
-=======
     const xTicks = 8
     const configuration = { height, width, margin, grid, xTicks }
->>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
     const element = _rootNode.current
 
     props.chart.create(

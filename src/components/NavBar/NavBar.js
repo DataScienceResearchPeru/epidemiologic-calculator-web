@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -61,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
-  },
-  content: {
-    flexGrow: 1
   },
   font: {
     color: '#fff',
@@ -130,7 +126,7 @@ const NavBar = () => {
           </IconButton>
         </div>
       </Drawer>
-      <main className={classes.content}>
+      <main >
         <DashboardPage />
       </main>
     </div>
@@ -141,28 +137,4 @@ NavBar.propTypes = {}
 
 NavBar.defaultProps = {}
 
-=======
-/**
- * FIX:
- * Unused variables here!
- * Verify that they are not nedded before to delete this comment.
- *
- * On imports:
- * import PropTypes from 'prop-types'
- */
-import React from 'react'
-
-import styles from './NavBar.module.css'
-
-const NavBar = () => (
-  <div className={styles.NavBar} data-testid='NavBar'>
-    NavBar Component
-  </div>
-)
-
-NavBar.propTypes = {}
-
-NavBar.defaultProps = {}
-
->>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
 export default NavBar

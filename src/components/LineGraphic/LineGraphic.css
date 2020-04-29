@@ -7,17 +7,10 @@
 }
 
 .line-chart .variable .line {
-<<<<<<< HEAD
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round; 
-=======
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round; 
   fill: none;
->>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
 }
 
 .tick text {
@@ -49,11 +42,7 @@
 }
 
 .legend .serie text {
-<<<<<<< HEAD
-  color: #404040;
-=======
   fill: #2b2a2a;
->>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   font-weight: 500;
   font-size: 12px;
   font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
