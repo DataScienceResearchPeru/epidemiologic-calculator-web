@@ -42,7 +42,7 @@
 }
 
 .legend .serie text {
-  color: #404040;
+  fill: #2b2a2a;
   font-weight: 500;
   font-size: 12px;
   font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;

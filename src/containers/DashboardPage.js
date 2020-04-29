@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     '& .MuiInput-underline:before': {
       borderBottom: 0
+    },
+    '& .MuiSelect-select': {
+      color: '#404040',
+      fontSize: '15px',
+      fontWeight: 320
     }
   }
 }))
