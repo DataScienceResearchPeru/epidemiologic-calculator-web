@@ -72,11 +72,11 @@ export const api = {
       data: { newPassword, resetToken }
     })
   },
-  getDataSeaichurd: (population, infected, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq) => {
+  getDataSeaichurd: (population, infected, duration, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq) => {
     return request({
       method: 'POST',
       url: 'seaichurd',
-      data: { population, infected, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq }
+      data: { population, infected, duration, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq }
     })
   }
 }

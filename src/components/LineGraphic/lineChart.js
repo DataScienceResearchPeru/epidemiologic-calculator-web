@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { tree } from 'd3'
 
 function line () {
   let dataByVariable
@@ -23,7 +22,7 @@ function line () {
   let grid = null
 
   let yTicks = 8
-  const xTicks = 8
+  let xTicks = 8
   const tickPadding = 5
   const shouldShowAllDataPoints = true
 
@@ -176,7 +175,7 @@ function line () {
       .selectAll('stop')
       .data([
         {offset: 0, color: color, opacity: 1},
-        {offset: 0.6, color: '#FFFFFF', opacity: 0.1},
+        {offset: 0.7, color: '#FFFFFF', opacity: 0.1},
       ])
       .enter().append('stop')
       .attr('offset', function(d) { return d.offset })
@@ -270,22 +269,40 @@ function line () {
     }
   }
 
+  function pointsXY(data) {
+    time = xScale.ticks(xTicks)
+    
+    let dataset = data.map((d) => {
+      return { id: d.id, values: d.values.filter( function (value) {
+          return time.includes(value.time)
+        }) 
+      }
+    })
+
+    return dataset
+  }
+
+
+
   function drawAllDataPoints () {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
 
+  
+    const points = pointsXY(dataByVariable.filter(function (d) {
+        return !d.disabled
+      }))
+    
     const allDataPoints = svg.select('.chart-group')
       .append('g')
       .classed('data-points-container', true)
       .selectAll('.points')
-      .data(dataByVariable.filter(function (d) {
-        return !d.disabled
-      }))
+      .data(points)
       .enter()
       .append('g')
       .attr('class', 'points')
-      .style('stroke', (d, i) => (colors[d.id]))
+      .style('stroke', (d, i) => colors[d.id])
 
     allDataPoints
       .selectAll('circle')
@@ -408,6 +425,15 @@ function line () {
       return yTicks
     }
     yTicks = _x
+
+    return this
+  }
+
+  exports.xTicks = function (_x) {
+    if (!arguments.length) {
+      return xTicks
+    }
+    xTicks = _x
 
     return this
   }

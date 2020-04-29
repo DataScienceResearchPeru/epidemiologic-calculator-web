@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import { useResource } from 'react-request-hook'
-import { Container, Box, Grid, CircularProgress } from '@material-ui/core'
+import { Container, Box, Grid, CircularProgress, Select, FormControl, MenuItem } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../components/Header/Header'
@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3.1),
     justifyContent: 'center',
     display: 'flex'
+  },
+  formControl: {
+    float: 'right',
+    '& .MuiInput-underline:before': {
+      borderBottom: 0
+    }
   }
 }))
 
@@ -56,9 +62,11 @@ const DashboardPage = () => {
   const [a8, setA8] = useState(15)
   const [a9, setA9] = useState(30)
   const [qq, setQQ] = useState(0)
+  const [duration, setDuration] = useState(120)
+  const [open, setOpen] =useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState({})
-  const [response] = useResource(api.getDataSeaichurd, [population, infected, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq])
+  const [response] = useResource(api.getDataSeaichurd, [population, infected, duration, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq])
 
   useEffect(() => {
     if (response && response.data) {
@@ -141,6 +149,18 @@ const DashboardPage = () => {
 
   const changeQQ = (val) => {
     setQQ(val)
+  }
+
+  const handleChange = (e) => {
+    setDuration(e.target.value)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleOpen = () => {
+    setOpen(true)
   }
   
   return (
@@ -333,22 +353,45 @@ const DashboardPage = () => {
             </Grid>
           </Grid>
           <Box className={classes.LineGraphic}>
-            {
-              isLoading ?
-                <CircularProgress />  
-              : <LineGraphic
-                data={data}
-                width={980}
-                height={360}
-                margin={{
-                  top: 10,
-                  left: 230,
-                  right: 10,
-                  bottom: 30
-                }}
-                grid='full'
-              />
-            }
+            <Grid container justify="center" direction="row" alignItems="center">
+              <Grid item xs={12}>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    labelId="duration-label"
+                    id="duration-select"
+                    open={open}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    value={duration}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={120}>Últimos 120 días</MenuItem>
+                    <MenuItem value={160}>Últimos 160 días</MenuItem>
+                    <MenuItem value={200}>Últimos 200 días</MenuItem>
+                    <MenuItem value={250}>Últimos 250 días</MenuItem>
+                    <MenuItem value={300}>Últimos 300 días</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                {
+                  isLoading ?
+                    <CircularProgress />  
+                  : <LineGraphic
+                    data={data}
+                    width={1020}
+                    height={360}
+                    margin={{
+                      top: 10,
+                      left: 230,
+                      right: 10,
+                      bottom: 30
+                    }}
+                    grid='full'
+                  />
+                }
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>
