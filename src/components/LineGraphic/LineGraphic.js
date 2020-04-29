@@ -1,15 +1,49 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import styles from './LineGraphic.module.css'
 
-const LineGraphic = () => (
-  <div className={styles.LineGraphic} data-testid="LineGraphic">
-    LineGraphic Component
-  </div>
-)
+import './LineGraphic.css'
+import D3Line from './D3Line'
 
-LineGraphic.propTypes = {}
+const LineGraphic = (props) => {
+  const _rootNode = useRef(null)
 
-LineGraphic.defaultProps = {}
+  useEffect(() => {
+    const { height, width, margin, grid } = props
+    const configuration = { height, width, margin, grid }
+    const element = _rootNode.current
+
+    props.chart.create(
+      element,
+      props.data,
+      configuration
+    )
+
+    return () => {
+      props.chart.destroy(element)
+    }
+  }, [props])
+
+  return (
+    <div className='line-container' id='chart' ref={_rootNode} data-testid='LineGraphic' />
+  )
+}
+
+LineGraphic.propTypes = {
+  data: PropTypes.objectOf(PropTypes.any),
+  height: PropTypes.number,
+  width: PropTypes.number,
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number
+  }),
+  grid: PropTypes.string,
+  chart: PropTypes.object
+}
+
+LineGraphic.defaultProps = {
+  chart: D3Line
+}
 
 export default LineGraphic

@@ -10,7 +10,6 @@ import { api } from '../../middleware/api'
 import Message from '../Message/Message'
 import background from '../../images/background.svg'
 
-
 const useStyles = makeStyles((theme) => ({
   boxContent: {
     borderRadius: 17,
@@ -20,51 +19,59 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF',
     minHeight: 400,
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center', 
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     '& h1': {
       fontSize: '1.8em',
-      fontWeight: 500,
+      fontWeight: 500
     },
     '& a': {
       color: '#FFF',
       fontWeight: 600
     }
-  },
+  }
 }))
 
 const VerifyAccount = (props) => {
   const { token } = props
   const classes = useStyles()
-  const [ response ] = useResource(api.verifyAccount, [token])
+  const [response] = useResource(api.verifyAccount, [token])
   let message
 
   if (response.data) {
-    message = <Message title="Verificación confirmada" 
-      description="Su dirección de email se ha verificado con éxito."
-      link="ir al login" />
+    message = (
+      <Message
+        title='Verificación confirmada'
+        description='Su dirección de email se ha verificado con éxito.'
+        link='ir al login'
+      />
+    )
   } else {
-    message = <Message title="Verificación Fallida" 
-      description="El enlace no es válido o ha expirado."
-      link="Volver al inicio" />
+    message = (
+      <Message
+        title='Verificación Fallida'
+        description='El enlace no es válido o ha expirado.'
+        link='Volver al inicio'
+      />
+    )
   }
 
   return (
-    <React.Fragment>
-      <Container component="main" maxWidth="lg">
+    <>
+      <Container component='main' maxWidth='lg'>
         <Header />
         <Box className={classes.boxContent}>
-          { message }
+          {message}
         </Box>
       </Container>
       <Footer />
-    </React.Fragment>
+    </>
   )
 }
 
 VerifyAccount.propTypes = {
-  token: PropTypes.string,
+  token: PropTypes.string
 }
 
 export default VerifyAccount

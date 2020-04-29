@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react'
 
-const LazyVariable = lazy(() => import('./Variable'));
+const LazyVariable = lazy(() => import('./Variable'))
 
 const Variable = props => (
   <Suspense fallback={null}>
     <LazyVariable {...props} />
   </Suspense>
-);
+)
 
-export default Variable;
+export default Variable

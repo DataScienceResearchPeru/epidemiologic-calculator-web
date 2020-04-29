@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react'
 
-const LazyUserMenu = lazy(() => import('./UserMenu'));
+const LazyUserMenu = lazy(() => import('./UserMenu'))
 
 const UserMenu = props => (
   <Suspense fallback={null}>
     <LazyUserMenu {...props} />
   </Suspense>
-);
+)
 
-export default UserMenu;
+export default UserMenu

@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react'
 
-const LazyRegisterUser = lazy(() => import('./RegisterUser'));
+const LazyRegisterUser = lazy(() => import('./RegisterUser'))
 
 const RegisterUser = props => (
   <Suspense fallback={null}>
     <LazyRegisterUser {...props} />
   </Suspense>
-);
+)
 
-export default RegisterUser;
+export default RegisterUser
