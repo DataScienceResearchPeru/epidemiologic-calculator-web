@@ -9,7 +9,7 @@ describe('<LineGraphic />', () => {
   afterEach(cleanup)
 
   test('it should mount', () => {
-    const { getByTestId } = render(<RequestProvider value={axiosInstance}><LineGraphic data={{'susceptible': [32000000.0], 'time': [0] }}/></RequestProvider>)
+    const { getByTestId } = render(<RequestProvider value={axiosInstance}><LineGraphic data={{ susceptible: [32000000.0], time: [0] }} /></RequestProvider>)
     const lineGraphic = getByTestId('LineGraphic')
 
     expect(lineGraphic).toBeInTheDocument()

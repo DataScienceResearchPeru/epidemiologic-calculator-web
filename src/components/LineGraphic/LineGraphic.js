@@ -6,13 +6,13 @@ import D3Line from './D3Line'
 
 const LineGraphic = (props) => {
   const _rootNode = useRef(null)
- 
-   useEffect(() => {
+
+  useEffect(() => {
     const { height, width, margin, grid } = props
     const xTicks = 8
     const configuration = { height, width, margin, grid, xTicks }
     const element = _rootNode.current
-    
+
     props.chart.create(
       element,
       props.data,
@@ -21,11 +21,11 @@ const LineGraphic = (props) => {
 
     return () => {
       props.chart.destroy(element)
-    } 
+    }
   }, [props])
 
   return (
-    <div className='line-container' id='chart' ref={_rootNode} data-testid='LineGraphic'/>
+    <div className='line-container' id='chart' ref={_rootNode} data-testid='LineGraphic' />
   )
 }
 

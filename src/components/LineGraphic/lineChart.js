@@ -59,12 +59,11 @@ function line () {
 
   function exports (_selection) {
     _selection.each(function (_data) {
-  
       if (!legendEvent) {
         dataByVariable = cleanData(_data)
       }
 
-      legendEvent = false 
+      legendEvent = false
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
 
@@ -112,9 +111,9 @@ function line () {
       .rangeRound([chartHeight, 0])
       .domain([0, d3.max(data, function (c) {
         return d3.max(c.values, function (d) {
-            return d.value
-          })
+          return d.value
         })
+      })
       ])
   }
 
@@ -123,7 +122,7 @@ function line () {
       .append('g')
       .classed('container-group', true)
       .attr('transform', `translate(${margin.left},${margin.top})`)
-    
+
     container
       .append('g').classed('x-axis-group', true)
       .append('g').classed('axis x', true)
@@ -163,24 +162,24 @@ function line () {
       .call(yAxis)
   }
 
-  function gradient(color, id) {
+  function gradient (color, id) {
     svg.select('.chart-group')
       .append('defs')
       .append('linearGradient')
       .attr('id', id)
       .attr('x1', '0%').attr('y1', '0%')
       .attr('x2', '0%').attr('y2', '100%')
-    
+
     d3.select(`#${id}`)
       .selectAll('stop')
       .data([
-        {offset: 0, color: color, opacity: 1},
-        {offset: 0.7, color: '#FFFFFF', opacity: 0.1},
+        { offset: 0, color: color, opacity: 1 },
+        { offset: 0.7, color: '#FFFFFF', opacity: 0.1 }
       ])
       .enter().append('stop')
-      .attr('offset', function(d) { return d.offset })
-      .attr('stop-color', function(d) { return d.color })
-      .attr('stop-opacity', function(d) { return d.opacity })
+      .attr('offset', function (d) { return d.offset })
+      .attr('stop-color', function (d) { return d.color })
+      .attr('stop-opacity', function (d) { return d.opacity })
   }
 
   function drawLines () {
@@ -199,14 +198,14 @@ function line () {
       .data(dataByVariable.filter(function (d) {
         return !d.disabled
       }))
-    
+
     const areas = svg
       .select('.chart-group')
       .selectAll('.area')
       .data(dataByVariable.filter(function (d) {
         return !d.disabled
       }))
-    
+
     lines.enter()
       .append('g')
       .attr('class', 'variable')
@@ -223,14 +222,14 @@ function line () {
       .attr('class', 'area')
       .merge(areas)
       .attr('d', function (d) { return area(d.values) })
-      .attr('fill', function (d) { gradient(colors[d.id], d.id ); return `url(#${d.id})`} )
+      .attr('fill', function (d) { gradient(colors[d.id], d.id); return `url(#${d.id})` })
 
     // Exit
     lines
       .exit()
       .style('opacity', 0)
       .remove()
-    
+
     areas
       .exit()
       .style('opacity', 0)
@@ -269,31 +268,30 @@ function line () {
     }
   }
 
-  function pointsXY(data) {
+  function pointsXY (data) {
     time = xScale.ticks(xTicks)
-    
-    let dataset = data.map((d) => {
-      return { id: d.id, values: d.values.filter( function (value) {
+
+    const dataset = data.map((d) => {
+      return {
+        id: d.id,
+        values: d.values.filter(function (value) {
           return time.includes(value.time)
-        }) 
+        })
       }
     })
 
     return dataset
   }
 
-
-
   function drawAllDataPoints () {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
 
-  
     const points = pointsXY(dataByVariable.filter(function (d) {
-        return !d.disabled
-      }))
-    
+      return !d.disabled
+    }))
+
     const allDataPoints = svg.select('.chart-group')
       .append('g')
       .classed('data-points-container', true)

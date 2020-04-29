@@ -77,15 +77,14 @@ const Login = (props) => {
   const [user, login] = useResource(api.login)
 
   const [stateError, AlertError, setData] = useErrorApi(user)
-  
-  const navigation =  useRef(useNavigation())
-  
+
+  const navigation = useRef(useNavigation())
+
   useEffect(() => {
     setData(user)
     if (user && user.data && !stateError) {
       dispatch({ type: 'LOGIN', name: user.data.full_name })
       navigation.current.navigate('/dashboard')
-      
     }
   }, [user, dispatch])
 

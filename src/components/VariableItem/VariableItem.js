@@ -39,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiIconButton-root': {
       float: 'right',
       padding: 0
-    }, 
+    },
     '& p': {
       float: 'right',
       margin: 0
-    } 
+    }
   }
 }))
 
@@ -79,23 +79,23 @@ const VariableSlider = withStyles({
 
 const VariableItem = (props) => {
   const { valueInitial } = props
-  const defaultValue = valueInitial ? valueInitial : 0
+  const defaultValue = valueInitial || 0
   const maxValue = defaultValue < 100 ? 100 : defaultValue + (defaultValue * 0.9)
   const [value, setValue] = useState(defaultValue)
   const classes = useStyles()
 
   const handleSliderChange = (e, newValue) => {
     setValue(newValue)
-    if (props.onChange) { 
-      props.onChange(newValue) 
+    if (props.onChange) {
+      props.onChange(newValue)
     }
   }
 
   const handleInputChange = (e) => {
     setValue(e.target.value === '' ? '' : Number(e.target.value))
-    
-    if (props.onChange && e.target.value !== '') { 
-      props.onChange(Number(e.target.value)) 
+
+    if (props.onChange && e.target.value !== '') {
+      props.onChange(Number(e.target.value))
     }
   }
 
@@ -121,19 +121,19 @@ const VariableItem = (props) => {
       </Grid>
       <Grid item xs={7}>
         <Input
-         value={value}
-         onChange={handleInputChange}
-         disableUnderline={true}
-         inputProps={{
+          value={value}
+          onChange={handleInputChange}
+          disableUnderline
+          inputProps={{
             min: 0,
             max: 100,
             type: 'number',
-            'aria-labelledby': 'input-slider',
+            'aria-labelledby': 'input-slider'
           }}
-         />
+        />
       </Grid>
       <Grid item xs={5}>
-        <p>{props.descriptionLabel}</p> 
+        <p>{props.descriptionLabel}</p>
       </Grid>
     </Grid>
   )

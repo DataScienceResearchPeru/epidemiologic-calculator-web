@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Variable = (props) => {
   const classes = useStyles()
-  const { columns, title } = props 
-  let show = false
+  const { columns, title } = props
 
   return (
     <Box className={classes.contentVariable} data-testid='Variable'>
@@ -49,24 +48,20 @@ const Variable = (props) => {
               <Grid item xs key={index}>
                 <h5 className={classes.subtitle}>{value.title}</h5>
                 {
-                  value.items.map((item, index) => (
-                    <React.Fragment key={index}>
-                      <VariableItem
-                        title={item.title}
-                        descriptionLabel={item.label}
-                        descriptionTooltip={item.help}
-                        valueInitial={item.value} 
-                        onChange={item.changeValue} />
-                      {
-                        value.items.length === 2 
-                          ? show = index < 1 ? true : false
-                          : value.items.length > 1 
-                            ? show = index < 3 ? true : false
-                            : null
-                      }
-                      { show && <Divider variant="middle" /> }
-                    </React.Fragment>  
-                  ))
+                  value.items.map(
+                    (item, index) => (
+                      <React.Fragment key={index}>
+                        <VariableItem
+                          title={item.title}
+                          descriptionLabel={item.label}
+                          descriptionTooltip={item.help}
+                          valueInitial={item.value}
+                          onChange={item.handleChangeValue}
+                        />
+                        {index < value.items.length - 1 && <Divider variant='middle' />}
+                      </React.Fragment>
+                    )
+                  )
                 }
               </Grid>
             ))
@@ -87,7 +82,7 @@ Variable.propTypes = {
         label: PropTypes.string,
         help: PropTypes.string,
         value: PropTypes.number,
-        changeValue: PropTypes.func
+        handleChangeValue: PropTypes.func
       }))
     }))
   }).isRequired
