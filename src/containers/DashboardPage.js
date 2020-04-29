@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useResource } from 'react-request-hook'
-import { Container, Box, Grid, CircularProgress } from '@material-ui/core'
+import { Container, Box, Grid, CircularProgress, Select, FormControl, MenuItem } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Footer from '../components/Footer/Footer'
@@ -31,6 +31,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3.1),
     justifyContent: 'center',
     display: 'flex'
+  },
+  formControl: {
+    float: 'right',
+    '& .MuiInput-underline:before': {
+      borderBottom: 0
+    },
+    '& .MuiSelect-select': {
+      color: '#404040',
+      fontSize: '15px',
+      fontWeight: 320
+    }
   }
 }))
 
@@ -55,9 +66,11 @@ const DashboardPage = () => {
   const [a8, setA8] = useState(15)
   const [a9, setA9] = useState(30)
   const [qq, setQQ] = useState(0)
+  const [duration, setDuration] = useState(120)
+  const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState({})
-  const [response] = useResource(api.getDataSeaichurd, [population, infected, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq])
+  const [response] = useResource(api.getDataSeaichurd, [population, infected, duration, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq])
 
   useEffect(() => {
     if (response && response.data) {
@@ -142,6 +155,18 @@ const DashboardPage = () => {
     setQQ(val)
   }
 
+  const handleChange = (e) => {
+    setDuration(e.target.value)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
   return (
     <>
       <Container component='main' maxWidth='lg'>
@@ -163,14 +188,14 @@ const DashboardPage = () => {
                           label: 'Personas',
                           help: 'Ayuda',
                           value: 32000000,
-                          changeValue: changePopulation
+                          handleChangeValue: changePopulation
                         },
                         {
                           title: 'Número inicial de infectados',
                           label: 'infectados',
                           help: 'Ayuda',
                           value: 6,
-                          changeValue: changeInfected
+                          handleChangeValue: changeInfected
                         }
                       ]
                     }
@@ -191,28 +216,28 @@ const DashboardPage = () => {
                           label: '%',
                           help: 'Contagio de susceptible por un infectado  [1/T]',
                           value: 50.00,
-                          changeValue: changeA1
+                          handleChangeValue: changeA1
                         },
                         {
                           title: 'A2',
                           label: '%',
                           help: 'Contagio de susceptible por un asintomático [1/T] (12.5 días)',
                           value: 28.00,
-                          changeValue: changeA2
+                          handleChangeValue: changeA2
                         },
                         {
                           title: 'A3',
                           label: '%',
                           help: 'Periodo latente de un asintomático [1/T] (5 días)',
                           value: 35.00,
-                          changeValue: changeA3
+                          handleChangeValue: changeA3
                         },
                         {
                           title: 'A4',
                           label: '%',
                           help: 'Periodo latente de un infectado [1/T] (5 días)',
                           value: 40.00,
-                          changeValue: changeA4
+                          handleChangeValue: changeA4
                         }
                       ]
                     },
@@ -224,28 +249,28 @@ const DashboardPage = () => {
                           label: '%',
                           help: 'Periodo latente de asintomático para ser un infectado [1/T] (5 días)',
                           value: 20.00,
-                          changeValue: changeA5
+                          handleChangeValue: changeA5
                         },
                         {
                           title: 'D1',
                           label: '%',
                           help: 'Muerte de un infectado [1/T]',
                           value: 0.10,
-                          changeValue: changeD1
+                          handleChangeValue: changeD1
                         },
                         {
                           title: 'D2',
                           label: '%',
                           help: 'Muerte de un hospitalizado [1/T]',
                           value: 0.20,
-                          changeValue: changeD2
+                          handleChangeValue: changeD2
                         },
                         {
                           title: 'D3',
                           label: '%',
                           help: 'Muerte de un UCI [1/T]',
                           value: 0.50,
-                          changeValue: changeD3
+                          handleChangeValue: changeD3
                         }
                       ]
                     },
@@ -257,28 +282,28 @@ const DashboardPage = () => {
                           label: '%',
                           help: 'Recuperación de un asintomático [1/T] (30 días)',
                           value: 20.00,
-                          changeValue: changeR1
+                          handleChangeValue: changeR1
                         },
                         {
                           title: 'R2',
                           label: '%',
                           help: 'Recuperación de un infectado [1/T] (40 días)',
                           value: 15.00,
-                          changeValue: changeR2
+                          handleChangeValue: changeR2
                         },
                         {
                           title: 'R3',
                           label: '%',
                           help: 'Recuperación de un hospitalizado [1/T] (40 días)',
                           value: 7.00,
-                          changeValue: changeR3
+                          handleChangeValue: changeR3
                         },
                         {
                           title: 'R4',
                           label: '%',
                           help: 'Recuperación de un UCI [1/T] (20 días)',
                           value: 3.00,
-                          changeValue: changeR4
+                          handleChangeValue: changeR4
                         }
                       ]
                     },
@@ -290,28 +315,28 @@ const DashboardPage = () => {
                           label: '%',
                           help: 'Transición de uno en cuarentena a infectado [1/T]',
                           value: 35.00,
-                          changeValue: changeA6
+                          handleChangeValue: changeA6
                         },
                         {
                           title: 'A7',
                           label: '%',
                           help: 'Contagio de susceptibles-cuarentena por un asintomático [1/T]',
                           value: 50.00,
-                          changeValue: changeA7
+                          handleChangeValue: changeA7
                         },
                         {
                           title: 'A8',
                           label: '%',
                           help: 'Hospitalizado trasladado a UCI [1/T]',
                           value: 15.00,
-                          changeValue: changeA8
+                          handleChangeValue: changeA8
                         },
                         {
                           title: 'A9',
                           label: '%',
                           help: 'Transición de un infectado a hospitalizado [1/T]',
                           value: 30.00,
-                          changeValue: changeA9
+                          handleChangeValue: changeA9
                         }
                       ]
                     },
@@ -323,7 +348,7 @@ const DashboardPage = () => {
                           label: '%',
                           help: 'Estado de cuarentena',
                           value: 0,
-                          changeValue: changeQQ
+                          handleChangeValue: changeQQ
                         }
                       ]
                     }
@@ -333,22 +358,47 @@ const DashboardPage = () => {
             </Grid>
           </Grid>
           <Box className={classes.LineGraphic}>
-            {
-              isLoading
-                ? <CircularProgress />
-                : <LineGraphic
-                  data={data}
-                  width={980}
-                  height={360}
-                  margin={{
-                    top: 10,
-                    left: 230,
-                    right: 10,
-                    bottom: 30
-                  }}
-                  grid='full'
-                />
-            }
+            <Grid container justify='center' direction='row' alignItems='center'>
+              <Grid item xs={12}>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    labelId='duration-label'
+                    id='duration-select'
+                    open={open}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    value={duration}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={120}>Últimos 120 días</MenuItem>
+                    <MenuItem value={160}>Últimos 160 días</MenuItem>
+                    <MenuItem value={200}>Últimos 200 días</MenuItem>
+                    <MenuItem value={250}>Últimos 250 días</MenuItem>
+                    <MenuItem value={300}>Últimos 300 días</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                {
+                  isLoading
+                    ? <CircularProgress />
+                    : (
+                      <LineGraphic
+                        data={data}
+                        width={1020}
+                        height={360}
+                        margin={{
+                          top: 10,
+                          left: 230,
+                          right: 10,
+                          bottom: 30
+                        }}
+                        grid='full'
+                      />
+                    )
+                }
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

@@ -22,9 +22,15 @@ function line () {
   let grid = null
 
   let yTicks = 8
+<<<<<<< HEAD
   const xTicks = 8
   const tickPadding = 5
   const shouldShowAllDataPoints = false
+=======
+  let xTicks = 8
+  const tickPadding = 5
+  const shouldShowAllDataPoints = true
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
 
   // events
   const dispatcher = d3.dispatch(
@@ -40,7 +46,11 @@ function line () {
     hospitalized: '#DB96FF',
     uci: '#E74C3C',
     recovered: '#5AB3FF',
+<<<<<<< HEAD
     death: '#404040'
+=======
+    death: '#656565'
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   }
 
   const variabletoSpanish = {
@@ -162,11 +172,42 @@ function line () {
       .call(yAxis)
   }
 
+<<<<<<< HEAD
+=======
+  function gradient (color, id) {
+    svg.select('.chart-group')
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', id)
+      .attr('x1', '0%').attr('y1', '0%')
+      .attr('x2', '0%').attr('y2', '100%')
+
+    d3.select(`#${id}`)
+      .selectAll('stop')
+      .data([
+        { offset: 0, color: color, opacity: 1 },
+        { offset: 0.7, color: '#FFFFFF', opacity: 0.1 }
+      ])
+      .enter().append('stop')
+      .attr('offset', function (d) { return d.offset })
+      .attr('stop-color', function (d) { return d.color })
+      .attr('stop-opacity', function (d) { return d.opacity })
+  }
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   function drawLines () {
     const line = d3.line()
       .x(function (d) { return xScale(d.time) })
       .y(function (d) { return yScale(d.value) })
 
+<<<<<<< HEAD
+=======
+    const area = d3.area()
+      .x(function (d) { return xScale(d.time) })
+      .y0(function (d) { return yScale(d.value) })
+      .y1(height - margin.bottom - margin.top)
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
     const lines = svg
       .select('.chart-group')
       .selectAll('.line')
@@ -174,6 +215,16 @@ function line () {
         return !d.disabled
       }))
 
+<<<<<<< HEAD
+=======
+    const areas = svg
+      .select('.chart-group')
+      .selectAll('.area')
+      .data(dataByVariable.filter(function (d) {
+        return !d.disabled
+      }))
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
     lines.enter()
       .append('g')
       .attr('class', 'variable')
@@ -181,13 +232,34 @@ function line () {
       .attr('class', 'line')
       .merge(lines)
       .attr('d', function (d) { return line(d.values) })
+<<<<<<< HEAD
       .style('stroke', (d, i) => (colors[d.id]))
+=======
+      .style('stroke', (d) => (colors[d.id]))
+
+    areas.enter()
+      .append('g')
+      .attr('class', 'variable')
+      .append('path')
+      .attr('class', 'area')
+      .merge(areas)
+      .attr('d', function (d) { return area(d.values) })
+      .attr('fill', function (d) { gradient(colors[d.id], d.id); return `url(#${d.id})` })
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
 
     // Exit
     lines
       .exit()
       .style('opacity', 0)
       .remove()
+<<<<<<< HEAD
+=======
+
+    areas
+      .exit()
+      .style('opacity', 0)
+      .remove()
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   }
 
   function drawGridLines (xTicks, yTicks) {
@@ -222,15 +294,41 @@ function line () {
     }
   }
 
+<<<<<<< HEAD
+=======
+  function pointsXY (data) {
+    time = xScale.ticks(xTicks)
+
+    const dataset = data.map((d) => {
+      return {
+        id: d.id,
+        values: d.values.filter(function (value) {
+          return time.includes(value.time)
+        })
+      }
+    })
+
+    return dataset
+  }
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   function drawAllDataPoints () {
     svg.select('.chart-group')
       .selectAll('.data-points-container')
       .remove()
 
+<<<<<<< HEAD
+=======
+    const points = pointsXY(dataByVariable.filter(function (d) {
+      return !d.disabled
+    }))
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
     const allDataPoints = svg.select('.chart-group')
       .append('g')
       .classed('data-points-container', true)
       .selectAll('.points')
+<<<<<<< HEAD
       .data(dataByVariable.filter(function (d) {
         return !d.disabled
       }))
@@ -238,6 +336,13 @@ function line () {
       .append('g')
       .attr('class', 'points')
       .style('stroke', (d, i) => (colors[d.id]))
+=======
+      .data(points)
+      .enter()
+      .append('g')
+      .attr('class', 'points')
+      .style('stroke', (d, i) => colors[d.id])
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
 
     allDataPoints
       .selectAll('circle')
@@ -364,6 +469,18 @@ function line () {
     return this
   }
 
+<<<<<<< HEAD
+=======
+  exports.xTicks = function (_x) {
+    if (!arguments.length) {
+      return xTicks
+    }
+    xTicks = _x
+
+    return this
+  }
+
+>>>>>>> 66e8a9b267447039566719d0936ac866ec56eaac
   exports.grid = function (_x) {
     if (!arguments.length) {
       return grid

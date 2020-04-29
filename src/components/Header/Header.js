@@ -20,12 +20,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 100,
     paddingRight: 100
   },
-  menuButton: {
-    marginRight: 3
-  },
-  hide: {
-    display: 'none'
-  },
   logo: {
     flexGrow: 1,
     '& img': {
@@ -69,16 +63,10 @@ const Header = () => {
   const classes = useStyles()
 
   return (
-    <AppBar
-      position='static'
-      color='transparent'
-      elevation={0}
-    >
+    <AppBar position='static' color='transparent' elevation={0}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.logo}>
-          <Link href='/'>
-            <img src={logo} alt='logo' />
-          </Link>
+          <Link href='/'><img src={logo} alt='logo' /></Link>
         </div>
         <div className={classes.search}>
           <TextField

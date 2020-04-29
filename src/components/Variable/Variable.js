@@ -37,35 +37,35 @@ const useStyles = makeStyles((theme) => ({
 const Variable = (props) => {
   const classes = useStyles()
   const { columns, title } = props
-  let show = false
 
   return (
     <Box className={classes.contentVariable} data-testid='Variable'>
       <h3>{title}</h3>
       <Box className={classes.contentItems}>
         <Grid container justify='center' spacing={1}>
-          {columns.values.map((value, index) => (
-            <Grid item xs key={index}>
-              <h5 className={classes.subtitle}>{value.title}</h5>
-              {value.items.map((item, index) => (
-                <React.Fragment key={index}>
-                  <VariableItem
-                    title={item.title}
-                    descriptionLabel={item.label}
-                    descriptionTooltip={item.help}
-                    valueInitial={item.value}
-                    onChange={item.changeValue}
-                  />
-                  {value.items.length === 2
-                    ? (show = index < 1)
-                    : value.items.length > 1
-                      ? (show = index < 3)
-                      : null}
-                  {show && <Divider variant='middle' />}
-                </React.Fragment>
-              ))}
-            </Grid>
-          ))}
+          {
+            columns.values.map((value, index) => (
+              <Grid item xs key={index}>
+                <h5 className={classes.subtitle}>{value.title}</h5>
+                {
+                  value.items.map(
+                    (item, index) => (
+                      <React.Fragment key={index}>
+                        <VariableItem
+                          title={item.title}
+                          descriptionLabel={item.label}
+                          descriptionTooltip={item.help}
+                          valueInitial={item.value}
+                          onChange={item.handleChangeValue}
+                        />
+                        {index < value.items.length - 1 && <Divider variant='middle' />}
+                      </React.Fragment>
+                    )
+                  )
+                }
+              </Grid>
+            ))
+          }
         </Grid>
       </Box>
     </Box>
@@ -75,20 +75,16 @@ const Variable = (props) => {
 Variable.propTypes = {
   title: PropTypes.string.isRequired,
   columns: PropTypes.shape({
-    values: PropTypes.arrayOf(
-      PropTypes.shape({
+    values: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      items: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
-        items: PropTypes.arrayOf(
-          PropTypes.shape({
-            title: PropTypes.string,
-            label: PropTypes.string,
-            help: PropTypes.string,
-            value: PropTypes.number,
-            changeValue: PropTypes.func
-          })
-        )
-      })
-    )
+        label: PropTypes.string,
+        help: PropTypes.string,
+        value: PropTypes.number,
+        handleChangeValue: PropTypes.func
+      }))
+    }))
   }).isRequired
 }
 
