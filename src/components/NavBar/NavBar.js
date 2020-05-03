@@ -15,6 +15,7 @@ import chart from '../../images/chart.png'
 import dash from '../../images/dash.png'
 import compare from '../../images/compare.png'
 import DashboardPage from '../../containers/DashboardPage'
+import ProfileUser from "../ProfileUser/ProfileUser";
 
 const drawerWidth = 240
 
@@ -127,7 +128,7 @@ const NavBar = () => {
         </div>
       </Drawer>
       <main >
-        <DashboardPage />
+        <ProfileUser />
       </main>
     </div>
   )

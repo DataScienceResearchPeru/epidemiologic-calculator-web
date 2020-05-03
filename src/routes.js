@@ -10,6 +10,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword'
 const routes = mount({
   '/': route({ view: <HomePage /> }),
   '/dashboard': route({ view: <Dashboard /> }),
+  '/profile': route({ view: <Dashboard /> }),
   '/unconfirmed_account': route({ view: <UnconfirmedAccount /> }),
   '/verify_account/:token': route(async req => {
     const token = req.params.token
