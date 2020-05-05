@@ -14,7 +14,6 @@ import calculator from '../../images/calculator.png'
 import chart from '../../images/chart.png'
 import dash from '../../images/dash.png'
 import compare from '../../images/compare.png'
-import DashboardPage from '../../containers/DashboardPage'
 
 const drawerWidth = 240
 
@@ -126,9 +125,6 @@ const NavBar = () => {
           </IconButton>
         </div>
       </Drawer>
-      <main >
-        <DashboardPage />
-      </main>
     </div>
   )
 }
