@@ -78,6 +78,8 @@ function line () {
         drawAllDataPoints()
       }
 
+      drawControlVertical()
+
       events(_selection)
     })
   }
@@ -170,7 +172,7 @@ function line () {
       .attr('x1', '0%').attr('y1', '0%')
       .attr('x2', '0%').attr('y2', '100%')
 
-    d3.select(`#${id}`)
+    const gradient = d3.select(`#${id}`)
       .selectAll('stop')
       .data([
         { offset: 0, color: color, opacity: 1 },
@@ -180,9 +182,21 @@ function line () {
       .attr('offset', function (d) { return d.offset })
       .attr('stop-color', function (d) { return d.color })
       .attr('stop-opacity', function (d) { return d.opacity })
+
+    gradient
+      .exit()
+      .remove()
   }
 
   function drawLines () {
+    svg.select('.chart-group')
+      .selectAll('defs')
+      .remove()
+
+    svg.select('.chart-group')
+      .selectAll('.variable')
+      .remove()
+
     const line = d3.line()
       .x(function (d) { return xScale(d.time) })
       .y(function (d) { return yScale(d.value) })
@@ -348,6 +362,23 @@ function line () {
       .attr('x', 40)
       .attr('y', 16)
       .text((d, i) => variabletoSpanish[d.id])
+  }
+
+  function drawControlVertical () {
+    svg.select('.chart-group')
+      .selectAll('#control-line')
+      .remove()
+
+    svg.select('.chart-group')
+      .append('div')
+      .attr('id', 'control-line')
+      .style('position', 'absolute')
+      .style('z-index', '20')
+      .style('width', '2px')
+      .style('height', '419px')
+      .style('top', '10px')
+      .style('left', '74px')
+      .style('background', '#FFF')
   }
 
   function cleanData (data) {
