@@ -16,7 +16,6 @@ import ForgotPassword from '../components/ForgotPassword/ForgotPassword'
 const useStyles = makeStyles((theme) => ({
   boxContent: {
     borderRadius: 17,
-    backgroundColor: '#33CCCC',
     padding: '80px 100px',
     fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     backgroundImage: `url(${background})`,
@@ -158,7 +157,6 @@ const HomePage = () => {
 
                 <div className={classes.boxForm}>
                   {form}
-
                   <Divider className={classes.hr} />
                   <div className={classes.circle} />
 

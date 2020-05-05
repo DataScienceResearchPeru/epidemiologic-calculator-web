@@ -1,9 +1,14 @@
 import React, { useContext } from 'react'
-import { AppBar, Toolbar, TextField, Button, InputAdornment } from '@material-ui/core'
+import {
+  AppBar,
+  Toolbar,
+  TextField,
+  Button,
+  InputAdornment
+} from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-navi'
-
 import logo from '../../images/EK-logo.svg'
 import UserMenu from '../UserMenu/UserMenu'
 import { StateContext } from '../../contexts'
@@ -56,6 +61,7 @@ const Header = () => {
   const { state } = useContext(StateContext)
   const { user } = state
   const classes = useStyles()
+
   return (
     <AppBar position='static' color='transparent' elevation={0}>
       <Toolbar className={classes.toolbar}>
