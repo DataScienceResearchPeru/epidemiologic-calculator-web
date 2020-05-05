@@ -149,12 +149,9 @@ const NavBar = () => {
           </IconButton>
         </div>
       </Drawer>
-<<<<<<< HEAD
       <main className={classes.main}>
         {view}
       </main>
-=======
->>>>>>> develop
     </div>
   )
 }
