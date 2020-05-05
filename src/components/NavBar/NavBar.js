@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -16,6 +16,9 @@ import dash from '../../images/dash.png'
 import compare from '../../images/compare.png'
 import DashboardPage from '../../containers/DashboardPage'
 import ProfileUser from "../ProfileUser/ProfileUser";
+import {useNavigation} from "react-navi";
+import Login from "../Login/Login";
+import RegisterUser from "../RegisterUser/RegisterUser";
 
 const drawerWidth = 240
 
@@ -73,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginTop: 180,
     color: '#fff'
+  },
+  main: {
+    width: "100%"
   }
 }))
 
@@ -80,6 +86,20 @@ const NavBar = () => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const navigationRef = useRef(useNavigation())
+  const navigation = useNavigation()
+  let view
+
+  let url = navigationRef.current.getCurrentValue().url.pathname
+  if (url.includes("/dashboard")) {
+    view = <DashboardPage />
+  } else {
+    view = <ProfileUser />
+  }
+
+  const handleDashboard = () => {
+    navigation.navigate('/dashboard')
+  }
 
   return (
     <div className={classes.root}>
@@ -103,7 +123,9 @@ const NavBar = () => {
               <ListItem button key={text} className={classes.item}>
                 <ListItemIcon>
                   {index === 0 ? (
-                    <img src={dash} alt='dash' />
+                    <a onClick={handleDashboard}>
+                      <img src={dash} alt='dash' />
+                    </a>
                   ) : index === 1 ? (
                     <img src={calculator} alt='calc' />
                   ) : index === 2 ? (
@@ -127,8 +149,8 @@ const NavBar = () => {
           </IconButton>
         </div>
       </Drawer>
-      <main >
-        <ProfileUser />
+      <main className={classes.main}>
+        {view}
       </main>
     </div>
   )

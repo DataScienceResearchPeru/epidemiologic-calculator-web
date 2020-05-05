@@ -85,5 +85,12 @@ export const api = {
       url: 'user',
       data: { email, image }
     })
+  },
+  getAvatarUser(token){
+    return request({
+      method: 'POST',
+      url: 'user/image',
+      data: { token }
+    })
   }
 }
