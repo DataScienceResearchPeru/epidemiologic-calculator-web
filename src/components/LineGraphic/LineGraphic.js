@@ -6,18 +6,30 @@ import D3Line from './D3Line'
 
 const LineGraphic = (props) => {
   const _rootNode = useRef(null)
+  const mounted = useRef(null)
+  const _chart = useRef(null)
 
   useEffect(() => {
+    const element = _rootNode.current
     const { height, width, margin, grid } = props
     const xTicks = 8
     const configuration = { height, width, margin, grid, xTicks }
-    const element = _rootNode.current
 
-    props.chart.create(
-      element,
-      props.data,
-      configuration
-    )
+    if (!mounted.current) {
+      _chart.current = props.chart.create(
+        element,
+        props.data,
+        configuration
+      )
+      mounted.current = true
+    } else {
+      props.chart.update(
+        element,
+        props.data,
+        configuration,
+        _chart.current
+      )
+    }
 
     return () => {
       props.chart.destroy(element)

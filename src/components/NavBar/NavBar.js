@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useNavigation } from 'react-navi'
+import { useNavigation, Link } from 'react-navi'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Drawer, List, IconButton, ListItem, ListItemIcon, ListItemText, Link } from '@material-ui/core'
+import { Drawer, List, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiList-padding': {
       padding: 0
+    },
+    '& a': {
+      textDecoration: 'none'
     }
   },
   drawer: {
@@ -114,25 +117,25 @@ const NavBar = () => {
         }}
       >
         <List>
-          <Link href='/dashboard' underline='none'>
+          <Link href='/dashboard'>
             <ListItem button key={0} selected={activetRoute('/dashboard')} className={classes.item}>
               <ListItemIcon><DashIcon /></ListItemIcon>
               <ListItemText primary='panel' />
             </ListItem>
           </Link>
-          <Link href='/calculator' underline='none'>
+          <Link href='/calculator'>
             <ListItem button key={1} selected={activetRoute('/calculator')} className={classes.item}>
               <ListItemIcon><CalculatorIcon /></ListItemIcon>
               <ListItemText primary='calculadora' />
             </ListItem>
           </Link>
-          <Link href='/statistics' underline='none'>
+          <Link href='/statistics'>
             <ListItem button key={2} selected={activetRoute('/statistics')} className={classes.item}>
               <ListItemIcon><ChartIcon /></ListItemIcon>
               <ListItemText primary='estadísticas' />
             </ListItem>
           </Link>
-          <Link href='/comparative' underline='none'>
+          <Link href='/comparative'>
             <ListItem button key={3} selected={activetRoute('/comparative')} className={classes.item}>
               <ListItemIcon><CompareIcon /></ListItemIcon>
               <ListItemText primary='comparativo' />

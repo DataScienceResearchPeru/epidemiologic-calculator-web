@@ -15,18 +15,31 @@ const applyConfiguration = (chart, configuration) => {
   return chart
 }
 
-const chart = line()
-
 const D3Line = {}
 
 D3Line.create = (el, data, configuration = {}) => {
   const container = d3.select(el)
+  const chart = line()
 
   if (data) {
     container.datum(data).transition().call(applyConfiguration(chart, configuration))
   } else {
     container.call(applyConfiguration(chart, configuration))
   }
+
+  return chart
+}
+
+D3Line.update = (el, data, configuration = {}, chart) => {
+  const container = d3.select(el)
+
+  if (data) {
+    container.datum(data).call(applyConfiguration(chart, configuration))
+  } else {
+    container.call(applyConfiguration(chart, configuration))
+  }
+
+  return chart
 }
 
 D3Line.destroy = () => {}
