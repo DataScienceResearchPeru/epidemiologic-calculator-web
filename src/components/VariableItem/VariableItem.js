@@ -127,7 +127,7 @@ const VariableItem = (props) => {
           inputProps={{
             min: 0,
             max: 100,
-            type: 'number',
+            type: 'text',
             'aria-labelledby': 'input-slider'
           }}
         />

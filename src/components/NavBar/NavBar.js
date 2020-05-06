@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -15,12 +14,21 @@ import chart from '../../images/chart.png'
 import dash from '../../images/dash.png'
 import compare from '../../images/compare.png'
 
-const drawerWidth = 240
-
+const drawerWidth = 225
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    height: 50
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      minHeight: 1075,
+      zIndex: 1,
+      overflowX: 'hidden'
+    },
+    '& .MuiListItem-root': {
+      padding: 0
+    },
+    '& .MuiList-padding': {
+      padding: 0
+    }
   },
   drawer: {
     width: drawerWidth,
@@ -29,18 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    marginTop: 90,
-    marginLeft: 20,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     }),
-    borderRadius: 17,
-    backgroundColor: '#24DADA'
+    borderRadius: '20px 0px 0px 20px',
+    background: 'transparent linear-gradient(180deg, #24DADA 0%, #2DB2B2 100%) 0% 0% no-repeat padding-box'
   },
   drawerClose: {
-    marginTop: 90,
-    marginLeft: 20,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -48,29 +52,32 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1
+      width: theme.spacing(10.9)
     },
-    borderRadius: 17,
-    backgroundColor: '#24DADA'
+    borderRadius: '20px 0px 0px 20px',
+    background: 'transparent linear-gradient(180deg, #24DADA 0%, #2DB2B2 100%) 0% 0% no-repeat padding-box'
   },
   toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 0,
+    right: 12,
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
   },
-  font: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: 'bold'
-  },
   item: {
-    height: 100
+    height: 100,
+    '& .MuiListItemText-primary': {
+      color: '#FFF',
+      fontSize: '13px',
+      fontWeight: 'bold',
+      fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif'
+    },
+    '& .MuiListItemIcon-root': {
+      paddingLeft: 31
+    }
   },
   icon: {
-    marginTop: 180,
-    color: '#fff'
+    color: '#FFF'
   }
 }))
 
@@ -80,23 +87,22 @@ const NavBar = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <nav className={classes.root}>
       <Drawer
         variant='permanent'
         className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
+          [classes.drawerOpen]: !open,
+          [classes.drawerClose]: open
         })}
         classes={{
           paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
+            [classes.drawerOpen]: !open,
+            [classes.drawerClose]: open
           })
         }}
       >
         <List>
-          {['PANEL', 'CALCULADORA', 'ESTADISTICAS', 'COMPARATIVO'].map(
+          {['PANEL', 'CALCULADORA', 'ESTADÍSTICAS', 'COMPARATIVO'].map(
             (text, index) => (
               <ListItem button key={text} className={classes.item}>
                 <ListItemIcon>
@@ -110,7 +116,7 @@ const NavBar = () => {
                     <img src={compare} alt='compare' />
                   )}
                 </ListItemIcon>
-                <ListItemText className={classes.font} primary={text} />
+                <ListItemText primary={text} />
               </ListItem>
             )
           )}
@@ -125,7 +131,7 @@ const NavBar = () => {
           </IconButton>
         </div>
       </Drawer>
-    </div>
+    </nav>
   )
 }
 
