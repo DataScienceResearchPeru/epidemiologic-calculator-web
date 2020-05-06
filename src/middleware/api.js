@@ -79,14 +79,14 @@ export const api = {
       data: { population, infected, duration, a1, a2, a3, a4, a5, d1, d2, d3, r1, r2, r3, r4, a6, a7, a8, a9, qq }
     })
   },
-  updateUser(email, image){
+  updateUser: (email, image) => {
     return request({
       method: 'POST',
       url: 'user',
       data: { email, image }
     })
   },
-  getAvatarUser(token){
+  getAvatarUser: (token) => {
     return request({
       method: 'POST',
       url: 'user/image',

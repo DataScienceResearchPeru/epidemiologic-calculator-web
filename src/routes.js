@@ -9,7 +9,7 @@ import ComparativePage from './containers/ComparativePage'
 import UnconfirmedAccount from './components/UnconfirmedAccount/UnconfirmedAccount'
 import VerifyAccount from './components/VerifyAccount/VerifyAccount'
 import ResetPassword from './components/ResetPassword/ResetPassword'
-import ProfileUser from "./components/ProfileUser/ProfileUser";
+import ProfileUser from './components/ProfileUser/ProfileUser'
 
 const routes = mount({
   '/': route({ view: <HomePage /> }),
