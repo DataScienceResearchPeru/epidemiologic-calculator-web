@@ -150,7 +150,7 @@ function line () {
 
       buildContainerGroups()
     }
-    svg.attr('width', width).attr('height', height)
+    svg.transition().attr('width', width).attr('height', height)
   }
 
   function drawAxes () {
@@ -241,11 +241,13 @@ function line () {
     // Exit
     lines
       .exit()
+      .transition()
       .style('opacity', 0)
       .remove()
 
     areas
       .exit()
+      .transition()
       .style('opacity', 0)
       .remove()
   }
