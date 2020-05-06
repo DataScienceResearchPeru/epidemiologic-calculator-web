@@ -23,7 +23,7 @@ D3Line.create = (el, data, configuration = {}) => {
   const container = d3.select(el)
 
   if (data) {
-    container.datum(data).call(applyConfiguration(chart, configuration))
+    container.datum(data).transition().call(applyConfiguration(chart, configuration))
   } else {
     container.call(applyConfiguration(chart, configuration))
   }

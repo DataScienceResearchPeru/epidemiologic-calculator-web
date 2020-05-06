@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useNavigation } from 'react-navi'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Drawer, List, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { Drawer, List, IconButton, ListItem, ListItemIcon, ListItemText, Link } from '@material-ui/core'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
@@ -66,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
       color: '#FFF',
       fontSize: '13px',
       fontWeight: 'bold',
-      fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif'
+      fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
+      textTransform: 'uppercase'
     },
     '& .MuiListItemIcon-root': {
       paddingLeft: 31,
@@ -85,6 +87,16 @@ const NavBar = () => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const [path, setPath] = useState('')
+  const navigation = useRef(useNavigation())
+
+  useEffect(() => {
+    setPath(navigation.current.getCurrentValue().url.pathname)
+  }, [])
+
+  const activetRoute = (route) => {
+    return path === route
+  }
 
   return (
     <nav className={classes.root}>
@@ -102,25 +114,32 @@ const NavBar = () => {
         }}
       >
         <List>
-          {['PANEL', 'CALCULADORA', 'ESTADÍSTICAS', 'COMPARATIVO'].map(
-            (text, index) => (
-              <ListItem button key={text} className={classes.item}>
-                <ListItemIcon>
-                  {index === 0 ? (
-                    <DashIcon />
-                  ) : index === 1 ? (
-                    <CalculatorIcon />
-                  ) : index === 2 ? (
-                    <ChartIcon />
-                  ) : (
-                    <CompareIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          <Link href='/dashboard' underline='none'>
+            <ListItem button key={0} selected={activetRoute('/dashboard')} className={classes.item}>
+              <ListItemIcon><DashIcon /></ListItemIcon>
+              <ListItemText primary='panel' />
+            </ListItem>
+          </Link>
+          <Link href='/calculator' underline='none'>
+            <ListItem button key={1} selected={activetRoute('/calculator')} className={classes.item}>
+              <ListItemIcon><CalculatorIcon /></ListItemIcon>
+              <ListItemText primary='calculadora' />
+            </ListItem>
+          </Link>
+          <Link href='/statistics' underline='none'>
+            <ListItem button key={2} selected={activetRoute('/statistics')} className={classes.item}>
+              <ListItemIcon><ChartIcon /></ListItemIcon>
+              <ListItemText primary='estadísticas' />
+            </ListItem>
+          </Link>
+          <Link href='/comparative' underline='none'>
+            <ListItem button key={3} selected={activetRoute('/comparative')} className={classes.item}>
+              <ListItemIcon><CompareIcon /></ListItemIcon>
+              <ListItemText primary='comparativo' />
+            </ListItem>
+          </Link>
         </List>
+
         <div className={classes.toolbar}>
           <IconButton className={classes.icon} onClick={() => setOpen(!open)}>
             {theme.direction === 'rtl' ? (
