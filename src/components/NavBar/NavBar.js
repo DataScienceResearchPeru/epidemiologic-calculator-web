@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import IconButton from '@material-ui/core/IconButton'
+import { Drawer, List, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import calculator from '../../images/calculator.png'
-import chart from '../../images/chart.png'
-import dash from '../../images/dash.png'
-import compare from '../../images/compare.png'
+
+import CalculatorIcon from '../icons/CalculatorIcon'
+import ChartIcon from '../icons/ChartIcon'
+import CompareIcon from '../icons/CompareIcon'
+import DashIcon from '../icons/DashIcon'
 
 const drawerWidth = 225
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +69,11 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif'
     },
     '& .MuiListItemIcon-root': {
-      paddingLeft: 31
+      paddingLeft: 31,
+      color: '#FFF',
+      '& .MuiSvgIcon-root': {
+        width: 27
+      }
     }
   },
   icon: {
@@ -107,13 +107,13 @@ const NavBar = () => {
               <ListItem button key={text} className={classes.item}>
                 <ListItemIcon>
                   {index === 0 ? (
-                    <img src={dash} alt='dash' />
+                    <DashIcon />
                   ) : index === 1 ? (
-                    <img src={calculator} alt='calc' />
+                    <CalculatorIcon />
                   ) : index === 2 ? (
-                    <img src={chart} alt='chart' />
+                    <ChartIcon />
                   ) : (
-                    <img src={compare} alt='compare' />
+                    <CompareIcon />
                   )}
                 </ListItemIcon>
                 <ListItemText primary={text} />
