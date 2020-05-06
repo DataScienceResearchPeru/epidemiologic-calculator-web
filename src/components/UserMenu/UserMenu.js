@@ -44,6 +44,7 @@ const UserMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null)
+    navigation.navigate('/profile')
   }
 
   const handleLogout = () => {
