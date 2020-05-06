@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { StateContext } from '../../contexts'
 import { api } from '../../middleware/api'
 import useErrorApi from '../../hooks/use-error-api'
+import useLocalStorage from "../../hooks/local-storage";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -71,6 +72,8 @@ const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setshowPassword] = useState(false)
+  const [token, setToken] = useLocalStorage('token', null);
+  const [email, setEmail] = useLocalStorage('email', null);
 
   const classes = useStyles()
 
@@ -84,6 +87,8 @@ const Login = (props) => {
     setData(user)
     if (user && user.data && !stateError) {
       dispatch({ type: 'LOGIN', name: user.data.full_name })
+      setToken(user.data.access_token)
+      setEmail(user.data.email)
       navigation.current.navigate('/dashboard')
     }
   }, [user, dispatch])
