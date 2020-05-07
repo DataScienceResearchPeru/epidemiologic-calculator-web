@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiDrawer-paper': {
       position: 'relative',
-      minHeight: 1075,
+      minHeight: 450,
       zIndex: 1,
       overflowX: 'hidden'
     },
@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    height: '100%'
   },
   drawerOpen: {
     width: drawerWidth,

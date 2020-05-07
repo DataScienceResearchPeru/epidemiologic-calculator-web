@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     '& h3': {
       margin: '11px 0',
       textTransform: 'uppercase',
-      fontSize: '0.71em',
+      fontSize: '0.8em',
       color: '#24DADA'
     }
   },

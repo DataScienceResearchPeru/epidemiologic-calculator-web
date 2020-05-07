@@ -53,15 +53,24 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   formControl: {
-    float: 'right',
-    '& .MuiInput-underline:before': {
+    '& .MuiInput-underline:before, .MuiInput-underline:after, .MuiInput-underline:hover:not(.Mui-disabled):before': {
       borderBottom: 0
     },
     '& .MuiSelect-select': {
       color: '#404040',
       fontSize: '15px',
       fontWeight: 320
+    },
+    '& .MuiInputBase-formControl': {
+      boxShadow: '0px 1px 3px #00000029',
+      borderRadius: 4,
+      padding: '1px 10px'
     }
+  },
+  controls: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 10
   }
 }))
 
@@ -407,23 +416,25 @@ const CalculatorPage = () => {
             <Box className={classes.LineGraphic}>
               <Grid container>
                 <Grid item xs={12}>
-                  <FormControl className={classes.formControl}>
-                    <Select
-                      labelId='duration-label'
-                      id='duration-select'
-                      open={open}
-                      onClose={handleClose}
-                      onOpen={handleOpen}
-                      value={duration}
-                      onChange={handleDuration}
-                    >
-                      <MenuItem value={120}>Últimos 120 días</MenuItem>
-                      <MenuItem value={160}>Últimos 160 días</MenuItem>
-                      <MenuItem value={200}>Últimos 200 días</MenuItem>
-                      <MenuItem value={250}>Últimos 250 días</MenuItem>
-                      <MenuItem value={300}>Últimos 300 días</MenuItem>
-                    </Select>
-                  </FormControl>
+                  <div className={classes.controls}>
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        labelId='duration-label'
+                        id='duration-select'
+                        open={open}
+                        onClose={handleClose}
+                        onOpen={handleOpen}
+                        value={duration}
+                        onChange={handleDuration}
+                      >
+                        <MenuItem value={120}>Últimos 120 días</MenuItem>
+                        <MenuItem value={160}>Últimos 160 días</MenuItem>
+                        <MenuItem value={200}>Últimos 200 días</MenuItem>
+                        <MenuItem value={250}>Últimos 250 días</MenuItem>
+                        <MenuItem value={300}>Últimos 300 días</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
                 </Grid>
                 <Grid item xs={12}>
                   {isLoading ? (
