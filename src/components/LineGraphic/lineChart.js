@@ -104,9 +104,7 @@ function line () {
       .rangeRound([0, chartWidth])
       .domain([0, d3.max(time)])
 
-    const data = dataByVariable.filter(function (d) {
-      return !d.disabled
-    })
+    const data = dataByVariable.filter((d) => !d.disabled)
 
     yScale = d3
       .scaleLinear()
@@ -179,9 +177,9 @@ function line () {
         { offset: 0.7, color: '#FFFFFF', opacity: 0.1 }
       ])
       .enter().append('stop')
-      .attr('offset', function (d) { return d.offset })
-      .attr('stop-color', function (d) { return d.color })
-      .attr('stop-opacity', function (d) { return d.opacity })
+      .attr('offset', (d) => d.offset)
+      .attr('stop-color', (d) => d.color)
+      .attr('stop-opacity', (d) => d.opacity)
 
     gradient
       .exit()
@@ -198,27 +196,23 @@ function line () {
       .remove()
 
     const line = d3.line()
-      .x(function (d) { return xScale(d.time) })
-      .y(function (d) { return yScale(d.value) })
+      .x((d) => xScale(d.time))
+      .y((d) => yScale(d.value))
 
     const area = d3.area()
-      .x(function (d) { return xScale(d.time) })
-      .y0(function (d) { return yScale(d.value) })
+      .x((d) => xScale(d.time))
+      .y0((d) => yScale(d.value))
       .y1(height - margin.bottom - margin.top)
 
     const lines = svg
       .select('.chart-group')
       .selectAll('.line')
-      .data(dataByVariable.filter(function (d) {
-        return !d.disabled
-      }))
+      .data(dataByVariable.filter((d) => !d.disabled))
 
     const areas = svg
       .select('.chart-group')
       .selectAll('.area')
-      .data(dataByVariable.filter(function (d) {
-        return !d.disabled
-      }))
+      .data(dataByVariable.filter((d) => !d.disabled))
 
     lines.enter()
       .append('g')
@@ -226,7 +220,7 @@ function line () {
       .append('path')
       .attr('class', 'line')
       .merge(lines)
-      .attr('d', function (d) { return line(d.values) })
+      .attr('d', (d) => line(d.values))
       .style('stroke', (d) => (colors[d.id]))
 
     areas.enter()
@@ -235,7 +229,7 @@ function line () {
       .append('path')
       .attr('class', 'area')
       .merge(areas)
-      .attr('d', function (d) { return area(d.values) })
+      .attr('d', (d) => area(d.values))
       .attr('fill', function (d) { gradient(colors[d.id], d.id); return `url(#${d.id})` })
 
     // Exit
@@ -290,9 +284,7 @@ function line () {
     const dataset = data.map((d) => {
       return {
         id: d.id,
-        values: d.values.filter(function (value) {
-          return time.includes(value.time)
-        })
+        values: d.values.filter((value) => time.includes(value.time))
       }
     })
 
@@ -304,9 +296,7 @@ function line () {
       .selectAll('.data-points-container')
       .remove()
 
-    const points = pointsXY(dataByVariable.filter(function (d) {
-      return !d.disabled
-    }))
+    const points = pointsXY(dataByVariable.filter((d) => !d.disabled))
 
     const allDataPoints = svg.select('.chart-group')
       .append('g')
@@ -320,7 +310,7 @@ function line () {
 
     allDataPoints
       .selectAll('circle')
-      .data(function (d) { return d.values })
+      .data((d) => d.values)
       .enter()
       .append('circle')
       .classed('data-point-mark', true)
@@ -348,17 +338,26 @@ function line () {
       .on('click', (d, i) => {
         dispatcher.call('legendMouseClick', this, d, i)
       })
-      .classed('disabled', function (d) { return d.disabled })
+      .classed('disabled', (d) => d.disabled)
 
     legend.append('rect')
       .attr('x', 1)
       .attr('y', 1)
       .attr('rx', 6)
       .attr('ry', 6)
-      .attr('width', 21)
-      .attr('height', 21)
-      .style('fill', (d, i) => colors[d.id])
+      .attr('width', 22)
+      .attr('height', 22)
+      .style('fill', '#FFF')
       .style('stroke', (d, i) => colors[d.id])
+
+    legend.append('rect')
+      .attr('x', 4)
+      .attr('y', 4)
+      .attr('rx', 4)
+      .attr('ry', 4)
+      .attr('width', 16)
+      .attr('height', 16)
+      .style('fill', (d, i) => colors[d.id])
 
     legend.append('text')
       .attr('x', 40)

@@ -114,9 +114,11 @@ const VariableItem = (props) => {
       <Grid item xs={12}>
         <VariableSlider
           max={maxValue}
+          step={0.1}
           value={typeof value === 'number' ? value : 0}
           onChange={handleSliderChange}
           aria-labelledby='input-slider'
+          valueLabelDisplay='auto'
         />
       </Grid>
       <Grid item xs={7}>
