@@ -61,9 +61,10 @@ function line () {
     _selection.each(function (_data) {
       if (!legendEvent) {
         dataByVariable = cleanData(_data)
+      } else {
+        dataByVariable = cleanData(_data, dataByVariable)
       }
 
-      legendEvent = false
       chartHeight = height - margin.top - margin.bottom
       chartWidth = width - margin.left - margin.right
 
@@ -382,7 +383,7 @@ function line () {
       .style('background', '#FFF')
   }
 
-  function cleanData (data) {
+  function cleanData (data, disabled = []) {
     let dataset = []
     data = Object.entries(data)
 
@@ -396,6 +397,16 @@ function line () {
       return { id: key, values: val.map(function (x, i) { return { value: x, time: time[i] } }) }
     })
 
+    if (disabled.length > 0) {
+      disabled.forEach(function (d) {
+        dataset.forEach(function (data) {
+          if (d.id === data.id) {
+            data.disabled = d.disabled
+          }
+        })
+      })
+    }
+
     return dataset
   }
 
@@ -403,11 +414,7 @@ function line () {
     dispatcher.on('legendMouseClick', function (d, i) {
       d.disabled = !d.disabled
 
-      if (!dataByVariable.filter(function (d) { return !d.disabled }).length) {
-        dataByVariable.forEach(function (d) {
-          d.disabled = false
-        })
-      }
+      console.log('=== datavariable legend', dataByVariable)
 
       legendEvent = true
       selection.call(exports)

@@ -227,10 +227,10 @@ const CalculatorPage = () => {
             <div className={classes.information}>
               Simula escenarios de evolución de la epidemia de COVID-19 de una manera fácil y rápido. Está calculadora lo ayudará a planificar los recursos en la epidemia y visibilizar el progreso durante la pandemia.
             </div>
-            <Grid container spacing={3}>
-              <Grid item xs={2}>
+            <Grid container>
+              <Grid item xs={12}>
                 <Variable
-                  title='VARIABLES DE TRANSMISIÓN'
+                  title='VARIABLES DE TRANSMISIÓN Y CLÍNICAS'
                   columns={{
                     values: [
                       {
@@ -251,16 +251,7 @@ const CalculatorPage = () => {
                             handleChangeValue: handleInfected
                           }
                         ]
-                      }
-                    ]
-                  }}
-                />
-              </Grid>
-              <Grid item xs={10}>
-                <Variable
-                  title='VARIABLES CLÍNICAS'
-                  columns={{
-                    values: [
+                      },
                       {
                         title: 'Estadísticas de mortalidad',
                         items: [
