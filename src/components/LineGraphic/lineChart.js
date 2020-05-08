@@ -40,7 +40,8 @@ function line () {
     hospitalized: '#DB96FF',
     uci: '#E74C3C',
     recovered: '#5AB3FF',
-    death: '#656565'
+    death: '#656565',
+    real: '#1565C0'
   }
 
   const variabletoSpanish = {
@@ -52,7 +53,8 @@ function line () {
     hospitalized: 'Hospitalizados',
     uci: 'UCI',
     recovered: 'Recuperados',
-    death: 'Fallecidos'
+    death: 'Fallecidos',
+    real: 'Real'
   }
 
   let legendEvent = false
@@ -149,17 +151,21 @@ function line () {
 
       buildContainerGroups()
     }
-    svg.transition().attr('width', width).attr('height', height)
+    svg.transition().duration(1000).attr('width', width).attr('height', height)
   }
 
   function drawAxes () {
     svg
       .select('.x-axis-group .axis.x')
+      .transition()
+      .duration(1000)
       .attr('transform', `translate(0,${chartHeight})`)
       .call(xAxis)
 
     svg
       .select('.y-axis-group .axis.y')
+      .transition()
+      .duration(750)
       .call(yAxis)
   }
 
@@ -221,6 +227,8 @@ function line () {
       .append('path')
       .attr('class', 'line')
       .merge(lines)
+      .transition()
+      .duration(1000)
       .attr('d', (d) => line(d.values))
       .style('stroke', (d) => (colors[d.id]))
 
@@ -230,6 +238,8 @@ function line () {
       .append('path')
       .attr('class', 'area')
       .merge(areas)
+      .transition()
+      .duration(1000)
       .attr('d', (d) => area(d.values))
       .attr('fill', function (d) { gradient(colors[d.id], d.id); return `url(#${d.id})` })
 
@@ -385,16 +395,24 @@ function line () {
 
   function cleanData (data, disabled = []) {
     let dataset = []
+    let days
     data = Object.entries(data)
+    console.log('=== data ingresada', data)
 
     data.forEach(function ([key, value]) {
-      if (key === 'time') { time = value } else {
+      if (key === 'time') { time = value } else if (key === 'days') { days = value } else {
         dataset.push([key, value])
       }
     })
 
     dataset = dataset.map(([key, val]) => {
-      return { id: key, values: val.map(function (x, i) { return { value: x, time: time[i] } }) }
+      return {
+        id: key,
+        values:
+          val.map(function (x, i) {
+            return { value: x, time: key !== 'real' ? time[i] : days[i] }
+          })
+      }
     })
 
     if (disabled.length > 0) {
@@ -413,8 +431,6 @@ function line () {
   function events (selection) {
     dispatcher.on('legendMouseClick', function (d, i) {
       d.disabled = !d.disabled
-
-      console.log('=== datavariable legend', dataByVariable)
 
       legendEvent = true
       selection.call(exports)

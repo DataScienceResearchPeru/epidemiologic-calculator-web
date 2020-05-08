@@ -117,6 +117,7 @@ const ComparativePage = () => {
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState({})
+  const [dataUpload, setDataUpload] = useState({})
   const [response] = useResource(api.getDataSeaichurd, [
     population,
     infected,
@@ -143,7 +144,7 @@ const ComparativePage = () => {
   useEffect(() => {
     if (response && response.data) {
       setIsLoading(false)
-      setData(response.data)
+      setData({ ...response.data, ...dataUpload })
     }
   }, [response])
 
@@ -233,6 +234,40 @@ const ComparativePage = () => {
 
   const handleOpen = () => {
     setOpen(true)
+  }
+
+  const handleData = (event) => {
+    var file = event.target.files[0]
+    // eslint-disable-next-line no-undef
+    const reader = new FileReader()
+    if (file) {
+      reader.onloadend = function (e) {
+        const rows = e.target.result.split('\n')
+        const days = []
+        const values = []
+
+        rows.map((row, index) => {
+          if (row !== '' && index !== 0) {
+            const information = row.split(',')
+            days.push(parseFloat(information[0]))
+            values.push(parseFloat(information[1]))
+          }
+        })
+
+        const newData = {
+          days: days,
+          real: values
+        }
+
+        setDataUpload(newData)
+        setData({ ...data, ...newData })
+      }
+      reader.readAsText(file)
+    }
+  }
+
+  const isEmptyObject = (obj) => {
+    return JSON.stringify(obj) === '{}'
   }
 
   return (
@@ -427,14 +462,14 @@ const ComparativePage = () => {
                 <Grid item xs={12}>
                   <div className={classes.controls}>
                     <FormControl>
-                      <input accept='.csv' className={classes.input} id='button-file' type='file' />
+                      <input accept='.csv' className={classes.input} onChange={handleData} id='button-file' type='file' />
                       <label htmlFor='button-file'>
                         <Button
                           variant='outlined'
                           component='span'
                           startIcon={<CloudUploadIcon />}
                         >
-                          Cargar datos
+                          {isEmptyObject(dataUpload) ? 'Cargar datos' : 'Cargada'}
                         </Button>
                       </label>
                     </FormControl>
@@ -464,7 +499,7 @@ const ComparativePage = () => {
                     <LineGraphic
                       data={data}
                       width={800}
-                      height={360}
+                      height={380}
                       margin={{
                         top: 10,
                         left: 230,
