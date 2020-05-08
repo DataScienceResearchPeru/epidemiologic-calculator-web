@@ -242,21 +242,11 @@ const ComparativePage = () => {
     const reader = new FileReader()
     if (file) {
       reader.onloadend = function (e) {
-        const rows = e.target.result.split('\n')
-        const days = []
-        const values = []
-
-        rows.map((row, index) => {
-          if (row !== '' && index !== 0) {
-            const information = row.split(',')
-            days.push(parseFloat(information[0]))
-            values.push(parseFloat(information[1]))
-          }
-        })
+        const result = parseCSV(e.target.result)
 
         const newData = {
-          days: days,
-          real: values
+          days: result.days,
+          real: result.values
         }
 
         setDataUpload(newData)
@@ -264,6 +254,22 @@ const ComparativePage = () => {
       }
       reader.readAsText(file)
     }
+  }
+
+  const parseCSV = (text) => {
+    const rows = text.split('\n')
+    const days = []
+    const values = []
+
+    rows.map((row, index) => {
+      if (row !== '' && index !== 0) {
+        const information = row.split(',')
+        days.push(parseFloat(information[0]))
+        values.push(parseFloat(information[1]))
+      }
+    })
+
+    return { days, values }
   }
 
   const isEmptyObject = (obj) => {
