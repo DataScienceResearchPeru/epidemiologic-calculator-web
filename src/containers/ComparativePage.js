@@ -146,7 +146,7 @@ const ComparativePage = () => {
       setIsLoading(false)
       setData({ ...response.data, ...dataUpload })
     }
-  }, [response])
+  }, [response, dataUpload])
 
   const handlePopulation = (val) => {
     setPopulation(val)
@@ -261,7 +261,7 @@ const ComparativePage = () => {
     const days = []
     const values = []
 
-    rows.map((row, index) => {
+    rows.forEach((row, index) => {
       if (row !== '' && index !== 0) {
         const information = row.split(',')
         days.push(parseFloat(information[0]))

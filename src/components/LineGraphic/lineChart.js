@@ -397,7 +397,6 @@ function line () {
     let dataset = []
     let days
     data = Object.entries(data)
-    console.log('=== data ingresada', data)
 
     data.forEach(function ([key, value]) {
       if (key === 'time') { time = value } else if (key === 'days') { days = value } else {
