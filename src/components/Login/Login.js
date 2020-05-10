@@ -91,7 +91,7 @@ const Login = (props) => {
       setEmail(user.data.email)
       navigation.current.navigate('/dashboard')
     }
-  }, [user, dispatch])
+  }, [user, dispatch, setData, stateError, setToken, setEmail])
 
   function handleUsername (e) {
     setUsername(e.target.value)

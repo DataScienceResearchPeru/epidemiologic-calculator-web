@@ -20,7 +20,7 @@ export default () => {
     let errorMessage = data && data.error ? data.error.data.message : null
 
     if (errorMessage != null && errorMessage === 'Internal Server Error') {
-      errorMessage = 'Ocurrio un problema con tu solicitud, consultar mas tarde.'
+      errorMessage = 'Ocurrió un problema con tu solicitud, por favor consultar más tarde.'
     }
 
     return (

@@ -80,7 +80,7 @@ const RegisterUser = () => {
       dispatch({ type: 'REGISTER', email: user.data.email })
       navigation.current.navigate('/unconfirmed_account')
     }
-  }, [user, dispatch])
+  }, [user, dispatch, stateError, setData])
 
   function handleFirstName (e) {
     setFirstName(e.target.value)
@@ -178,6 +178,8 @@ const RegisterUser = () => {
         } else {
           updateErrorValidation(name, false)
         }
+        break
+      default:
         break
     }
   }

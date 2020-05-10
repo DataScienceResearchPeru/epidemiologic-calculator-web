@@ -76,7 +76,7 @@ const ProfileUser = (props) => {
 
   useEffect(() => {
     getAvatarUser(token)
-  }, [])
+  }, [token, getAvatarUser])
 
   useEffect(() => {
     setData(user)
@@ -84,7 +84,7 @@ const ProfileUser = (props) => {
       setConfirmation(true)
       setMessageConfirmation(user.data.message)
     }
-  }, [user])
+  }, [user, setData])
 
   const handleUploadClick = event => {
     var file = event.target.files[0]

@@ -100,7 +100,7 @@ const ForgotPassword = (props) => {
       setConfirmation(true)
       setMessageConfirmation(user.data.message)
     }
-  }, [user])
+  }, [user, stateError, setData])
 
   function handleUsername (e) {
     setUsername(e.target.value)

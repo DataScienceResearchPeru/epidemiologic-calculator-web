@@ -125,7 +125,7 @@ const ResetPassword = (props) => {
       setPassword('')
       setPasswordConfirm('')
     }
-  }, [response])
+  }, [response, stateError, setData])
 
   function handlePassword (e) {
     setPassword(e.target.value)
