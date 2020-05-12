@@ -3,6 +3,7 @@ function userReducer (state, action) {
     case 'LOGIN':
       return action.name
     case 'LOGOUT':
+      window.localStorage.clear()
       return ''
     default:
       return state
@@ -18,9 +19,20 @@ function RegisterReducer (state, action) {
   }
 }
 
+function tokenReducer(state, action) {
+  switch (action.type) {
+    case 'TOKEN':
+      return action.token
+    default:
+      return state
+  }
+}
+
+
 export default function appReducer (state, action) {
   return {
     user: userReducer(state.user, action),
-    register: RegisterReducer(state.register, action)
+    register: RegisterReducer(state.register, action),
+    token: tokenReducer(state.token, action),
   }
 }

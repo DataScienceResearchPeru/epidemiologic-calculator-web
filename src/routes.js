@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, route } from 'navi'
+import {map, mount, redirect, route} from 'navi'
 
 import HomePage from './containers/HomePage'
 import DashboardPage from './containers/DashboardPage'
@@ -13,11 +13,26 @@ import ProfileUser from './components/ProfileUser/ProfileUser'
 
 const routes = mount({
   '/': route({ view: <HomePage /> }),
-  '/dashboard': route({ view: <DashboardPage /> }),
-  '/profile': route({ view: <ProfileUser /> }),
-  '/calculator': route({ view: <CalculatorPage /> }),
-  '/statistics': route({ view: <StatisticsPage /> }),
-  '/comparative': route({ view: <ComparativePage /> }),
+  '/dashboard': map(async (request, context) => {
+    if(!context.token) return redirect('/') //TODO validar que el token no haya expirado contra el backend
+    return route({ view: <DashboardPage /> })
+  }),
+  '/profile': map(async (request, context) => {
+    if(!context.token) return redirect('/')
+    return route({ view: <ProfileUser /> })
+  }),
+  '/calculator': map(async (request, context) => {
+    if(!context.token) return redirect('/')
+    return route({ view: <CalculatorPage /> })
+  }),
+  '/statistics': map(async (request, context) => {
+    if(!context.token) return redirect('/')
+    return route({ view: <StatisticsPage /> })
+  }),
+  '/comparative': map(async (request, context) => {
+    if(!context.token) return redirect('/')
+    return route({ view: <ComparativePage /> })
+  }),
   '/unconfirmed_account': route({ view: <UnconfirmedAccount /> }),
   '/verify_account/:token': route(async req => {
     const token = req.params.token
