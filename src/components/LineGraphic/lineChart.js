@@ -20,11 +20,16 @@ function line () {
   let xAxis
   let yAxis
   let grid = null
+  let maskingRectangle
+  let overlay
+  let verticalMarkerContainer
+  let verticalMarkerLine
 
   let yTicks = 8
   let xTicks = 8
   const tickPadding = 5
   const shouldShowAllDataPoints = true
+  const showMaskingClip = false
 
   // events
   const dispatcher = d3.dispatch(
@@ -76,6 +81,14 @@ function line () {
       drawAxes()
       drawLegend()
       drawLines()
+
+      if (showMaskingClip) {
+        createMaskingClip()
+      }
+
+      drawHoverOverlay()
+      drawVerticalMarker()
+      addMouseEvents()
 
       if (shouldShowAllDataPoints) {
         drawAllDataPoints()
@@ -205,6 +218,7 @@ function line () {
     const line = d3.line()
       .x((d) => xScale(d.time))
       .y((d) => yScale(d.value))
+      .curve(d3.curveBasis)
 
     const area = d3.area()
       .x((d) => xScale(d.time))
@@ -326,7 +340,6 @@ function line () {
       .append('circle')
       .classed('data-point-mark', true)
       .attr('r', 4)
-      .style('stroke-width', 2)
       .style('cursor', 'pointer')
       .attr('cx', (d) => xScale(d.time))
       .attr('cy', (d) => yScale(d.value))
@@ -374,6 +387,44 @@ function line () {
       .attr('x', 40)
       .attr('y', 16)
       .text((d, i) => variabletoSpanish[d.id])
+  }
+
+  function drawHoverOverlay () {
+    if (!overlay) {
+      overlay = svg.select('.metadata-group')
+        .append('rect')
+        .attr('class', 'overlay')
+        .attr('y1', 0)
+        .attr('y2', height)
+        .attr('height', chartHeight)
+        .attr('width', chartWidth)
+        .attr('fill', 'rgba(0, 0, 0, 0)')
+        .style('display', 'none')
+    }
+  }
+
+  function drawVerticalMarker () {
+    if (!verticalMarkerContainer) {
+      verticalMarkerContainer = svg.select('.metadata-group')
+        .append('g')
+        .attr('class', 'hover-marker vertical-marker-container')
+        .attr('transform', 'translate(9999, 0)')
+
+      verticalMarkerLine = verticalMarkerContainer.selectAll('path')
+        .data([{
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 0
+        }])
+        .enter()
+        .append('line')
+        .classed('vertical-marker', true)
+        .attr('x1', 0)
+        .attr('y1', chartHeight)
+        .attr('x2', 0)
+        .attr('y2', 0)
+    }
   }
 
   function drawControlVertical () {
@@ -427,6 +478,21 @@ function line () {
     return dataset
   }
 
+  function createMaskingClip () {
+    maskingRectangle = svg.append('rect')
+      .attr('class', 'masking-rectangle')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('x', 0 + margin.left)
+      .attr('y', 0)
+
+    maskingRectangle.transition()
+      .duration(1500)
+      .ease(d3.easeQuadInOut)
+      .attr('x', width)
+      .on('end', () => maskingRectangle.remove())
+  }
+
   function events (selection) {
     dispatcher.on('legendMouseClick', function (d, i) {
       d.disabled = !d.disabled
@@ -434,6 +500,45 @@ function line () {
       legendEvent = true
       selection.call(exports)
     })
+  }
+
+  function addMouseEvents () {
+    svg
+      .on('mouseover', function (d) {
+        handleMouseOver(this, d)
+      })
+      .on('mouseout', function (d) {
+        handleMouseOut(this, d)
+      })
+      .on('mousemove', function (d) {
+        handleMouseMove(this, d)
+      })
+  }
+
+  function handleMouseOver (e, d) {
+    overlay.style('display', 'block')
+    verticalMarkerLine.classed('bc-is-active', true)
+  }
+
+  function handleMouseOut (e, d) {
+    overlay.style('display', 'none')
+    verticalMarkerLine.classed('bc-is-active', false)
+    verticalMarkerContainer.attr('transform', 'translate(9999, 0)')
+  }
+
+  function handleMouseMove (e) {
+    const [xPosition, yPosition] = d3.mouse(e)
+    const xPositionOffset = -margin.left
+
+    const dataPointXPosition = xScale.invert(xPosition + xPositionOffset)
+
+    moveVerticalMarker(dataPointXPosition)
+
+    console.log('=== x', xScale.invert(xPosition + xPositionOffset))
+  }
+
+  function moveVerticalMarker (verticalMarkerXPosition) {
+    verticalMarkerContainer.attr('transform', `translate(${verticalMarkerXPosition},0)`)
   }
 
   exports.height = function (_x) {
