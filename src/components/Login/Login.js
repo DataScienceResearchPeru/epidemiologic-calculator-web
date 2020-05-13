@@ -87,6 +87,7 @@ const Login = (props) => {
     setData(user)
     if (user && user.data && !stateError) {
       dispatch({ type: 'LOGIN', name: user.data.full_name })
+      dispatch({ type: 'TOKEN', token: user.data.access_token })
       setToken(user.data.access_token)
       setEmail(user.data.email)
       navigation.current.navigate('/dashboard')
