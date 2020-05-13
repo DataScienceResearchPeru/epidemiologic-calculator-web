@@ -19,7 +19,7 @@ function RegisterReducer (state, action) {
   }
 }
 
-function tokenReducer(state, action) {
+function tokenReducer (state, action) {
   switch (action.type) {
     case 'TOKEN':
       return action.token
@@ -28,11 +28,10 @@ function tokenReducer(state, action) {
   }
 }
 
-
 export default function appReducer (state, action) {
   return {
     user: userReducer(state.user, action),
     register: RegisterReducer(state.register, action),
-    token: tokenReducer(state.token, action),
+    token: tokenReducer(state.token, action)
   }
 }

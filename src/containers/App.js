@@ -4,11 +4,10 @@ import { NotFoundBoundary, Router, View } from 'react-navi'
 import appReducer from '../reducers'
 import { StateContext } from '../contexts'
 import routes from '../routes'
-import useLocalStorage from "../hooks/local-storage";
+import useLocalStorage from '../hooks/local-storage'
 
 function App () {
-
-  const [tokenStorage, ,] = useLocalStorage('token', null)
+  const [tokenStorage] = useLocalStorage('token', null)
   const [state, dispatch] = useReducer(appReducer, { user: '', register: '', token: tokenStorage })
   const { user, token } = state
 
