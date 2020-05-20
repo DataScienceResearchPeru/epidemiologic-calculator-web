@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiDrawer-paper': {
       position: 'relative',
-      minHeight: 450,
+      minHeight: 470,
       zIndex: 1,
       overflowX: 'hidden'
     },

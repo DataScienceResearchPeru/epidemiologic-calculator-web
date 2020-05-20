@@ -13,6 +13,16 @@
   fill: none;
 }
 
+.line-chart .variable .line, .line-chart .variable .area {
+  transition: all 250ms linear;
+  -moz-transition: all 250ms linear;
+  -webkit-transition: all 250ms linear;
+
+  transition-delay: 250ms;
+  -moz-transition-delay: 250ms;
+  -webkit-transition-delay: 250ms;
+}
+
 .tick text {
   fill: #aaa;
   font-size: 0.75rem;
@@ -27,6 +37,16 @@
 
 .data-point-mark {
   fill: #FFF;
+  pointer-events: visibleFill;
+  transition: all 250ms linear;
+  -moz-transition: all 250ms linear;
+  -webkit-transition: all 250ms linear;
+  stroke-width: 2;
+}
+
+.data-point-mark:hover {
+  stroke-width: 3;
+  r: 6;
 }
 
 .legend .serie {
@@ -46,4 +66,17 @@
   font-weight: 500;
   font-size: 12px;
   font-family: "Raleway","Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.line-chart .masking-rectangle {
+  fill: #FFF; 
+}
+
+.vertical-marker-container .vertical-marker {
+  stroke: #A0A1A2;
+  stroke-width: 1;
+}
+
+.vertical-marker-container .data-point-highlighter {
+  fill: #FFF;
 }

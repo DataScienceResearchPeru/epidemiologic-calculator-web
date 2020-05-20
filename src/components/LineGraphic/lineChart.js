@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 
 function line () {
   let dataByVariable
+  let dataByTime
   let time
   let svg
   let margin = {
@@ -20,11 +21,16 @@ function line () {
   let xAxis
   let yAxis
   let grid = null
+  let maskingRectangle
+  let overlay
+  let verticalMarkerContainer
+  let verticalMarkerLine
 
   let yTicks = 8
   let xTicks = 8
   const tickPadding = 5
   const shouldShowAllDataPoints = true
+  const showMaskingClip = false
 
   // events
   const dispatcher = d3.dispatch(
@@ -62,9 +68,13 @@ function line () {
   function exports (_selection) {
     _selection.each(function (_data) {
       if (!legendEvent) {
-        dataByVariable = cleanData(_data)
+        const values = cleanData(_data)
+        dataByVariable = values.dataset
+        dataByTime = values.dataSorted
       } else {
-        dataByVariable = cleanData(_data, dataByVariable)
+        const values = cleanData(_data, dataByVariable)
+        dataByVariable = values.dataset
+        dataByTime = values.dataSorted
       }
 
       chartHeight = height - margin.top - margin.bottom
@@ -76,6 +86,14 @@ function line () {
       drawAxes()
       drawLegend()
       drawLines()
+
+      if (showMaskingClip) {
+        createMaskingClip()
+      }
+
+      drawHoverOverlay()
+      drawVerticalMarker()
+      addMouseEvents()
 
       if (shouldShowAllDataPoints) {
         drawAllDataPoints()
@@ -205,6 +223,7 @@ function line () {
     const line = d3.line()
       .x((d) => xScale(d.time))
       .y((d) => yScale(d.value))
+      .curve(d3.curveBasis)
 
     const area = d3.area()
       .x((d) => xScale(d.time))
@@ -326,7 +345,6 @@ function line () {
       .append('circle')
       .classed('data-point-mark', true)
       .attr('r', 4)
-      .style('stroke-width', 2)
       .style('cursor', 'pointer')
       .attr('cx', (d) => xScale(d.time))
       .attr('cy', (d) => yScale(d.value))
@@ -376,6 +394,44 @@ function line () {
       .text((d, i) => variabletoSpanish[d.id])
   }
 
+  function drawHoverOverlay () {
+    if (!overlay) {
+      overlay = svg.select('.metadata-group')
+        .append('rect')
+        .attr('class', 'overlay')
+        .attr('y1', 0)
+        .attr('y2', height)
+        .attr('height', chartHeight)
+        .attr('width', chartWidth)
+        .attr('fill', 'rgba(0, 0, 0, 0)')
+        .style('display', 'none')
+    }
+  }
+
+  function drawVerticalMarker () {
+    if (!verticalMarkerContainer) {
+      verticalMarkerContainer = svg.select('.metadata-group')
+        .append('g')
+        .attr('class', 'hover-marker vertical-marker-container')
+        .attr('transform', 'translate(9999, 0)')
+
+      verticalMarkerLine = verticalMarkerContainer.selectAll('path')
+        .data([{
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 0
+        }])
+        .enter()
+        .append('line')
+        .classed('vertical-marker', true)
+        .attr('x1', 0)
+        .attr('y1', chartHeight)
+        .attr('x2', 0)
+        .attr('y2', 0)
+    }
+  }
+
   function drawControlVertical () {
     svg.select('.chart-group')
       .selectAll('#control-line')
@@ -395,6 +451,7 @@ function line () {
 
   function cleanData (data, disabled = []) {
     let dataset = []
+    let dataSorted = []
     let days
     data = Object.entries(data)
 
@@ -424,7 +481,88 @@ function line () {
       })
     }
 
-    return dataset
+    dataset.forEach((data) => {
+      data.values.forEach((x) => {
+        dataSorted.push({ id: data.id, time: x.time, value: x.value, disabled: data.disabled })
+      })
+    })
+
+    dataSorted = d3.nest()
+      .key((d) => d.time)
+      .entries(dataSorted)
+      .map((d) => {
+        return {
+          time: parseInt(d.key),
+          values: d.values
+        }
+      })
+
+    return {
+      dataset,
+      dataSorted
+    }
+  }
+
+  function createMaskingClip () {
+    maskingRectangle = svg.append('rect')
+      .attr('class', 'masking-rectangle')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('x', 0 + margin.left)
+      .attr('y', 0)
+
+    maskingRectangle.transition()
+      .duration(1500)
+      .ease(d3.easeQuadInOut)
+      .attr('x', width)
+      .on('end', () => maskingRectangle.remove())
+  }
+
+  function cleanDataPointHighlights () {
+    verticalMarkerContainer.selectAll('.circle-container').remove()
+  }
+
+  function highlightDataPoints (dataPoint) {
+    cleanDataPointHighlights()
+
+    dataPoint.values.forEach((d, index) => {
+      const marker = verticalMarkerContainer
+        .append('g')
+        .classed('circle-container', true)
+        .append('circle')
+        .classed('data-point-highlighter', true)
+        .attr('cx', 12)
+        .attr('cy', 0)
+        .attr('r', 5)
+        .style('stroke-width', 2)
+        .style('stroke', colors[d.id])
+        .style('cursor', 'pointer')
+
+      const y = yScale(dataPoint.values[index].value)
+      marker.attr('transform', `translate( ${(-12)}, ${y} )`)
+    })
+  }
+
+  function getNearestDataPoint (mouseX) {
+    const timeFromInvertedX = xScale.invert(mouseX)
+    const bisect = d3.bisector(function (d) { return d.time }).left
+
+    const dataEntryIndex = bisect(dataByTime, timeFromInvertedX, 0)
+    const dataEntryForXPosition = dataByTime[dataEntryIndex]
+    const previousDataEntryForXPosition = dataByTime[dataEntryIndex - 1]
+    let nearestDataPoint
+
+    if (previousDataEntryForXPosition && dataEntryForXPosition) {
+      nearestDataPoint = findOutNearestTime(timeFromInvertedX, dataEntryForXPosition, previousDataEntryForXPosition)
+    } else {
+      nearestDataPoint = dataEntryForXPosition
+    }
+
+    return nearestDataPoint
+  }
+
+  function findOutNearestTime (x0, d0, d1) {
+    return (x0 - d0.time) > (d1.time - x0) ? d0 : d1
   }
 
   function events (selection) {
@@ -434,6 +572,52 @@ function line () {
       legendEvent = true
       selection.call(exports)
     })
+  }
+
+  function addMouseEvents () {
+    svg
+      .on('mouseover', function (d) {
+        handleMouseOver(this, d)
+      })
+      .on('mouseout', function (d) {
+        handleMouseOut(this, d)
+      })
+      .on('mousemove', function (d) {
+        handleMouseMove(this, d)
+      })
+  }
+
+  function handleMouseOver (e, d) {
+    overlay.style('display', 'block')
+    verticalMarkerLine.classed('bc-is-active', true)
+  }
+
+  function handleMouseOut (e, d) {
+    overlay.style('display', 'none')
+    verticalMarkerLine.classed('bc-is-active', false)
+    verticalMarkerContainer.attr('transform', 'translate(9999, 0)')
+  }
+
+  function handleMouseMove (e) {
+    const [xPosition] = d3.mouse(e)
+    const xPositionOffset = -margin.left
+    let dataPoint = getNearestDataPoint(xPosition + xPositionOffset)
+    let dataPointXPosition
+
+    if (dataPoint) {
+      dataPointXPosition = xScale(dataPoint.time)
+      moveVerticalMarker(dataPointXPosition)
+      dataPoint = {
+        time: dataPoint.time,
+        values: dataPoint.values.filter((d) => !d.disabled)
+      }
+
+      highlightDataPoints(dataPoint)
+    }
+  }
+
+  function moveVerticalMarker (verticalMarkerXPosition) {
+    verticalMarkerContainer.attr('transform', `translate(${verticalMarkerXPosition},0)`)
   }
 
   exports.height = function (_x) {
