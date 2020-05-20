@@ -73,12 +73,10 @@
 }
 
 .vertical-marker-container .vertical-marker {
-  stroke: #D2D6DF;
+  stroke: #A0A1A2;
   stroke-width: 1;
-  fill: none; 
 }
 
 .vertical-marker-container .data-point-highlighter {
   fill: #FFF;
-  stroke-width: 2; 
 }
