@@ -14,6 +14,8 @@ function line () {
 
   let width = 960
   let height = 450
+  let tooltipWidth = 250
+  let tooltipHeight = 48
   let chartWidth
   let chartHeight
   let xScale
@@ -24,6 +26,11 @@ function line () {
   let maskingRectangle
   let overlay
   let verticalMarkerContainer
+  let tooltipContainer
+  let tooltip
+  let tooltipTitle
+  let tooltipBody
+  let tooltipDivider
   let verticalMarkerLine
 
   let yTicks = 8
@@ -93,6 +100,7 @@ function line () {
 
       drawHoverOverlay()
       drawVerticalMarker()
+      drawContainerTooltip()
       addMouseEvents()
 
       if (shouldShowAllDataPoints) {
@@ -430,6 +438,62 @@ function line () {
         .attr('x2', 0)
         .attr('y2', 0)
     }
+  }
+
+  function drawContainerTooltip () {
+    if (!tooltipContainer) {
+      tooltipContainer = svg.select('.vertical-marker-container')
+        .append('g')
+        .attr('class', 'britechart britechart-tooltip')
+        .style('visibility', 'hidden')
+
+      tooltipContainer.append('g')
+        .classed('tooltip-container-group select-disable', true)
+        .attr('transform', 'translate(2, 2)')
+        .append('g')
+        .classed('tooltip-group', true)
+
+      drawTooltip()
+    }
+  }
+
+  function drawTooltip () {
+    const tooltipTextContainer = svg.selectAll('.tooltip-group')
+      .append('g')
+      .classed('tooltip-text', true)
+
+    tooltip = tooltipTextContainer
+      .append('g')
+      .classed('tooltip-text-container', true)
+      .attr('x', -tooltipWidth / 4 + 8)
+      .attr('y', 0)
+      .attr('width', tooltipWidth)
+      .attr('height', tooltipHeight)
+      .attr('rx', 3)
+      .attr('ry', 3)
+      .style('fill', '#FFFFFF')
+      .style('stroke', '#D2D6DF')
+      .style('stroke-width', 1)
+
+    tooltipTitle = tooltipTextContainer.append('text')
+      .classed('tooltip-title', true)
+      .attr('x', -tooltipWidth / 4 + 16)
+      .attr('dy', '.35em')
+      .attr('y', 16)
+      .style('fill', '#6D717A')
+
+    tooltipDivider = tooltipTextContainer.append('line')
+      .classed('tooltip-divider', true)
+      .attr('x1', -tooltipWidth / 4 + 16)
+      .attr('x2', 265)
+      .attr('y1', 31)
+      .attr('y2', 31)
+      .style('stroke', '#D2D6DF')
+
+    tooltipBody = tooltipTextContainer.append('g')
+      .classed('tooltip-body', true)
+      .style('transform', 'translateY(8px)')
+      .style('fill', '#282C35')
   }
 
   function drawControlVertical () {
