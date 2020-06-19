@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
       color: '#FFF',
       fontSize: '13px',
       fontWeight: 'bold',
-      fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
       textTransform: 'uppercase'
     },
     '& .MuiListItemIcon-root': {

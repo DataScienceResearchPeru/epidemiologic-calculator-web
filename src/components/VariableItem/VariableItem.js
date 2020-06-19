@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   variable: {
     marginTop: theme.spacing(1.3),
     marginBottom: theme.spacing(1.3),
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     color: '#404040',
     fontSize: '11px',
     fontWeight: 320,

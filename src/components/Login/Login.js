@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 10,
@@ -39,10 +38,6 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiCheckbox-root': {
       padding: 0
     },
-    '& .MuiFormControlLabel-root': {
-      float: 'left',
-      marginLeft: 0
-    },
     '& .MuiTypography-body1': {
       fontSize: '0.8rem',
       color: '#a0a0a0',
@@ -55,15 +50,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none'
   },
   submit: {
-    margin: theme.spacing(4, 0, 2),
-    backgroundColor: '#33CCCC',
-    color: '#FFF',
-    borderRadius: 15,
-    fontSize: 12,
-    padding: '6px 27px',
-    minWidth: 150,
-    boxShadow: '0px 2px 4px #00000029',
-    lineHeight: 1.5
+    margin: theme.spacing(4, 0, 2)
   }
 }))
 

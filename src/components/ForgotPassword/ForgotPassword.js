@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(0),
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 10,
@@ -27,46 +26,11 @@ const useStyles = makeStyles((theme) => ({
         WebkitBoxShadow: '0 0 0 30px white inset !important',
         borderRadius: 'inherit'
       }
-    },
-    '& .MuiInputLabel-formControl': {
-      color: '#33CCCC',
-      fontWeight: 500,
-      fontSize: '1.2rem'
-    },
-    '& .MuiCheckbox-root': {
-      padding: 0
-    },
-    '& .MuiFormControlLabel-root': {
-      float: 'left',
-      marginLeft: 0
-    },
-    '& .MuiTypography-body1': {
-      fontSize: '0.8rem',
-      color: '#a0a0a0',
-      marginLeft: 4
     }
   },
   submit: {
-    margin: theme.spacing(4, 0, 2),
     backgroundColor: '#33CCCC',
-    color: '#FFF',
-    borderRadius: 15,
-    fontSize: 12,
-    padding: '6px 27px',
-    minWidth: 135,
-    boxShadow: '0px 2px 4px #00000029',
-    lineHeight: 1.5,
     marginRight: '20px'
-  },
-  cancel: {
-    margin: theme.spacing(4, 0, 2),
-    color: '#000',
-    borderRadius: 15,
-    fontSize: 12,
-    padding: '6px 27px',
-    minWidth: 135,
-    boxShadow: '0px 2px 4px #00000029',
-    lineHeight: 1.5
   }
 }))
 
@@ -121,8 +85,8 @@ const ForgotPassword = (props) => {
       <FormControl margin='normal' fullWidth>
         <Input type='email' value={username} onChange={handleUsername} autoFocus disableUnderline />
       </FormControl>
-      <Grid container style={{ justifyContent: 'center' }}>
 
+      <Grid container style={{ justifyContent: 'center', margin: '32px 0px 16px' }}>
         <Button
           type='submit'
           variant='contained'
@@ -135,7 +99,6 @@ const ForgotPassword = (props) => {
         <Button
           variant='contained'
           onClick={close}
-          className={classes.cancel}
         >
           Cerrar
         </Button>
