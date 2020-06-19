@@ -1,10 +1,12 @@
 import React, { useReducer, Suspense } from 'react'
 import { NotFoundBoundary, Router, View } from 'react-navi'
+import { ThemeProvider } from '@material-ui/core/styles'
 
 import appReducer from '../reducers'
 import { StateContext } from '../contexts'
 import routes from '../routes'
 import useLocalStorage from '../hooks/local-storage'
+import theme from '../theme'
 
 function App () {
   const [tokenStorage] = useLocalStorage('token', null)
@@ -16,7 +18,9 @@ function App () {
       <Router routes={routes} context={{ user, token }}>
         <Suspense fallback={null}>
           <NotFoundBoundary render={() => <h1>Not Found</h1>}>
-            <View />
+            <ThemeProvider theme={theme}>
+              <View />
+            </ThemeProvider>
           </NotFoundBoundary>
         </Suspense>
       </Router>

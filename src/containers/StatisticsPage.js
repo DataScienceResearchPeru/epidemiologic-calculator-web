@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 16,
     backgroundColor: '#FFF',
     padding: '33px 67px',
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     boxShadow: '0px 2px 10px #00000029',
     zIndex: 2,
-    marginLeft: -11
+    marginLeft: -11,
+    width: '100%'
   },
   sectionContainer: {
     width: '100%',
@@ -42,7 +42,7 @@ const StatisticsPage = () => {
           <NavBar />
           <Box className={classes.sectionContent}>
             <div className={classes.information}>
-              It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              Próximamente ...
             </div>
           </Box>
         </div>

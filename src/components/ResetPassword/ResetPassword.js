@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& .MuiInputBase-root': {
       border: '1px solid #ccc',
       borderRadius: 10,

@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 16,
     backgroundColor: '#FFF',
     padding: '33px 67px',
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     boxShadow: '0px 2px 10px #00000029',
     zIndex: 2,
     marginLeft: -11

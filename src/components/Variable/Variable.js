@@ -7,7 +7,6 @@ import VariableItem from '../VariableItem/VariableItem'
 
 const useStyles = makeStyles((theme) => ({
   contentVariable: {
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     '& h3': {
       margin: '11px 0',
       textTransform: 'uppercase',
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#BFBFBF',
     color: '#FFF',
     textAlign: 'center',
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     fontSize: '12px',
     borderRadius: 8,
     padding: 6
@@ -45,7 +43,7 @@ const Variable = (props) => {
         <Grid container justify='center' spacing={1}>
           {
             columns.values.map((value, index) => (
-              <Grid item xs key={index}>
+              <Grid item xs={12} sm={3} md={2} key={index}>
                 <h5 className={classes.subtitle}>{value.title}</h5>
                 {
                   value.items.map(

@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   boxContent: {
     borderRadius: 17,
     padding: '80px 100px',
-    fontFamily: '"Raleway","Roboto", "Helvetica", "Arial", sans-serif',
     backgroundImage: `url(${background})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   boxInfo: {
     color: '#FFF',
-    width: 389,
+    maxWidth: 389,
     '& h1': {
       fontSize: '25px',
       fontWeight: 'bold',
@@ -57,24 +56,33 @@ const useStyles = makeStyles((theme) => ({
     '& a': {
       display: 'inline-block',
       fontWeight: 600,
+      padding: '7px 27px',
+      position: 'relative'
+    },
+    '& a.btnleft': {
+      border: '1px solid #ebebeb',
+      backgroundColor: '#ebebeb',
+      color: '#33CCCC',
+      minWidth: 100,
+      borderRadius: '15px 0 0 15px'
+    },
+    '& .btnright.active, .btnleft.active': {
+      backgroundColor: '#33CCCC',
+      border: '1px solid #33CCCC',
+      color: '#FFF',
+      zIndex: 999,
+      boxShadow: '0px 2px 4px #00000029',
+      WebkitBoxShadow: '0px 2px 4px #00000029',
       borderRadius: 15,
-      padding: '7px 27px'
+      transition: 'all 0.15s ease-in'
+    },
+    '& a.btnright': {
+      border: '1px solid #ebebeb',
+      backgroundColor: '#ebebeb',
+      color: '#33CCCC',
+      marginLeft: -13,
+      borderRadius: '0 15px 15px 0'
     }
-  },
-  btnLeft: {
-    border: '1px solid #ebebeb',
-    backgroundColor: '#ebebeb',
-    color: '#33CCCC',
-    minWidth: 100,
-    borderRadius: '15px 0 0 15px !important'
-  },
-  btnRight: {
-    border: '1px solid #33CCCC',
-    backgroundColor: '#33CCCC',
-    color: '#FFF',
-    marginLeft: -13,
-    boxShadow: '0px 2px 4px #00000029',
-    WebkitBoxShadow: '0px 2px 4px #00000029'
   },
   hr: {
     border: '1px solid #33CCCC',
@@ -140,7 +148,7 @@ const HomePage = () => {
         <Header />
         <Box className={classes.boxContent}>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={4} md={6}>
               <div className={classes.boxInfo}>
                 <h1>BIENVENIDO</h1>
                 <p>
@@ -148,11 +156,11 @@ const HomePage = () => {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={8} md={6}>
               <div className={classes.boxRight}>
                 <div className={classes.btnTop}>
-                  <Link href='#' onClick={handleClickShowRegister} underline='none' className={classes.btnLeft}>Regístrate</Link>
-                  <Link href='#' onClick={handleClickShowLogin} underline='none' className={classes.btnRight}>Iniciar sesión</Link>
+                  <Link href='#' onClick={handleClickShowRegister} underline='none' className={`btnleft ${!showLogin ? 'active' : ''}`}>Regístrate</Link>
+                  <Link href='#' onClick={handleClickShowLogin} underline='none' className={`btnright ${showLogin ? 'active' : ''}`}>Iniciar sesión</Link>
                 </div>
 
                 <div className={classes.boxForm}>
