@@ -14,8 +14,8 @@ function line () {
 
   let width = 960
   let height = 450
-  let tooltipWidth = 250
-  let tooltipHeight = 48
+  const tooltipWidth = 50
+  const tooltipHeight = 50
   let chartWidth
   let chartHeight
   let xScale
@@ -27,10 +27,6 @@ function line () {
   let overlay
   let verticalMarkerContainer
   let tooltipContainer
-  let tooltip
-  let tooltipTitle
-  let tooltipBody
-  let tooltipDivider
   let verticalMarkerLine
 
   let yTicks = 8
@@ -444,7 +440,7 @@ function line () {
     if (!tooltipContainer) {
       tooltipContainer = svg.select('.vertical-marker-container')
         .append('g')
-        .attr('class', 'britechart britechart-tooltip')
+        .attr('class', 'epidemicalk-tooltip')
         .style('visibility', 'hidden')
 
       tooltipContainer.append('g')
@@ -462,7 +458,7 @@ function line () {
       .append('g')
       .classed('tooltip-text', true)
 
-    tooltip = tooltipTextContainer
+    tooltipTextContainer
       .append('g')
       .classed('tooltip-text-container', true)
       .attr('x', -tooltipWidth / 4 + 8)
@@ -475,14 +471,14 @@ function line () {
       .style('stroke', '#D2D6DF')
       .style('stroke-width', 1)
 
-    tooltipTitle = tooltipTextContainer.append('text')
+    tooltipTextContainer.append('text')
       .classed('tooltip-title', true)
       .attr('x', -tooltipWidth / 4 + 16)
       .attr('dy', '.35em')
       .attr('y', 16)
       .style('fill', '#6D717A')
 
-    tooltipDivider = tooltipTextContainer.append('line')
+    tooltipTextContainer.append('line')
       .classed('tooltip-divider', true)
       .attr('x1', -tooltipWidth / 4 + 16)
       .attr('x2', 265)
@@ -490,7 +486,7 @@ function line () {
       .attr('y2', 31)
       .style('stroke', '#D2D6DF')
 
-    tooltipBody = tooltipTextContainer.append('g')
+    tooltipTextContainer.append('g')
       .classed('tooltip-body', true)
       .style('transform', 'translateY(8px)')
       .style('fill', '#282C35')
@@ -641,13 +637,16 @@ function line () {
   function addMouseEvents () {
     svg
       .on('mouseover', function (d) {
+        tooltipContainer.style('visibility', 'hidden')
         handleMouseOver(this, d)
       })
       .on('mouseout', function (d) {
         handleMouseOut(this, d)
+        tooltipContainer.style('visibility', 'hidden')
       })
       .on('mousemove', function (d) {
         handleMouseMove(this, d)
+        tooltipContainer.style('visibility', 'hidden')
       })
   }
 

@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiCheckbox-root': {
       padding: 0
+    },
+    '& .MuiFormControl-marginNormal': {
+      marginTop: 5
     }
   },
   submit: {
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     padding: '7px 27px',
     minWidth: 150,
-    margin: theme.spacing(6, 0, 2),
+    margin: theme.spacing(4, 0, 2),
     backgroundColor: '#33CCCC',
     color: '#FFF',
     boxShadow: '0px 2px 4px #00000029'

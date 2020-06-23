@@ -41,7 +41,13 @@ const DashboardPage = () => {
           <NavBar />
           <Box className={classes.sectionContent}>
             <div className={classes.information}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+              Somos una calculadora epidemiológica que permite analizar el efecto de la cuarentena sobre la cantidad de infectados,  utilizando el modelo compartimental SEIR, el cual es extremadamente útil para el estudio de enfermedades infecciosas, como el COVID-19. Este modelo divide la población total de individuos en cuatro subpoblaciones:
+              <ul>
+                <li><strong>Susceptibles (S):</strong> Personas sin inmunidad a la enfermedad. Estas personas pueden ser infectadas al entrar en contacto con individuos enfermos.</li>
+                <li><strong>Expuestos (E):</strong> Personas quienes están en período de incubación de la enfermedad. Estas tienen el virus en su organismo, su capacidad de infectar a otros es baja.</li>
+                <li><strong>Infectados (I):</strong> Personas contagiadas quienes presentan síntomas.</li>
+                <li><strong>Recuperados (R):</strong> Personas que ya no son capaces de transmitir la enfermedad infecciosa.</li>
+              </ul>
             </div>
           </Box>
         </div>

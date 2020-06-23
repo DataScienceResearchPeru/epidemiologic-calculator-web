@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
     '& p': {
       fontSize: 16,
-      fontWeight: 350
+      fontWeight: 350,
+      textAlign: 'justify'
     }
   },
   boxRight: {
@@ -152,7 +153,10 @@ const HomePage = () => {
               <div className={classes.boxInfo}>
                 <h1>BIENVENIDO</h1>
                 <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est.
+                  Una herramienta segura y ágil para registrar los datos de su hospital, distrito, comunidad o región estado de sus pacientes COVID-19. De esta manera los ayudaremos a predecir estadísticas en relación a la cantidad de pacientes actuales que poseen COVID-19 y la población que posee actualmente.
+                </p>
+                <p>
+                  ¿Aún no tienes una cuenta? Regístrate
                 </p>
               </div>
             </Grid>
